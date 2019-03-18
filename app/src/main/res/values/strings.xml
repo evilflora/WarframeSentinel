@@ -1,0 +1,612 @@
+<resources>
+    <string name="app_name">Warframe Sentinel</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- Bordel -->
+    <string name="reward">Reward</string>
+    <string name="level">Level</string>
+    <string name="type">Type</string>
+    <string name="time">Time</string>
+    <string name="location">Location</string>
+    <string name="percent">Percent</string>
+    <string name="news">News</string>
+    <string name="alerts">Alerts</string>
+    <string name="invasions">Invasions</string>
+    <string name="darvo">Darvo</string>
+    <string name="traders">Traders/Baro</string>
+    <string name="sorties">Sorties</string>
+    <string name="fissures">Fissures</string>
+    <string name="cetus">Cetus</string>
+    <string name="completed">Completed</string>
+    <string name="current">Current</string>
+    <string name="condition">Condition</string>
+    <string name="reset_timer">Reset timer</string>
+    <string name="rewards">Rewards</string>
+    <string name="settings">Settings</string>
+    <string name="platform">Platform</string>
+    <string name="notification">Notification</string>
+    <string name="general">General</string>
+    <string name="plats">Plats</string>
+    <string name="left">left</string>
+    <string name="credits">Credits</string>
+    <string name="credit">Credit</string>
+    <string name="ducat">Ducat</string>
+    <string name="ducats">Ducats</string>
+    <string name="item_name">Item name</string>
+    <string name="missions">Missions</string>
+    <string name="bounties">Bounties</string>
+    <string name="timers">Timers</string>
+    <string name="cetus_earth">Earth/Cetus</string>
+    <string name="day_night">Day/Night Cycle</string>
+    <string name="possible_rewards">Possible rewards</string>
+    <string name="pvp">PVP</string>
+    <string name="darvo_market">Darvo/Market</string>
+    <string name="baro_kiteer">Baro KiTeer</string>
+    <string name="darvo_sales">Darvo sales</string>
+    <string name="market_items">Market items</string>
+    <string name="reduction">Reduction</string>
+    <string name="items_left">Items left</string>
+    <string name="total">Total</string>
+    <string name="status">Status</string>
+    <string name="date">Date</string>
+    <string name="time_left">Time left</string>
+    <string name="time_before_reset">Time before reset</string>
+    <string name="cetus_waiting_reset">Waiting for the new end time …</string>
+
+    <!-- Ressources -->
+    <string name="Eventium">Synthula</string>
+    <string name="AlertFusionBundleSmall">80 Endo</string>
+    <string name="AlertFusionBundleMedium">100 Endo</string>
+    <string name="AlertFusionBundleLarge">150 Endo</string>
+    <string name="ChemComponent">Detonite Injector</string>
+    <string name="EnergyComponent">Fieldron</string>
+    <string name="BioComponent">Mutagen Mass</string>
+    <string name="RobotPoorAimAuraMod">EMP AURA</string>
+    <string name="AlloyPlate">Alloy Plate</string>
+    <string name="PolymerBundle">Polymer Bundle</string>
+    <string name="Salvage">Salvage</string>
+    <string name="Alertium">Nitain Extract</string>
+    <string name="InfestedAladCoordinate">Mutalist Alad V Nav Coordinate</string>
+    <string name="VoidTearDrop">Void Traces</string>
+    <string name="Nanospores">Nano Spores</string>
+    <string name="Rubedo">Rubedo</string>
+    <string name="NeuralSensor">Neural Sensor</string>
+    <string name="ControlModule">Control Module</string>
+    <string name="OxiumAlloy">Oxium</string>
+    <string name="PlayerEnergyRegenAuraMod">Energy Siphon</string>
+    <string name="DualDaggerAxeBlueprint">Dual Zoren Dagger-Axe</string>
+    <string name="Gallium">Gallium</string>
+    <string name="RendingStrikeMod">Rending Strike</string>
+    <string name="StunningSpeedMod">Stunning Speed</string>
+    <string name="ReloadSpeedPunchThroughMod">Seeking Furry</string>
+    <string name="ShredMod">Shred</string>
+    <string name="Ferrite">Ferrite</string>
+    <string name="Morphic">Morphic</string>
+    <string name="Tellurium">Tellurium</string>
+    <string name="ArgonCrystal">Argon Crystal</string>
+    <string name="Neurode">Neurode</string>
+    <string name="SentinelLootRadarEnnemyRadarMod">Animal Instinct</string>
+    <string name="TrapperHelmetBlueprint">Vauban Helmet Blueprint</string>
+    <string name="DarkDaggerBlueprint">Dark Dagger Blueprint</string>
+    <string name="FormaBlueprint">Forma Blueprint</string>
+
+    <!-- Special weapons -->
+    <string name="DeraVandalBlueprint">Dera Vandal Blueprint</string>
+    <string name="DeraVandalBarrel">Dera Vandal Barrel</string>
+    <string name="TwinVipersWraithBarrel">Twin Vipers Wraith Barrel</string>
+    <string name="TwinVipersWraithReceiver">Twin Vipers Wraith Receiver</string>
+    <string name="PangolinSwordBlueprint">Pangolin Sword Blueprint</string>
+
+    <!-- Special Helmet Blueprints -->
+    <string name="StatlessV2LokiAltHelmetBlueprint">Loki Swindle Helmet Blueprint</string>
+    <string name="StatlessV2VoltAltHelmetBlueprint">Volt Pulse Helmet Blueprint</string>
+    <string name="StatlessV2RhinoAltHelmetBlueprint">Rhino Vanguard Helmet Blueprint</string>
+    <string name="StatlessV2ExcaliburAltHelmetBlueprint">Excalibur Pendragon Helmet Blueprint</string>
+
+    <string name="StatlessLokiAltHelmetBlueprint">Loki Essence Helmet Blueprint</string>
+    <string name="StatlessFrostAltHelmetBlueprint">Frost Aurora Helmet Blueprint</string>
+    <string name="StatlessRhinoAltHelmetBlueprint">Rhino Thrak Helmet Blueprint</string>
+    <string name="StatlessMagAltHelmetBlueprint">Mag Coil Helmet Blueprint</string>
+    <string name="StatlessTrinityAltHelmetBlueprint">Trinity Aura Helmet</string>
+
+    <string name="CowgirlAltHelmetBlueprint">Mesa Longhorn Helmet Blueprint</string>
+    <string name="RangerAltHelmetBlueprint">Ivara Loxley Helmet Blueprint</string>
+    <string name="WukongAltHelmetBlueprint">Wukong Dasheng Helmet Blueprint</string>
+
+    <string name="ValkyrAltBHelmetBlueprint">Valkyr Kara Helmet Blueprint</string>
+    <string name="MesaAltBHelmetBlueprint">Mesa Ovis Helmet Blueprint</string>
+
+    <string name="LimboAristeasHelmetBlueprint">Limbo Aristeas Helmet Blueprint</string>
+    <string name="NovaQuantumHelmetBlueprint">Nova Quantum Helmet Blueprint</string>
+    <string name="NekrosAraknidHelmetBlueprint">Nekros Raknis Helmet Blueprint</string>
+
+    <!-- Special Helmet -->
+    <string name="GlassAltHelmet">Gara Virago Helmet</string>
+
+    <!-- Mods -->
+    <string name="LotusRifleRandomModRare">Rifle Riven Mod</string>
+    <string name="PlayerShellAmmoAuraMod">Shotgun Scavenger</string>
+    <string name="InfestationSpeedReductionAuraMod">Infested Impedance</string>
+    <string name="VigorMod">Vigor</string>
+
+    <!-- Weapons -->
+    <string name="AkimboShotGun">Akbronco</string>
+    <string name="TnGlassShotgunGun">Astilla</string>
+    <string name="GrnEgyptSwdWeapon">Krohkur</string>
+    <string name="GlassKunaiWeapon">Fusilai</string>
+    <string name="GlassHammer">Volnus</string>
+    <string name="LaserAimRifle">Argonak</string>
+    <string name="TennoTonfa">Kronen</string>
+    <string name="MireSword">Mire</string>
+
+    <!-- Warframes -->
+    <string name="Glass">Gara</string>
+    <string name="TrapperSystemsBlueprint">Vauban Systems Blueprint</string>
+
+    <!-- Skins -->
+    <string name="EmberDeluxeSkin">Ember Vermillion Skin</string>
+    <string name="MagDeluxeSkin">Mag Pneuma MSkin</string>
+    <string name="NekrosDeluxeSkin">Nekros Irkalla Skin</string>
+
+    <!-- Syandana -->
+    <string name="MagDeluxeScarf">Vasa Syandana</string>
+    <string name="TnGlassSyandana">Hyalus Syandana</string>
+
+    <!-- Collections -->
+    <string name="EmberDeluxeSkinBundle">Ember Vermillion Collection</string>
+    <string name="GlassBundle">Gara Collection</string>
+    <string name="MagDeluxeSkinBundle">Mag Pneuma Collection</string>
+    <string name="OperatorArmourBundleMonk">Ceno Armor Bundle</string>
+    <string name="OperatorArmourBundleMage">Vahd Armor Bundle</string>
+    <string name="OperatorArmourBundleSeer">Zauba Armor Bundle</string>
+    <string name="NekrosDeluxeSkinBundle">Nekros Irkalla Collection</string>
+    <string name="PriestBundle">Harrow Collection</string>
+    <string name="TnGuandaoBundle">Guandao Collection</string>
+    <string name="OstronRugBundle">Ostron Rug Collection</string>
+    <string name="CorpusHighArmorBundle">Arca Armor Collection</string>
+
+    <!-- Other -->
+    <string name="PrimeAccess2StoreItem">Hydroid Prime Access Pack</string>
+    <string name="TonfaContestWinner">- ???</string>
+    <string name="TwitchPrimeStoreItem">Free Prime with Twitch Prime</string>
+    <string name="OstronShipDecoPackB">Artisan Pack or ?</string>
+    <string name="RandomProjection">Relic Pack</string>
+    <string name="OstronShipDecoPackA">Reclamator Pack or ?</string>
+
+    <!-- Potato -->
+    <string name="OrokinCatalystBlueprint">Orokin Catalyst Blueprint</string>
+    <string name="OrokinReactorBlueprint">Orokin Reactor Blueprint</string>
+
+    <!-- Factions names -->
+    <string name="FC_CORPUS">Corpus</string>
+    <string name="FC_GRINEER">Grineer</string>
+    <string name="FC_INFESTATION">Infestation</string>
+    <string name="FC_OROKIN">Void</string>
+
+    <!-- Missions names -->
+    <string name="MT_RESCUE">Rescue</string>
+    <string name="MT_EXTERMINATION">Exterminate</string>
+    <string name="MT_INTEL">Spy</string>
+    <string name="MT_MOBILE_DEFENSE">Mobile Defense</string>
+    <string name="MT_CAPTURE">Capture</string>
+    <string name="MT_EXCAVATE">Excavation</string>
+    <string name="MT_RETRIEVAL">Hijack</string>
+    <string name="MT_DEFENSE">Defense</string>
+    <string name="MT_SURVIVAL">Survival</string>
+    <string name="MT_EVACUATION">Defection</string>
+    <string name="MT_PVP">PVP</string>
+    <string name="MT_DECEPTION">Deception</string>
+    <string name="MT_TERRITORY">Interception</string>
+    <string name="MT_SABOTAGE">Sabotage</string>
+    <string name="MT_ASSASSINATION">Assassination</string>
+    <string name="MT_HIVE">Hive</string>
+
+    <!-- Sortie bosses -->
+    <string name="SORTIE_BOSS_RUK">Defeat General Sargas Ruk\'s Forces</string>
+    <string name="SORTIE_BOSS_RAPTOR">Raptor\'s Forces ???</string>
+    <string name="SORTIE_BOSS_INFALAD">Defeat Mutalist Alad V\'s Forces</string>
+    <string name="SORTIE_BOSS_CORRUPTED_VOR">Defeat Corrupted Vor\'s Forces</string>
+    <string name="SORTIE_BOSS_HEK">Defeat Councilor Vay Hek Forces</string>
+    <string name="SORTIE_BOSS_AMBULAS">Defeat Ambulas\'s Forces</string>
+    <string name="SORTIE_BOSS_KRIL">Defeat Lieutenant Lech Kril\'s Forces</string>
+    <string name="SORTIE_BOSS_HYENA">Defeat the Hyena Pack\'s Forces</string>
+    <string name="SORTIE_BOSS_KELA">Defeat Kela de Thaym\'s Forces</string>
+    <string name="SORTIE_BOSS_VOR">Defeat Captain Vor\'s Forces</string>
+    <string name="SORTIE_BOSS_PHORID">Defeat Phorid\'s Forces</string>
+
+    <!-- Sortie modifiers -->
+    <string name="SORTIE_MODIFIER_SNIPER_ONLY">Sniper Only</string>
+    <string name="SORTIE_MODIFIER_BOW_ONLY">Bow Only</string>
+    <string name="SORTIE_MODIFIER_SHOTGUN_ONLY">Shotgun Only</string>
+    <string name="SORTIE_MODIFIER_PISTOL_ONLY">Pistol Only</string>
+    <string name="SORTIE_MODIFIER_RIFLE_ONLY">Assault Rifle Only</string>
+
+    <string name="SORTIE_MODIFIER_HAZARD_ICE">Cryogenic Leakage</string>
+    <string name="SORTIE_MODIFIER_HAZARD_COLD">Extreme Cold</string>
+    <string name="SORTIE_MODIFIER_HAZARD_MAGNETIC">Electromagnetic Anomalies</string>
+    <string name="SORTIE_MODIFIER_HAZARD_RADIATION">Radiation Hazard</string>
+
+    <string name="SORTIE_MODIFIER_CORROSIVE">Corrosive Enemy Elemental Enhancement</string>
+    <string name="SORTIE_MODIFIER_FREEZE">Cold Enemy Elemental Enhancement</string>
+    <string name="SORTIE_MODIFIER_MAGNETIC">Magnetic Enemy Elemental Enhancement</string>
+    <string name="SORTIE_MODIFIER_ARMOR">Augmented Enemy Armor</string>
+    <string name="SORTIE_MODIFIER_SLASH">Slash Enemy Elemental Enhancement</string>
+    <string name="SORTIE_MODIFIER_ELECTRICITY">Electricity Enemy Elemental Enhancement</string>
+    <string name="SORTIE_MODIFIER_PUNCTURE">Puncture Enemy Elemental Enhancement</string>
+    <string name="SORTIE_MODIFIER_RADIATION">Radiation Enemy Elemental Enhancement</string>
+    <string name="SORTIE_MODIFIER_SHIELDS">Augmented Ennemy Shidelds</string>
+
+    <string name="SORTIE_MODIFIER_EXIMUS">Eximus Stronghold</string>
+    <string name="SORTIE_MODIFIER_LOW_ENERGY">Energy Reduction</string>
+
+    <!-- Bounties job names -->
+    <string name="AttritionBountyCap">Capture their leader</string>
+    <string name="AttritionBountySab">Sabotage Grineer supply lines</string>
+    <string name="AttritionBountyExt">Cull the ennmy</string>
+    <string name="AttritionBountyLib">Weaken the Grineer foothold</string>
+
+    <string name="CaptureBountyCapOne">Capture the Grineer commander</string>
+    <string name="CaptureBountyCapTwo">Spy catcher</string>
+
+    <string name="RescueBountyResc">Search and rescue</string>
+
+    <string name="ReclamationBountyCache">Find the hidden artifact</string>
+    <string name="ReclamationBountyCap">Capture the Grineer agent</string>
+    <string name="ReclamationBountyTheft">Reclaim the stolen artifact</string>
+
+    <string name="AssassinateBountyAss">Assassinate the commander</string>
+    <string name="AssassinateBountyCap">Capture the new Grineer commander</string>
+
+    <string name="SabotageBountySab">Prototype Sabotage</string>
+
+    <!-- Fissures -->
+    <string name="all">all</string>
+    <string name="VoidT1">Lith</string>
+    <string name="VoidT2">Meso</string>
+    <string name="VoidT3">Neo</string>
+    <string name="VoidT4">Axi</string>
+
+    <!-- Nodes -->
+    <string name="SolNode1">Neptune - Galatea</string>
+    <string name="SolNode2">Venus - Aphrodite</string>
+    <string name="SolNode3">Uranus - Cordelia</string>
+    <string name="SolNode4">Pluto - Acheron</string>
+    <string name="SolNode5">Uranus - Perdita</string>
+    <string name="SolNode6">Neptune - Despina</string>
+    <string name="SolNode7">Saturn - Epimetheus</string>
+    <string name="SolNode8">Pluto - Nix - Deception</string>
+    <string name="SolNode9">Uranus - Rosalind</string>
+    <string name="SolNode10">Jupiter - Thebe</string>
+    <string name="SolNode11">Mars - Tharsis</string>
+    <string name="SolNode12">Mercury - Elion</string>
+    <string name="SolNode13">Uranus - Bianca</string>
+    <string name="SolNode14">Mars - Ultor</string>
+    <string name="SolNode15">Earth - Pacific</string>
+    <string name="SolNode16">Mars - Augustus</string>
+    <string name="SolNode17">Neptune - Proteus</string>
+    <string name="SolNode18">Saturn - Rhea</string>
+    <string name="SolNode19">Saturn - Enceladus</string>
+    <string name="SolNode20">Saturn - Telesto</string>
+    <string name="SolNode21">Pluto - Narcissus</string>
+    <string name="SolNode22">Venus - Tessera</string>
+    <string name="SolNode23">Venus - Cytherean</string>
+    <string name="SolNode24">Earth - Oro</string>
+    <string name="SolNode25">Jupiter - Callisto</string>
+    <string name="SolNode26">Earth - Lith</string>
+    <string name="SolNode27">Earth - EPrime</string>
+    <string name="SolNode28">Mercury - MPrime</string>
+    <string name="SolNode29">Uranus - Oberon</string>
+    <string name="SolNode30">Mars - Olympus</string>
+    <string name="SolNode31">Saturn - Anthe</string>
+    <string name="SolNode32">Saturn - Tethys</string>
+    <string name="SolNode33">Uranus - Ariel</string>-
+    <string name="SolNode34">Uranus - Sycorax</string>
+    <string name="SolNode35">Mars - Arcadia</string>
+    <string name="SolNode36">Mars - Martialis</string>
+    <string name="SolNode37">Saturn - Pallene</string>
+    <string name="SolNode38">Pluto - Minthe</string>
+    <string name="SolNode39">Earth - Everest</string>
+    <string name="SolNode40">Uranus - Prospero</string>
+    <string name="SolNode41">Mars - Arval</string>
+    <string name="SolNode42">Saturn - Helene</string>
+    <string name="SolNode43">Pluto - Cerberus</string>
+    <string name="SolNode44">Saturn - Mimas</string>
+    <string name="SolNode45">Mars - Ara</string>
+    <string name="SolNode46">Mars - Spear</string>
+    <string name="SolNode47">Saturn - Janus</string>
+    <string name="SolNode48">Pluto - Regna</string>
+    <string name="SolNode49">Neptune - Larissa</string>
+    <string name="SolNode50">Saturn - Numa</string>
+    <string name="SolNode51">Pluto - Hades</string>
+    <string name="SolNode52">Uranus - Portia</string>
+    <string name="SolNode53">Jupiter - Themisto</string>
+    <string name="SolNode54">Mars - Silvanus</string>
+    <string name="SolNode55">Saturn - Methone</string>
+    <string name="SolNode56">Pluto - Cypress</string>
+    <string name="SolNode57">Neptune - Sao</string>
+    <string name="SolNode58">Mars - Hellas</string>
+    <string name="SolNode59">Earth - Eurasia</string>
+    <string name="SolNode60">Uranus - Caliban</string>
+    <string name="SolNode61">Venus - Ishtar</string>
+    <string name="SolNode62">Neptune - Neso</string>
+    <string name="SolNode63">Earth - Mantle</string>
+    <string name="SolNode64">Uranus - Umbriel</string>
+    <string name="SolNode65">Mars - Gradivus</string>
+    <string name="SolNode66">Venus - Unda</string>
+    <string name="SolNode67">Saturn - Dione</string>
+    <string name="SolNode68">Mars - Vallis</string>
+    <string name="SolNode69">Uranus - Ophelia</string>
+    <string name="SolNode70">Saturn - Cassini</string>
+    <string name="SolNode71">Venus - Vesper</string>
+    <string name="SolNode72">Pluto - OuterTerminus</string>
+    <string name="SolNode73">Jupiter - Ananke</string>
+    <string name="SolNode74">Jupiter - Carme</string>
+    <string name="SolNode75">Earth - Lua</string>
+    <string name="SolNode76">Pluto - Hydra</string>
+    <string name="SolNode77">Uranus - Cupid</string>
+    <string name="SolNode78">Neptune - Triton</string>
+    <string name="SolNode79">Earth - Cambria</string>
+    <string name="SolNode80">Saturn - Phoebe</string>
+    <string name="SolNode81">Pluto - Palus</string>
+    <string name="SolNode82">Saturn - Calypso</string>
+    <string name="SolNode83">Uranus - Cressida</string>
+    <string name="SolNode84">Neptune - Nereid</string>
+    <string name="SolNode85">Earth - Gaia</string>
+    <string name="SolNode86">Saturn - Aegaeon</string>
+    <string name="SolNode87">Jupiter - Ganymede</string>
+    <string name="SolNode88">Jupiter - Adrastea</string>
+    <string name="SolNode89">Earth - Mariana</string>
+    <string name="SolNode90">Uranus - Miranda</string>
+    <string name="SolNode91">Saturn - Iapetus</string>
+    <string name="SolNode92">Pluto - Charon</string>
+    <string name="SolNode93">Saturn - Keeler</string>
+    <string name="SolNode94">Mercury - Apollodorus</string>
+    <string name="SolNode95">Neptune - Thalassa</string>
+    <string name="SolNode96">Saturn - Titan</string>
+    <string name="SolNode97">Jupiter - Amalthea</string>
+    <string name="SolNode98">Uranus - Desdemona</string>
+    <string name="SolNode99">Mars - War</string>
+    <string name="SolNode100">Jupiter - Elara</string>
+    <string name="SolNode101">Venus - Kiliken</string>
+    <string name="SolNode102">Pluto - Oceanum</string>
+    <string name="SolNode103">Mercury - Terminus</string>
+    <string name="SolNode104">Venus - Fossa</string>
+    <string name="SolNode105">Uranus - Titania</string>
+    <string name="SolNode106">Mars - Alator</string>
+    <string name="SolNode107">Venus - Venera</string>
+    <string name="SolNode108">Mercury - Tolstoj</string>
+    <string name="SolNode109">Venus - Linea</string>
+    <string name="SolNode110">Saturn - Hyperion</string>
+    <string name="SolNode111">Uranus - Juliet</string>
+    <string name="SolNode112">Uranus - Setebos</string>
+    <string name="SolNode113">Mars - Ares</string>
+    <string name="SolNode114">Uranus - Puck</string>
+    <string name="SolNode115">Mars - Quirinus</string>
+    <string name="SolNode116">Uranus - Mab</string>
+    <string name="SolNode117">Neptune - Naiad</string>
+    <string name="SolNode118">Neptune - Laomedeia</string>
+    <string name="SolNode119">Mercury - Caloris</string>
+    <string name="SolNode120">Neptune - Halimede</string>
+    <string name="SolNode121">Jupiter - Carpo</string>
+    <string name="SolNode122">Uranus - Stephano</string>
+    <string name="SolNode123">Venus - VPrime</string>
+    <string name="SolNode124">Uranus - Trinculo</string>
+    <string name="SolNode125">Jupiter - Io</string>
+    <string name="SolNode126">Jupiter - Metis</string>
+    <string name="SolNode127">Neptune - Psamathe</string>
+    <string name="SolNode128">Venus - EGate</string>
+    <string name="SolNode130">Mercury - Lares</string>
+    <string name="SolNode131">Ceres - Pallas</string>
+    <string name="SolNode132">Ceres - Bode</string>
+    <string name="SolNode133">Ceres - Vedic</string>
+    <string name="SolNode135">Ceres - Thon</string>
+    <string name="SolNode136">Ceres - Olla</string>
+    <string name="SolNode137">Ceres - Nuovo</string>
+    <string name="SolNode138">Ceres - Ludi</string>
+    <string name="SolNode139">Ceres - Lex</string>
+    <string name="SolNode140">Ceres - Kiste</string>
+    <string name="SolNode141">Ceres - Ker</string>
+    <string name="SolNode142">Ceres - Hapke</string>
+    <string name="SolNode143">Ceres - Gefion</string>
+    <string name="SolNode144">Ceres - Exta</string>
+    <string name="SolNode145">Ceres - Egeria</string>
+    <string name="SolNode146">Ceres - Draco</string>
+    <string name="SolNode147">Ceres - Cinxia</string>
+    <string name="SolNode148">Ceres - Cerium</string>
+    <string name="SolNode149">Ceres - Casta</string>
+    <string name="SolNode150">Ceres - Albedo</string>
+    <string name="SolNode151">Eris - Acanth</string>
+    <string name="SolNode152">Eris - Ascar</string>
+    <string name="SolNode153">Eris - Brugia</string>
+    <string name="SolNode154">Eris - Candiru</string>
+    <string name="SolNode155">Eris - Cosis</string>
+    <string name="SolNode156">Eris - Cyath</string>
+    <string name="SolNode157">Eris - Giardia</string>
+    <string name="SolNode158">Eris - Gnathos</string>
+    <string name="SolNode159">Eris - Lepis</string>
+    <string name="SolNode160">Eris - Histo</string>
+    <string name="SolNode161">Eris - Hymeno</string>
+    <string name="SolNode162">Eris - Isos</string>
+    <string name="SolNode163">Eris - Ixodes</string>
+    <string name="SolNode164">Eris - Kala-azar</string>
+    <string name="SolNode165">Eris - Naeglar</string>
+    <string name="SolNode166">Eris - Nimus</string>
+    <string name="SolNode167">Eris - Oestrus</string>
+    <string name="SolNode168">Eris - Phalan</string>
+    <string name="SolNode169">Eris - Psoro</string>
+    <string name="SolNode170">Eris - Ranova</string>
+    <string name="SolNode171">Eris - Saxis</string>
+    <string name="SolNode172">Eris - Xini</string>
+    <string name="SolNode173">Eris - Solium</string>
+    <string name="SolNode174">Eris - Sparga</string>
+    <string name="SolNode175">Eris - Sporid</string>
+    <string name="SolNode176">Eris - Viver</string>
+    <string name="SolNode177">Sedna - Kappa</string>
+    <string name="SolNode178">Sedna - Hyosube</string>
+    <string name="SolNode179">Sedna - Jengu</string>
+    <string name="SolNode180">Sedna - Undine</string>
+    <string name="SolNode181">Sedna - Adaro</string>
+    <string name="SolNode182">Sedna - Camenae</string>
+    <string name="SolNode183">Sedna - Vodyanoi</string>
+    <string name="SolNode184">Sedna - Rusalka</string>
+    <string name="SolNode185">Sedna - Berehynia</string>
+    <string name="SolNode186">Sedna - Phithale</string>
+    <string name="SolNode187">Sedna - Selkie</string>
+    <string name="SolNode188">Sedna - Kelpie</string>
+    <string name="SolNode189">Sedna - Naga</string>
+    <string name="SolNode190">Sedna - Nakki</string>
+    <string name="SolNode191">Sedna - Marid</string>
+    <string name="SolNode192">Sedna - Tikoloshe</string>
+    <string name="SolNode193">Sedna - Merrow</string>
+    <string name="SolNode194">Sedna - Ponaturi</string>
+    <string name="SolNode195">Sedna - Hydron</string>
+    <string name="SolNode196">Sedna - Charybdis</string>
+    <string name="SolNode197">Sedna - Graeae</string>
+    <string name="SolNode198">Sedna - Scylla</string>
+    <string name="SolNode199">Sedna - Yam</string>
+    <string name="SolNode200">Sedna - Veles</string>
+    <string name="SolNode201">Sedna - Tiamat</string>
+    <string name="SolNode202">Sedna - Yemaja</string>
+    <string name="SolNode203">Europa - Abaddon</string>
+    <string name="SolNode204">Europa - Armaros</string>
+    <string name="SolNode205">Europa - Baal</string>
+    <string name="SolNode206">Europa - Eligor</string>
+    <string name="SolNode207">Europa - Gamygyn</string>
+    <string name="SolNode208">Europa - Lillith</string>
+    <string name="SolNode209">Europa - Morax</string>
+    <string name="SolNode210">Europa - Naamah</string>
+    <string name="SolNode211">Europa - Ose</string>
+    <string name="SolNode212">Europa - Paimon</string>
+    <string name="SolNode213">Europa - Shax</string>
+    <string name="SolNode214">Europa - Sorath</string>
+    <string name="SolNode215">Europa - Valac</string>
+    <string name="SolNode216">Europa - Valefor</string>
+    <string name="SolNode217">Europa - Orias</string>
+    <string name="SolNode218">Europa - Zagan</string>
+    <string name="SolNode219">Europa - Beleth</string>
+    <string name="SolNode220">Europa - Kokabiel</string>
+    <string name="SolNode221">Mercury - Neruda</string>
+    <string name="SolNode222">Mercury - Eminescu</string>
+    <string name="SolNode223">Mercury - Boethius</string>
+    <string name="SolNode224">Mercury - Odin</string>
+    <string name="SolNode225">Mercury - Suisei</string>
+    <string name="SolNode226">Mercury - Pantheon</string>
+    <string name="SolNode227">Mercury - Verdi</string>
+    <string name="SolNode305">Lua - Stöfler</string>
+    <string name="SolNode400">Void - Teshub</string>
+    <string name="SolNode402">Void - Taranis</string>
+    <string name="SolNode404">Void - Stribog</string>
+    <string name="SolNode405">Void - Ani</string>
+    <string name="SolNode406">Void - Ukko</string>
+    <string name="SolNode407">Void - Oxomoco</string>
+    <string name="SolNode408">Void - Ishtar</string>
+    <string name="SolNode409">Void - Mot</string>
+    <string name="SolNode410">Void - Aten</string>
+    <string name="SolNode412">Void - Mithra</string>
+    <string name="SolNode743">Kuva Fortress - Garus</string>
+    <string name="SolNode748">Kuva Fortress - Rotuma</string>
+    <string name="SolNode901">Mercury - MercuryArchwingNode1</string>
+    <string name="SolNode902">Venus - Montes</string>
+    <string name="SolNode903">Earth - Erpo</string>
+    <string name="SolNode904">Mars - Syrtis</string>
+    <string name="SolNode905">Jupiter - Galilea</string>
+    <string name="SolNode906">Saturn - Pandora</string>
+    <string name="SolNode907">Uranus - Caelus</string>
+    <string name="SolNode908">Neptune - Salacia</string>
+
+    <string name="SettlementNode1">Phobos - Roche</string>
+    <string name="SettlementNode2">Phobos - Skyresh</string>
+    <string name="SettlementNode3">Phobos - Stickney</string>
+    <string name="SettlementNode4">Phobos - Drunlo</string>
+    <string name="SettlementNode5">Phobos - Grildrig</string>
+    <string name="SettlementNode6">Phobos - Limtoc</string>
+    <string name="SettlementNode7">Phobos - Hall</string>
+    <string name="SettlementNode8">Phobos - Reldresal</string>
+    <string name="SettlementNode9">Phobos - Clustril</string>
+    <string name="SettlementNode10">Phobos - Kepler</string>
+    <string name="SettlementNode11">Phobos - Gulliver</string>
+    <string name="SettlementNode12">Phobos - Monolith</string>
+    <string name="SettlementNode13">Phobos - DArrest</string>
+    <string name="SettlementNode14">Phobos - Shklovsky</string>
+    <string name="SettlementNode15">Phobos - Sharpless</string>
+    <string name="SettlementNode16">Phobos - Wendell</string>
+    <string name="SettlementNode17">Phobos - Flimnap</string>
+    <string name="SettlementNode18">Phobos - Opik</string>
+    <string name="SettlementNode19">Phobos - Todd</string>
+    <string name="SettlementNode20">Phobos - Iliad</string>
+
+    <string name="MercuryHUB">Mercury - Lanrunda</string>
+    <string name="VenusHUB">Venus - Vesper</string>
+    <string name="EarthHUB">Earth - Strata</string>
+    <string name="MarsHUB">Mars - Maroo\'s Bazaar</string>
+    <string name="PlutoHUB">Pluto - Orcus</string>
+    <string name="ErisHUB">Eris - Kuiper</string>
+    <string name="EuropaHUB">Europa - Leonov</string>
+
+    <string name="EventNode0">Mercury - Balor</string>
+    <string name="EventNode1">Venus - Tethra</string>
+    <string name="EventNode2">Earth - PortalEventName</string>
+    <string name="EventNode3">Mars - Elatha</string>
+    <string name="EventNode4">Jupiter - Bres</string>
+    <string name="EventNode5">Saturn - Birog</string>
+    <string name="EventNode6">Uranus - SealabGeneric</string>
+    <string name="EventNode7">Neptune - Buarainech</string>
+    <string name="EventNode8">Pluto - Corb</string>
+    <string name="EventNode9">Ceres - PortalEventName</string>
+    <string name="EventNode10">Eris - Lugh</string>
+    <string name="EventNode11">Sedna - Nemed</string>
+    <string name="EventNode12">Europa - ExcavationEventName</string>
+    <string name="EventNode13">Phobos - SkateTacAlertTitle</string>
+    <string name="EventNode14">Phobos - PortalEventName</string>
+    <string name="EventNode15">Europa - ExcavationEventName</string>
+    <string name="EventNode16">Europa - ExcavationEventName</string>
+    <string name="EventNode17">Europa - ExcavationEventName</string>
+    <string name="EventNode18">Mars - Blackout</string>
+    <string name="EventNode19">Mars - Blackout</string>
+    <string name="EventNode20">Uranus - SealabGeneric</string>
+    <string name="EventNode21">Uranus - SealabGeneric</string>
+    <string name="EventNode22">Uranus - SealabGeneric</string>
+    <string name="EventNode23">Uranus - SealabGeneric</string>
+
+    <string name="PvpNode0">Saturn - ConclaveCTF</string>
+    <string name="PvpNode1">Venus - Conclave</string>
+    <string name="PvpNode2">Phobos - Conclave</string>
+    <string name="PvpNode3">Neptune - ConclaveCTF</string>
+    <string name="PvpNode4">Eris - Conclave</string>
+    <string name="PvpNode5">Europa - Conclave</string>
+    <string name="PvpNode6">Pluto - Conclave</string>
+    <string name="PvpNode7">Sedna - Conclave</string>
+    <string name="PvpNode8">Jupiter - Conclave</string>
+    <string name="PvpNode9">Saturn - ConclaveTDM</string>
+    <string name="PvpNode10">Saturn - ConclaveDM</string>
+
+    <string name="ClanNode0">Venus - Romula</string>
+    <string name="ClanNode1">Venus - Malva</string>
+    <string name="ClanNode2">Earth - Coba</string>
+    <string name="ClanNode3">Earth - Tikal</string>
+    <string name="ClanNode4">Jupiter - Sinai</string>
+    <string name="ClanNode5">Jupiter - Cameria</string>
+    <string name="ClanNode6">Europa - Larzac</string>
+    <string name="ClanNode7">Europa - Cholistan</string>
+    <string name="ClanNode8">Mars - Kadesh</string>
+    <string name="ClanNode9">Mars - Wahiba</string>
+    <string name="ClanNode10">Phobos - Memphis</string>
+    <string name="ClanNode11">Phobos - Zeugma</string>
+    <string name="ClanNode12">Saturn - Caracol</string>
+    <string name="ClanNode13">Saturn - Piscinas</string>
+    <string name="ClanNode14">Sedna - Amarna</string>
+    <string name="ClanNode15">Sedna - Sangeru</string>
+    <string name="ClanNode16">Uranus - Ur - Defense</string>
+    <string name="ClanNode17">Uranus - Assur</string>
+    <string name="ClanNode18">Eris - Akkad</string>
+    <string name="ClanNode19">Eris - Zabala</string>
+    <string name="ClanNode20">Neptune - Yursa</string>
+    <string name="ClanNode21">Neptune - Kelashin</string>
+    <string name="ClanNode22">Ceres - Seimeni</string>
+    <string name="ClanNode23">Ceres - Gabii</string>
+    <string name="ClanNode24">Pluto - Sechura</string>
+    <string name="ClanNode25">Pluto - Hieracon</string>
+</resources>

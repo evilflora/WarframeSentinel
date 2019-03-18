@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/news" />
+        <item
+            android:id="@+id/nav_alerts"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/alerts" />
+        <item
+            android:id="@+id/nav_invasions"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/invasions" />
+        <item
+            android:id="@+id/nav_earth"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/cetus_earth" />
+        <item
+            android:id="@+id/nav_darvo"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/darvo_market" />
+        <item
+            android:id="@+id/nav_traders"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/baro_kiteer" />
+        <item
+            android:id="@+id/nav_sorties"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/sorties" />
+        <item
+            android:id="@+id/nav_fissures"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/fissures" />
+        <item
+            android:id="@+id/nav_pvp"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/pvp" />
+    </group>
+</menu>

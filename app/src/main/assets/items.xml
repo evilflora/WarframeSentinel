@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<resources>
+    <items>
+        <item>
+            <id>credit</id>
+            <name>Credits</name>
+            <image>credits.png</image>
+        </item>
+        <item>
+            <id>standing</id>
+            <name>Stading</name>
+            <image>stading.png</image>
+        </item>
+    </items>
+</resources>
