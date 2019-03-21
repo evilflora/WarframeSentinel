@@ -10,8 +10,8 @@ import java.util.List;
 
 class SortieClass {
     private Context _context;
-    //private String _id;
-    // private long _date_activation;
+    private String _id;
+    private long _date_activation;
     private long _date_expiration;
     private String _boss;
     private List<SortieStepClass> _sorties = new ArrayList<>();
@@ -21,8 +21,8 @@ class SortieClass {
     SortieClass(Context context, JSONObject sortie) { // constructor
         try {
             this._context            = context;
-            //this._id                = sortie.getJSONObject("_id").getString("$oid");
-            //this._date_activation   = sortie.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            this._id                = sortie.getJSONObject("_id").getString("$oid");
+            this._date_activation   = sortie.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
             this._date_expiration   = sortie.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
             this._boss              = sortie.getString("Boss");
             try {
@@ -62,9 +62,9 @@ class SortieClass {
         return sortie_type;
     }
 
-    /*public int get_time_left() {
+    public int get_time_left() {
         return (int)(_date_expiration - _date_activation);
-    }*/
+    }
 
     SortieStepClass get_step(int i) {
         return _sorties.get(i);

@@ -49,7 +49,7 @@ class InvasionListView extends BaseAdapter {
 
 
         if (convertView != null) {
-            TextView invasion_location      = convertView.findViewById(R.id.cetus_job_type);
+            TextView invasion_location      = convertView.findViewById(R.id.construction_status);
             TextView invasion_type          = convertView.findViewById(R.id.sortie_type);
             TextView invasion_reward_attacker   = convertView.findViewById(R.id.invasion_reward_attacker);
             TextView invasion_reward_defender  = convertView.findViewById(R.id.invasion_reward_defender);

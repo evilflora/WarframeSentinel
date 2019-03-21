@@ -21,7 +21,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     AppSettings settings;
     Activity activity;
     Handler hReloadWarframeWorldState = new Handler();
-    android.support.v4.app.Fragment currentFrag =  new AlertFragment();
+    android.support.v4.app.Fragment currentFrag =  new EventFragment();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +113,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 currentFrag = new NewsFragment();
                 break;
             case R.id.nav_alerts:
-                currentFrag = new AlertFragment();
+                currentFrag = new EventFragment();
                 break;
             case R.id.nav_invasions:
                 currentFrag = new InvasionFragment();

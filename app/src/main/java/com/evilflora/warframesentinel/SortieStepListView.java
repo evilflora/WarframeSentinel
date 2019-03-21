@@ -44,7 +44,7 @@ class SortieStepListView extends BaseAdapter {
         }
 
         if (convertView != null) {
-            TextView sortie_location = convertView.findViewById(R.id.cetus_job_type);
+            TextView sortie_location = convertView.findViewById(R.id.construction_status);
             TextView sortie_type = convertView.findViewById(R.id.sortie_type);
             TextView sortie_level = convertView.findViewById(R.id.sortie_level);
             TextView sortie_condition = convertView.findViewById(R.id.sortie_condition);

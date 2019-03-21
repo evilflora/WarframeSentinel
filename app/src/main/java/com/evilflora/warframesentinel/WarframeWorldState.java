@@ -38,7 +38,7 @@ class WarframeWorldState {
         return null;
     }
 
-    JSONArray getAlerts() {
+    JSONArray getAlerts() { // Les alertes, depuis la version 24.3 elles n'existent plus
         try {
             return data.getJSONArray("Alerts");
         } catch (JSONException e) {
@@ -46,12 +46,11 @@ class WarframeWorldState {
             return null;
         }
     }
-
     short getAlertsLenght() {
         return (short)getAlerts().length();
     }
 
-    JSONArray getNews() {
+    JSONArray getNews() { // Les news
         try {
             return data.getJSONArray("Events");
         } catch (JSONException e) {
@@ -59,13 +58,11 @@ class WarframeWorldState {
             return null;
         }
     }
-
-
     short getNewsLenght() {
         return (short)getNews().length();
     }
 
-    JSONArray getGoals() {
+    JSONArray getGoals() { // ???
         try {
             return data.getJSONArray("Goals");
         } catch (JSONException e) {
@@ -73,12 +70,11 @@ class WarframeWorldState {
             return null;
         }
     }
-
     short getGoalsLenght() {
         return (short)getGoals().length();
     }
 
-    JSONArray getSorties() {
+    JSONArray getSorties() { // Les sorties
         try {
             return data.getJSONArray("Sorties");
         } catch (JSONException e) {
@@ -86,14 +82,20 @@ class WarframeWorldState {
             return null;
         }
     }
+    short getSortiesLenght() {
+        return (short)getSorties().length();
+    }
 
-    private JSONArray getSyndicateMissions() {
+    JSONArray getSyndicateMissions() {
         try {
             return data.getJSONArray("SyndicateMissions");
         } catch (JSONException e) {
             Log.e("WarframeWorldState","Cannot retreive SyndicateMissions or no syndicate missions avaialble");
             return null;
         }
+    }
+    short getSyndicateLenght() {
+        return (short)getSyndicateMissions().length();
     }
 
     JSONObject getCetusMissions() {
@@ -116,6 +118,9 @@ class WarframeWorldState {
         }
         return cetusMissions;
     }
+    short getCetusMissionsLenght() {
+        return (short)getCetusMissions().length();
+    }
 
     JSONArray getFissures() {
         try {
@@ -125,12 +130,11 @@ class WarframeWorldState {
             return null;
         }
     }
-
     short getFissuresLenght() {
         return (short)getFissures().length();
     }
 
-    JSONArray getInvasions() {
+    JSONArray getInvasions() { // Invasions
         try {
             return data.getJSONArray("Invasions");
         } catch (JSONException e) {
@@ -138,7 +142,6 @@ class WarframeWorldState {
             return null;
         }
     }
-
     short getInvasionsCurrentLenght() {
         short _count = 0;
         for (short i = 0; i < getInvasions().length(); i++) {
@@ -175,6 +178,15 @@ class WarframeWorldState {
             return data.getJSONArray("VoidTraders");
         } catch (JSONException e) {
             Log.e("WarframeWorldState","Cannot retreive VoidTraders or no void traders avaialble");
+            return null;
+        }
+    }
+
+    JSONArray getProjectPct() { // Construction Formorian, Razoback et Relay
+        try {
+            return data.getJSONArray("ProjectPct");
+        } catch (JSONException e) {
+            Log.e("WarframeWorldState","Cannot retreive construction project data or no construction project are avaialble");
             return null;
         }
     }

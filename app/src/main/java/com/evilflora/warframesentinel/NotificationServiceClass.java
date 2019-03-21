@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
-import android.widget.RemoteViews;
 
 /**
  * Created by guill on 14/11/2017 for WarframeSentinel

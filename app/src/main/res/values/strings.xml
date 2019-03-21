@@ -51,6 +51,9 @@
     <string name="items_left">Items left</string>
     <string name="total">Total</string>
     <string name="status">Status</string>
+    <string name="construction_status">Construction Status</string>
+    <string name="fomorian">Fomorian</string>
+    <string name="razorback">Razorback Armada</string>
     <string name="date">Date</string>
     <string name="time_left">Time left</string>
     <string name="time_before_reset">Time before reset</string>

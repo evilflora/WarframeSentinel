@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 class InvasionClass {
     private String _id;
+    //private String _faction;
     private String _location;
     private int _count;
     private int _goal;
@@ -24,10 +25,11 @@ class InvasionClass {
     InvasionClass(JSONObject invasion) { // constructor
         try {
             this._id                    = invasion.getJSONObject("_id").getString("$oid");
+            //this._faction               = invasion.getString("Faction");
             this._location              = invasion.getString("Node");
             this._count                 = invasion.getInt("Count");
             this._goal                  = invasion.getInt("Goal");
-            //this._locTag                = invasion.getString("LocTag");
+            //this._locTag                = invasion.getString("LocTag"); // Infobulle cinématique en jeu
             this._completed             = invasion.getBoolean("Completed");
             this._attackerFaction       = invasion.getJSONObject("DefenderMissionInfo").getString("faction");
             this._defenderFaction       = invasion.getJSONObject("AttackerMissionInfo").getString("faction");
@@ -93,4 +95,5 @@ class InvasionClass {
     String get_id() { return _id;}
 
     Boolean get_completed() { return _completed; }
+
 }

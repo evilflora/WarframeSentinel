@@ -1,6 +1,5 @@
 package com.evilflora.warframesentinel;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +41,7 @@ class CetusBountiesListView extends BaseAdapter {
             convertView = _inflater.inflate(R.layout.cetus_element_job_view, parent, false);
         }
         if (convertView != null) {
-            TextView cetus_job_type = convertView.findViewById(R.id.cetus_job_type);
+            TextView cetus_job_type = convertView.findViewById(R.id.construction_status);
             TextView cetus_job_level = convertView.findViewById(R.id.cetus_job_level);
             TextView cetus_total_xp_reward = convertView.findViewById(R.id.cetus_total_xp_reward);
             LinearLayout cetus_total_reward = convertView.findViewById(R.id.cetus_rewards);
