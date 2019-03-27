@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_row_selector"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/syndicate_reward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/syndicate_type"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/reward"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/syndicate_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/syndicate_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/type"
+        android:textSize="13sp"
+        android:layout_below="@+id/syndicate_location"
+        android:layout_alignRight="@+id/syndicate_location"
+        android:layout_alignStart="@+id/syndicate_location"
+        android:layout_alignLeft="@+id/syndicate_location" />
+
+    <TextView
+        android:id="@+id/syndicate_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/syndicate_location"
+        android:layout_alignBottom="@+id/syndicate_location"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/level"
+        android:textSize="13sp" />
+
+</RelativeLayout>

@@ -41,7 +41,7 @@ class CetusBountiesListView extends BaseAdapter {
             convertView = _inflater.inflate(R.layout.cetus_element_job_view, parent, false);
         }
         if (convertView != null) {
-            TextView cetus_job_type = convertView.findViewById(R.id.construction_status);
+            TextView cetus_job_type = convertView.findViewById(R.id.cetus_type);
             TextView cetus_job_level = convertView.findViewById(R.id.cetus_job_level);
             TextView cetus_total_xp_reward = convertView.findViewById(R.id.cetus_total_xp_reward);
             LinearLayout cetus_total_reward = convertView.findViewById(R.id.cetus_rewards);
@@ -56,6 +56,8 @@ class CetusBountiesListView extends BaseAdapter {
             cetus_job_type.setText(job_type);
             cetus_job_level.setText(String.format(_context.getString(R.string.level) + ": %s", _items.get(position).get_ennemy_level()));
             cetus_total_xp_reward.setText(String.format(_context.getString(R.string.total) + ": %d", _items.get(position).get_total_xp_amounts()));
+
+            cetus_total_reward.removeAllViews(); // Fix : corrige l'ajout infini des récompenses en standing lors du scroll
 
             for (int i = 0; i < _items.get(position).get_xp_amounts_size(); i++) {
                 View view = LayoutInflater.from(_context).inflate(R.layout.cetus_element_reward_view, parent, false);

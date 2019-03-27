@@ -16,7 +16,7 @@ class ProjectConstructionClass {
      * Normalement un tableau de 2 mais parfois 3
      * 1) Fomorian
      * 2) Razorback
-     * 3) Relay
+     * 3) ???, peut être les relays mais il existe un ConstructionProjects
      */
     final String CurrentFileName = "ProjectConstructionClas";
     private List<Integer> _ProjectPct = new ArrayList<>(3);

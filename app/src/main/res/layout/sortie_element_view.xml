@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/construction_status"
+        android:id="@+id/sortie_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/location"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="@string/type"
         android:textSize="13sp"
-        android:layout_below="@+id/construction_status"
+        android:layout_below="@+id/sortie_location"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

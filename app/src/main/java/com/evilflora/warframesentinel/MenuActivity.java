@@ -133,6 +133,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_fissures:
                 currentFrag = new FissureFragment();
                 break;
+            case R.id.nav_syndicate:
+                currentFrag = new SyndicateFragment();
+                break;
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, currentFrag).addToBackStack(null).commit();

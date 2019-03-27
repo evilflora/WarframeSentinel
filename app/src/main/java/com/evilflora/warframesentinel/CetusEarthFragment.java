@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class CetusEarthFragment extends Fragment {
 
@@ -59,7 +59,6 @@ public class CetusEarthFragment extends Fragment {
         cetus_day_night_status = view.findViewById(R.id.cetus_day_night_status);
         cetus_day_night_info = view.findViewById(R.id.cetus_day_night_info);
 
-
         hTimerResetBounties.post(runnableLoadBounties); // On rafraichis toutes les secondes les timers
         hTimerBounties.post(runnableBounties); // On rafraichis toutes les secondes les timers
 
@@ -93,13 +92,13 @@ public class CetusEarthFragment extends Fragment {
 
     void load() {
         try {
-            JSONObject bounties = MenuActivity.warframeWorldState.getCetusMissions();
+            JSONArray bounties = MenuActivity.warframeWorldState.getCetusMissions();
             cetusClass = new CetusClass(bounties); // on l'instancie
 
-            Log.e(CurrentFileName,"Reading news bounties");
+            Log.e(CurrentFileName,"Reading news bounties"); // todo pourquoi cette fonction est-elle lancée 2 fois lors de l'affichage de la vue ?
             if (cetusClass.get_status()) {
                 cetusClass.get_cetus_jobs().clear();
-                adapterCetusBounties.notifyDataSetChanged(); // todo trouver un moyen de reset les bounties
+                adapterCetusBounties.notifyDataSetChanged();
             }
         } catch (Exception ex){
             Log.e(CurrentFileName,"Cannot read bounties - " + ex.getMessage());

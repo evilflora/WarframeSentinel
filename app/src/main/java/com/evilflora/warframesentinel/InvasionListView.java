@@ -49,13 +49,13 @@ class InvasionListView extends BaseAdapter {
 
 
         if (convertView != null) {
-            TextView invasion_location      = convertView.findViewById(R.id.construction_status);
-            TextView invasion_type          = convertView.findViewById(R.id.sortie_type);
+            TextView invasion_location      = convertView.findViewById(R.id.invasion_location);
+            TextView invasion_type          = convertView.findViewById(R.id.invasion_type);
             TextView invasion_reward_attacker   = convertView.findViewById(R.id.invasion_reward_attacker);
             TextView invasion_reward_defender  = convertView.findViewById(R.id.invasion_reward_defender);
             TextView invasion_percent_attacker       = convertView.findViewById(R.id.invasion_percent_attacker);
             TextView invasion_percent_defender       = convertView.findViewById(R.id.invasion_percent_defender);
-            ProgressBar invasion_progress   = convertView.findViewById(R.id.darvo_current);
+            ProgressBar invasion_progress   = convertView.findViewById(R.id.invasion_progress);
 
             // Dynamic progressBar
             GradientDrawable layerBackground = new GradientDrawable(); // background

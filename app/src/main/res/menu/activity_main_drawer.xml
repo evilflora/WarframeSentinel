@@ -38,5 +38,9 @@
             android:id="@+id/nav_pvp"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/pvp" />
+        <item
+            android:id="@+id/nav_syndicate"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/syndicate" />
     </group>
 </menu>

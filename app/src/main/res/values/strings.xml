@@ -58,6 +58,15 @@
     <string name="time_left">Time left</string>
     <string name="time_before_reset">Time before reset</string>
     <string name="cetus_waiting_reset">Waiting for the new end time …</string>
+    <string name="syndicate">Syndicate</string>
+
+    <!-- Syndicates -->
+    <string name="SteelMeridianSyndicate">Steel Merdian</string>
+    <string name="ArbitersSyndicate">Arbiter of Hexis</string>
+    <string name="CephalonSudaSyndicate">Cephalon Suda</string>
+    <string name="PerrinSyndicate">Perrin Sequence</string>
+    <string name="RedVeilSyndicate">Red Veil</string>
+    <string name="NewLokaSyndicate">New Loka</string>
 
     <!-- Ressources -->
     <string name="Eventium">Synthula</string>
@@ -209,13 +218,13 @@
 
     <!-- Sortie bosses -->
     <string name="SORTIE_BOSS_RUK">Defeat General Sargas Ruk\'s Forces</string>
-    <string name="SORTIE_BOSS_RAPTOR">Raptor\'s Forces ???</string>
+    <string name="SORTIE_BOSS_RAPTOR">Defeat The Raptor\'s Forces</string>
     <string name="SORTIE_BOSS_INFALAD">Defeat Mutalist Alad V\'s Forces</string>
     <string name="SORTIE_BOSS_CORRUPTED_VOR">Defeat Corrupted Vor\'s Forces</string>
     <string name="SORTIE_BOSS_HEK">Defeat Councilor Vay Hek Forces</string>
     <string name="SORTIE_BOSS_AMBULAS">Defeat Ambulas\'s Forces</string>
     <string name="SORTIE_BOSS_KRIL">Defeat Lieutenant Lech Kril\'s Forces</string>
-    <string name="SORTIE_BOSS_HYENA">Defeat the Hyena Pack\'s Forces</string>
+    <string name="SORTIE_BOSS_HYENA">Defeat The Hyena Pack\'s Forces</string>
     <string name="SORTIE_BOSS_KELA">Defeat Kela de Thaym\'s Forces</string>
     <string name="SORTIE_BOSS_VOR">Defeat Captain Vor\'s Forces</string>
     <string name="SORTIE_BOSS_PHORID">Defeat Phorid\'s Forces</string>

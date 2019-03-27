@@ -2,7 +2,7 @@ package com.evilflora.warframesentinel;
 
 import android.util.Log;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +17,16 @@ class CetusClass {
     //private String _tag;
     private List<CetusJobClass> _cetus_jobs;
 
-    CetusClass(JSONObject cetus) { // constructor
+    CetusClass(JSONArray cetus) { // constructor
         _cetus_jobs = new ArrayList<>();
         try {
             //this._id                  = cetus.getJSONObject("_id").getString("$oid");
             //this._date_activation     = cetus.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration       = cetus.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            this._date_expiration       = cetus.getJSONObject(0).getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
             //this._tag                 = cetus.getString("Tag");
             try {
-                for (int i = 0; i < (cetus.getJSONArray("Jobs").length()); i++) {
-                    this._cetus_jobs.add(new CetusJobClass(cetus.getJSONArray("Jobs").getJSONObject(i)));
+                for (int i = 0; i < (cetus.getJSONObject(0).getJSONArray("Jobs").length()); i++) {
+                    this._cetus_jobs.add(new CetusJobClass(cetus.getJSONObject(0).getJSONArray("Jobs").getJSONObject(i)));
                 }
             } catch(Exception ex) {
                 Log.e("CetusClass","Error while reading cetus jobs" + ex.getMessage());

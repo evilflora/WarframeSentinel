@@ -6,6 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 class WarframeWorldState {
@@ -62,7 +65,7 @@ class WarframeWorldState {
         return (short)getNews().length();
     }
 
-    JSONArray getGoals() { // ???
+    JSONArray getGoals() { // Event en cours
         try {
             return data.getJSONArray("Goals");
         } catch (JSONException e) {
@@ -86,37 +89,36 @@ class WarframeWorldState {
         return (short)getSorties().length();
     }
 
-    JSONArray getSyndicateMissions() {
+    JSONArray getSyndicateMissions( ArrayList<String> list) {
+        JSONArray allSyndicateMissions, syndicateMissions = new JSONArray();
         try {
-            return data.getJSONArray("SyndicateMissions");
-        } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive SyndicateMissions or no syndicate missions avaialble");
-            return null;
-        }
-    }
-    short getSyndicateLenght() {
-        return (short)getSyndicateMissions().length();
-    }
-
-    JSONObject getCetusMissions() {
-        JSONObject cetusMissions = null;
-        JSONArray syndicateMissions = getSyndicateMissions();
-        if (syndicateMissions != null) {
-            for(int i = 0; i < syndicateMissions.length(); i++) {
-                try {
-
-                    if (syndicateMissions.getJSONObject(i).getString("Tag").compareTo("CetusSyndicate") == 0) {
-                        cetusMissions = syndicateMissions.getJSONObject(i);
-                        break;
+            allSyndicateMissions = data.getJSONArray("SyndicateMissions");
+            if (allSyndicateMissions != null) {
+                for(int i = 0; i < allSyndicateMissions.length(); i++) { // on parcours la liste de tous les syndicats
+                    for(int j = 0; j < list.size(); j++) { // on parcours la liste des syndicats souhaités
+                        if (allSyndicateMissions.getJSONObject(i).getString("Tag").compareTo(list.get(j)) == 0) { // si on trouve le syndicat
+                            syndicateMissions.put(allSyndicateMissions.getJSONObject(i)); // on l'ajoute à notre return
+                            break; // Comme on l'a trouvé, on passe au syndicat suivant de la liste des syndicats
+                        }
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
+            } else {
+                Log.e("WarframeWorldState","Cannot retreive SyndicateMissions or no syndicate missions avaialble");
             }
-        } else {
-            Log.e("WarframeWorldState","Cannot retreive CetusJobs or no cetus jobs avaialble");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return cetusMissions;
+        return syndicateMissions;
+
+    }
+
+    JSONArray getShipSyndicateMissions() {
+        // Ne pas changer l'ordre de la liste, sinon la vue en sera impactée
+        return  getSyndicateMissions(new ArrayList<>(Arrays.asList("SteelMeridianSyndicate","ArbitersSyndicate","CephalonSudaSyndicate","PerrinSyndicate","RedVeilSyndicate","NewLokaSyndicate")));
+    }
+
+    JSONArray getCetusMissions() {
+        return  getSyndicateMissions(new ArrayList<>(Collections.singletonList("CetusSyndicate")));
     }
     short getCetusMissionsLenght() {
         return (short)getCetusMissions().length();
@@ -187,6 +189,42 @@ class WarframeWorldState {
             return data.getJSONArray("ProjectPct");
         } catch (JSONException e) {
             Log.e("WarframeWorldState","Cannot retreive construction project data or no construction project are avaialble");
+            return null;
+        }
+    }
+
+    JSONArray getNodeOverrides() { // todo : Nodes affectées par la Kuva Fortress
+        try {
+            return data.getJSONArray("NodesOverrides");
+        } catch (JSONException e) {
+            Log.e("WarframeWorldState","Cannot retreive nodes overrides or no nodes overrides are avaialble");
+            return null;
+        }
+    }
+
+    JSONArray getBadlandNodes() { // todo : Dark Sectors
+        try {
+            return data.getJSONArray("BadelandNodes");
+        } catch (JSONException e) {
+            Log.e("WarframeWorldState","Cannot retreive dark sectors or no dark sectors are avaialble");
+            return null;
+        }
+    }
+
+    JSONArray getPVPChallengeInstances() { // todo : PVP
+        try {
+            return data.getJSONArray("PVPChallengeInstances");
+        } catch (JSONException e) {
+            Log.e("WarframeWorldState","Cannot retreive pvp challenges or no pvp challenges are avaialble");
+            return null;
+        }
+    }
+
+    JSONArray getSeasonInfo() { // todo : PVP
+        try {
+            return data.getJSONArray("SeasonInfo");
+        } catch (JSONException e) {
+            Log.e("WarframeWorldState","Cannot retreive nightwaves or no nightwaves are avaialble");
             return null;
         }
     }

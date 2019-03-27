@@ -67,7 +67,7 @@ public class FissureFragment extends Fragment {
             try {
                 FissureClass tmp = new FissureClass(getActivity(),fissures.getJSONObject(i));
                 fissureList.get(0).add(tmp); // Instancie l'alerte et l'ajoute dans la liste
-                fissureList.get(_tabHostContent.indexOf(tmp.get_modifier())).add(tmp); // Instancie l'alerte et l'ajoute dans la liste
+                fissureList.get(_tabHostContent.indexOf(tmp.get_modifier())).add(tmp); // Instancie la fissure et l'ajoute dans la liste
             } catch (JSONException e) {
                 Log.e(CurrentFileName,e.getMessage());
             }
