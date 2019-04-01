@@ -119,7 +119,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 currentFrag = new InvasionFragment();
                 break;
             case R.id.nav_earth:
-                currentFrag = new CetusEarthFragment();
+                currentFrag = new BountiesFragment();
                 break;
             case R.id.nav_darvo:
                 currentFrag = new DarvoMarketFragment();

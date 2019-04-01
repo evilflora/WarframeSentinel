@@ -17,7 +17,7 @@
         android:id="@+id/darvo_deal_time_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/cetus_rewards"
+        android:layout_above="@+id/bounty_rewards"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="@string/time"

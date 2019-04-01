@@ -19,13 +19,13 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/cetus_job_xp_amount"
+            android:layout_alignBottom="@+id/standing_amount"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             app:srcCompat="@mipmap/reputation" />
 
         <TextView
-            android:id="@+id/cetus_job_xp_amount"
+            android:id="@+id/standing_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

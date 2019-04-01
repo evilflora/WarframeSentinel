@@ -46,9 +46,11 @@ class NewsListView extends BaseAdapter {
         if (convertView != null) {
             TextView news_name = convertView.findViewById(R.id.news_name);
             TextView news_date = convertView.findViewById(R.id.news_date);
+            //ImageView news_image = convertView.findViewById(R.id.news_image);
 
             news_name.setText(_items.get(position).get_type());
             news_date.setText(_items.get(position).get_date());
+            //news_image.setImageBitmap(_items.get(position).get_image());
 
             convertView.setOnClickListener(v -> {
                 Uri uri = Uri.parse(_items.get(position).get_url()); // missing 'http://' will cause crashed

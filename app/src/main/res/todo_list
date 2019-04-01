@@ -1,0 +1,79 @@
+News
+ - Mettre une option pour autoriser le téléchargement des images sinon mettre une image par défaut
+ - Ajouter le chargement des images en backgroundTask (à mettre en cache pour éviter le rechargement de l'image ou du timer de verification toute les minutes)
+ - Option pour vider le cache
+ - Mettre l'image par défaut si pas d'image disponible
+
+Alertes (Events)
+ - Implémenter correctement l'ajout dynamique des vues
+ - Corriger "Construction Status" et mettre un refresh du pourcentage toutes les 5 minutes
+ - Corriger "World cycles" et mettre une refresh toutes les secondes, ajouter le cycle "Orb Vallis" et "Terre"
+ - Ajouter les "Goals" du jeu
+ - Ajouter les "Acolytes"
+ - Ajouter le "Nightwave"
+
+Invasions
+ - Ajouter la detection swipe gauche ou droite
+
+Bounties
+ - Ajouter les "string" manquants
+ ~ Ajouter les tables de récompenses ?
+ - Le refresh automatique des bounty me semble long
+ - Ajouter la detection swipe gauche ou droite
+
+Darvo/Market
+ - Darvo : Améliorer la présentation
+ - Market : Compléter les "string"
+ - Ajouter la detection swipe gauche ou droite
+
+Baro KiTeer
+ - ??? attendre son retour et vérifier
+
+Sorties
+ ~ Mettre les récompenses, en liste expensive pour le détail
+ - Ajouter la detection swipe gauche ou droite
+
+Fissures
+ - Ajouter la detection swipe gauche ou droite
+
+PVP
+ - A implémenter
+
+Syndicate
+ - Ajouter les levels manquants
+ - Ajouter la detection swipe gauche ou droite
+
+"Events": Dans "Alertes"
+"Sorties": Dans "Sorties"
+"ActiveMissions": Dans "Fissures"
+"FlashSales": Dans "Darvo/Market"
+"Invasions": Dans "Invasions"
+"VoidTraders": Dans "Baro KiTeer"
+"DailyDeals": Dans "Darvo/Market"
+"ProjectPct": Dans "Alertes" (Fomorian, Razorback et ???)
+
+"SyndicateMissions": En partie utilisé
+
+"WorldSeed": Non utilisé
+"Version": Non utilisé
+"MobileVersion": Non utilisé
+"BuildLabel": Non utilisé
+"Time": Non utilisé
+"Date": Non utilisé
+"Goals": Non utilisé
+"Alerts": N'existe plus
+"GlobalUpgrades": Non utilisé
+"HubEvents": Non utilisé
+"NodeOverrides": Non utilisé (je ne sais pas ce que c'est)
+"BadlandNodes": Non utilisé (Dark Sector)
+"PrimeAccessAvailability": Non utilisé
+"PrimeVaultAvailabilities": Non utilisé
+"LibraryInfo": Non utilisé (la dernière recherche du Cephalon Simaris)
+"PVPChallengeInstances": Non utilisé
+"PersistentEnemies": Non utilisé
+"PVPAlternativeModes": Non utilisé
+"PVPActiveTournaments": Non utilisé
+"ConstructionProjects": Non utilisé (la construction des relais ?)
+"TwitchPromos": Non utilisé
+"SeasonInfo": Non utilisé (Nightwave)
+"FeaturedGuilds": Non utilisé (guildes mises en avant, voir le clan)

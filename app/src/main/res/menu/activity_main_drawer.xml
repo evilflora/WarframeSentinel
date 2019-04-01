@@ -17,7 +17,7 @@
         <item
             android:id="@+id/nav_earth"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/cetus_earth" />
+            android:title="@string/bounties" />
         <item
             android:id="@+id/nav_darvo"
             android:icon="@drawable/ic_menu_slideshow"

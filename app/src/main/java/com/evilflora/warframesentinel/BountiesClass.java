@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-class CetusClass {
+class BountiesClass {
     private final int NightTime = 50 * 60 * 1000; // en ms 50 minutes
     private final String sDayNight[] = {"Day","Night","Indeterminate"};
     private String _day_or_night = "";
@@ -15,9 +15,9 @@ class CetusClass {
     //private long _date_activation;
     private long _date_expiration;
     //private String _tag;
-    private List<CetusJobClass> _cetus_jobs;
+    private List<BountyJobClass> _cetus_jobs;
 
-    CetusClass(JSONArray cetus) { // constructor
+    BountiesClass(JSONArray cetus) { // constructor
         _cetus_jobs = new ArrayList<>();
         try {
             //this._id                  = cetus.getJSONObject("_id").getString("$oid");
@@ -26,7 +26,7 @@ class CetusClass {
             //this._tag                 = cetus.getString("Tag");
             try {
                 for (int i = 0; i < (cetus.getJSONObject(0).getJSONArray("Jobs").length()); i++) {
-                    this._cetus_jobs.add(new CetusJobClass(cetus.getJSONObject(0).getJSONArray("Jobs").getJSONObject(i)));
+                    this._cetus_jobs.add(new BountyJobClass(cetus.getJSONObject(0).getJSONArray("Jobs").getJSONObject(i)));
                 }
             } catch(Exception ex) {
                 Log.e("CetusClass","Error while reading cetus jobs" + ex.getMessage());
@@ -34,12 +34,13 @@ class CetusClass {
         } catch (Exception ex) {
             Log.e("CetusClass","Error while reading cetus bounties - " + ex.getMessage());
         }
+        cetus_day_or_night(); // Permet de connaitre le cycle
     }
 
     /**
      * Retourne un string avec le temps restant avant le reset des bounties
      *
-     * @return      le temps restant avant le reset des bounties
+     * @return      le temps restant avant la fin de ce cycle de bounty
      */
     public String get_time_before_expiry() {
         return TimestampToDate.convert(_date_expiration - System.currentTimeMillis(),true);
@@ -48,7 +49,7 @@ class CetusClass {
     /**
      * Retourne le temps restant avantle reset desounties
      *
-     * @return      le temps restant avant le reset des bounties
+     * @return      le temps restant en ms avant la fin de ce cycle de bounty
      */
     long get_time_left() {
         return _date_expiration - System.currentTimeMillis();
@@ -57,20 +58,15 @@ class CetusClass {
     /**
      * Retourne un string avec le temps restant pour la nuit comme pour le jour
      *
-     * @return      le temps restant avant la fin ddu jour ou la fin de la nuit
+     * @return      le temps restant avant la fin du jour ou la fin de la nuit
      */
     String cetus_day_night_time() {
         String timer = "";
-        if (_date_expiration - System.currentTimeMillis() > NightTime) {
-            _day_or_night = sDayNight[0];
+        if (_day_or_night.compareTo(sDayNight[0]) == 0) {
             timer = TimestampToDate.convert(_date_expiration - System.currentTimeMillis() - (NightTime),true);
-        } else if ((_date_expiration - System.currentTimeMillis() <= NightTime) && (_date_expiration - System.currentTimeMillis() >= 0)) {
-            _day_or_night = sDayNight[1];
+        } else if (_day_or_night.compareTo(sDayNight[1]) == 0) {
             timer = TimestampToDate.convert(_date_expiration - System.currentTimeMillis(),true);
-        } else {
-            _day_or_night = sDayNight[2];
         }
-
         return timer;
     }
 
@@ -104,7 +100,22 @@ class CetusClass {
      * @return      l'état du cycle
      */
     String cetus_day_or_night() {
+        if ((_date_expiration - System.currentTimeMillis() <= NightTime) && (_date_expiration - System.currentTimeMillis() >= 0)) {
+            _day_or_night = sDayNight[1];
+        } else {
+            _day_or_night = sDayNight[0];
+        }
         return _day_or_night;
+    }
+
+    /**
+     * Retourne un string sur l'état du cycle jour/nuit ou indéterminé
+     *
+     * @return      retourne le prochain état du world cycle
+     */
+    String cetus_next_world_cycle_state() {
+        if (_day_or_night.compareTo(sDayNight[0]) == 0) return sDayNight[1];
+        else  return sDayNight[0];
     }
 
     /**
@@ -112,6 +123,6 @@ class CetusClass {
      *
      * @return      les étapes de la bounty
      */
-    List<CetusJobClass> get_cetus_jobs() { return _cetus_jobs; }
+    List<BountyJobClass> get_cetus_jobs() { return _cetus_jobs; }
 
 }

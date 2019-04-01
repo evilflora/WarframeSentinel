@@ -17,7 +17,8 @@ class SyndicateClass {
     private String _tag;
     //private int _seed;
     private List<String> _nodes;
-    private List<String> _levels = Arrays.asList("7 - 9","? - ?","? - ?","? - ?","20 - 25","25 - 30","30 - 35");
+    private List<String> _levels = Arrays.asList("? - ?","? - ?","? - ?","? - ?","20 - 25","25 - 30","30 - 35");
+    //private List<String> _syndicate_rank; // todo mettre les rangs pour tous les syndicats (1 à 5, 6 fois)
 
     SyndicateClass(Context context, JSONObject object) { // constructor
         try {

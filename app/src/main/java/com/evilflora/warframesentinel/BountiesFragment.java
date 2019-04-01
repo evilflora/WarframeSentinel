@@ -13,51 +13,53 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 
-public class CetusEarthFragment extends Fragment {
+public class BountiesFragment extends Fragment {
 
     final String CurrentFileName = "CetusEarthFragment";
-    CetusClass cetusClass;
-    TextView bountyTimer;
+    BountiesClass cetusClass;
+    BountiesClass orbVallisClass;
     TextView cetus_day_night_time_left;
-    TextView cetus_day_night_status;
-    TextView cetus_day_night_info;
-    //private TextView earth_day_night_time_left;
-    //private TextView earth_day_night_status;
+    TextView orb_vallis_bounties_timer_reset;
     Handler hTimerBounties = new Handler();
     Handler hTimerResetBounties = new Handler();
-    CetusBountiesListView adapterCetusBounties;
+    BountiesListView adapterCetusBounties;
+    BountiesListView adapterOrbVallisBounties;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.cetus_earth_content, container, false);
-        getActivity().setTitle(getString(R.string.cetus_earth));
+        View view = inflater.inflate(R.layout.bounties_content, container, false);
+        getActivity().setTitle(getString(R.string.bounties));
 
-        TabHost tabHost = view.findViewById(R.id.tabHost_cetus);
+        TabHost tabHost = view.findViewById(R.id.tabHost_bounties);
         tabHost.setup();
 
         //Tab 1
-        TabHost.TabSpec spec = tabHost.newTabSpec(getString(R.string.current));
+        TabHost.TabSpec spec = tabHost.newTabSpec(getString(R.string.current)); // todo a quoi ça sert ?
         spec.setContent(R.id.cetus_bounties);
-        spec.setIndicator(getString(R.string.bounties));
+        spec.setIndicator(getString(R.string.cetus));
         tabHost.addTab(spec);
 
         //Tab 2
-        spec = tabHost.newTabSpec(getString(R.string.completed));
-        spec.setContent(R.id.cetus_timers);
-        spec.setIndicator(getString(R.string.day_night));
+        spec = tabHost.newTabSpec(getString(R.string.completed)); // todo a quoi ça sert ?
+        spec.setContent(R.id.orb_vallis_bounties);
+        spec.setIndicator(getString(R.string.orb_vallis));
         tabHost.addTab(spec);
 
         load();
 
+        // chargement des bounties pour cetus
         ListView listViewCetusBounties = view.findViewById(R.id.list_cetus_bounties);
-        adapterCetusBounties = new CetusBountiesListView(getContext(), cetusClass.get_cetus_jobs());
+        adapterCetusBounties = new BountiesListView(getContext(), cetusClass.get_cetus_jobs());
         listViewCetusBounties.setAdapter(adapterCetusBounties);
 
-        bountyTimer = view.findViewById(R.id.cetus_bounties_timer_reset);
-        cetus_day_night_time_left = view.findViewById(R.id.cetus_day_night_time_left);
-        cetus_day_night_status = view.findViewById(R.id.cetus_day_night_status);
-        cetus_day_night_info = view.findViewById(R.id.cetus_day_night_info);
+        // chargement des bounties pour orb vallis
+        ListView listViewOrbVallisBounties = view.findViewById(R.id.list_orb_vallis_bounties);
+        adapterOrbVallisBounties = new BountiesListView(getContext(), orbVallisClass.get_cetus_jobs());
+        listViewOrbVallisBounties.setAdapter(adapterOrbVallisBounties);
+
+        cetus_day_night_time_left = view.findViewById(R.id.cetus_bounties_timer_reset);
+        orb_vallis_bounties_timer_reset = view.findViewById(R.id.orb_vallis_bounties_timer_reset);
 
         hTimerResetBounties.post(runnableLoadBounties); // On rafraichis toutes les secondes les timers
         hTimerBounties.post(runnableBounties); // On rafraichis toutes les secondes les timers
@@ -69,10 +71,8 @@ public class CetusEarthFragment extends Fragment {
         @Override
         public void run() {
             try {
-                bountyTimer.setText(String.format("%s %s", getString(R.string.time_before_reset), cetusClass.get_time_before_expiry()));
-                cetus_day_night_status.setText(!cetusClass.get_status() ? cetusClass.cetus_day_or_night() : getString(R.string.cetus_waiting_reset));
-                cetus_day_night_time_left.setText(String.format("%s %s", getString(R.string.time_left), cetusClass.cetus_day_night_time()));
-                cetus_day_night_info.setText(!cetusClass.get_status() ?  String.format("%s %s", getString(R.string.date), cetusClass.cetus_next_cycle_date()) : "");
+                cetus_day_night_time_left.setText(String.format("%s: %s", getString(R.string.time_before_reset), cetusClass.get_time_before_expiry()));
+                orb_vallis_bounties_timer_reset.setText(String.format("%s: %s", getString(R.string.time_before_reset), orbVallisClass.get_time_before_expiry()));
             } catch (Exception ex){
                 Log.e(CurrentFileName,"Cannot update bounties timer | " + ex.getMessage());
             }
@@ -92,13 +92,22 @@ public class CetusEarthFragment extends Fragment {
 
     void load() {
         try {
-            JSONArray bounties = MenuActivity.warframeWorldState.getCetusMissions();
-            cetusClass = new CetusClass(bounties); // on l'instancie
+            JSONArray cetus = MenuActivity.warframeWorldState.getCetusMissions();
+            JSONArray orb_vallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
+
+            cetusClass = new BountiesClass(cetus); // on l'instancie
+            orbVallisClass = new BountiesClass(orb_vallis); // on l'instancie
 
             Log.e(CurrentFileName,"Reading news bounties"); // todo pourquoi cette fonction est-elle lancée 2 fois lors de l'affichage de la vue ?
             if (cetusClass.get_status()) {
                 cetusClass.get_cetus_jobs().clear();
                 adapterCetusBounties.notifyDataSetChanged();
+            }
+
+            Log.e(CurrentFileName,"Reading news bounties"); // todo pourquoi cette fonction est-elle lancée 2 fois lors de l'affichage de la vue ?
+            if (orbVallisClass.get_status()) {
+                orbVallisClass.get_cetus_jobs().clear();
+                adapterOrbVallisBounties.notifyDataSetChanged();
             }
         } catch (Exception ex){
             Log.e(CurrentFileName,"Cannot read bounties - " + ex.getMessage());

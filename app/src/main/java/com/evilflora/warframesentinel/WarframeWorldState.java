@@ -120,8 +120,9 @@ class WarframeWorldState {
     JSONArray getCetusMissions() {
         return  getSyndicateMissions(new ArrayList<>(Collections.singletonList("CetusSyndicate")));
     }
-    short getCetusMissionsLenght() {
-        return (short)getCetusMissions().length();
+
+    JSONArray getOrbVallisMissions() {
+        return  getSyndicateMissions(new ArrayList<>(Collections.singletonList("SolarisSyndicate")));
     }
 
     JSONArray getFissures() {

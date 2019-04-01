@@ -39,7 +39,7 @@
     <string name="missions">Missions</string>
     <string name="bounties">Bounties</string>
     <string name="timers">Timers</string>
-    <string name="cetus_earth">Earth/Cetus</string>
+    <string name="orb_vallis">Orb Vallis</string>
     <string name="day_night">Day/Night Cycle</string>
     <string name="possible_rewards">Possible rewards</string>
     <string name="pvp">PVP</string>
@@ -59,6 +59,8 @@
     <string name="time_before_reset">Time before reset</string>
     <string name="cetus_waiting_reset">Waiting for the new end time …</string>
     <string name="syndicate">Syndicate</string>
+    <string name="world_cycle">World Cycles</string>
+    <string name="earth">Earth</string>
 
     <!-- Syndicates -->
     <string name="SteelMeridianSyndicate">Steel Merdian</string>

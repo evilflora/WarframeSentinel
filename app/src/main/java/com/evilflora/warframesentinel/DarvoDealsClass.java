@@ -34,7 +34,7 @@ class DarvoDealsClass {
     }
 
     String get_reduction() {
-        return _discount + "%" + " " + _original_price + " -> " + _sale_price;
+        return _discount + "% off: " + " " + _original_price + " -> " + _sale_price;
     }
 
     String get_items_left() {

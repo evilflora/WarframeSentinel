@@ -4,14 +4,14 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
-class CetusJobClass {
+class BountyJobClass {
     private String _job_type;
     //private String _rewards;
     private String _min_ennemy_level;
     private String _max_ennemy_level;
     private int[] _xp_amounts;
 
-    CetusJobClass(JSONObject cetusJob) { // constructor
+    BountyJobClass(JSONObject cetusJob) { // constructor
         try {
             this._job_type          = cetusJob.getString("jobType");
             //this._rewards           = cetusJob.getString("rewards");
