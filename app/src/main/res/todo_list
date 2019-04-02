@@ -53,6 +53,11 @@ Syndicate
 "ProjectPct": Dans "Alertes" (Fomorian, Razorback et ???)
 
 "SyndicateMissions": En partie utilisé
+ - CetusSyndicate (Ostron), SolarisSyndicate (Solaris United)
+ - ArbitersSyndicate, CephalonSudaSyndicate, NewLokaSyndicate, PerrinSyndicate, RedVeilSyndicate, SteelMeridianSyndicate
+ - AssassinsSyndicate (Conclave)
+ - EventSyndicate (Operation Supplies), VentKidsSyndicate (Ventkids), QuillsSyndicate (The Quills), VoxSyndicate (Vox Solaris), RadioLegionSyndicate (Nightwave)
+ - Un autre syndicat existe mais n'est pas présent dans cette liste : Cephalon Simaris
 
 "WorldSeed": Non utilisé
 "Version": Non utilisé
@@ -60,12 +65,11 @@ Syndicate
 "BuildLabel": Non utilisé
 "Time": Non utilisé
 "Date": Non utilisé
+
 "Goals": Non utilisé
-"Alerts": N'existe plus
-"GlobalUpgrades": Non utilisé
+"GlobalUpgrades": Non utilisé (les bonus actifs, affinité/crédits/ressources)
 "HubEvents": Non utilisé
-"NodeOverrides": Non utilisé (je ne sais pas ce que c'est)
-"BadlandNodes": Non utilisé (Dark Sector)
+"NodeOverrides": Non utilisé (Hub détruits + relay Terre + ???)
 "PrimeAccessAvailability": Non utilisé
 "PrimeVaultAvailabilities": Non utilisé
 "LibraryInfo": Non utilisé (la dernière recherche du Cephalon Simaris)
@@ -76,4 +80,7 @@ Syndicate
 "ConstructionProjects": Non utilisé (la construction des relais ?)
 "TwitchPromos": Non utilisé
 "SeasonInfo": Non utilisé (Nightwave)
-"FeaturedGuilds": Non utilisé (guildes mises en avant, voir le clan)
+
+"Alerts": N'existe plus
+"BadlandNodes": Ne sera pas utilisé (Dark Sector)
+"FeaturedGuilds": Ne sera pas utilisé (guildes mises en avant, voir le clan)
