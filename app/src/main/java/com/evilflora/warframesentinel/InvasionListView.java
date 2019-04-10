@@ -85,50 +85,13 @@ class InvasionListView extends BaseAdapter {
             // Setter
             _items.get(position).set_progressBar(layerDrawable);
 
-            String location = _items.get(position).get_location();
-            try {
-                location = _context.getResources().getString(_context.getResources().getIdentifier(location, "string", _context.getPackageName()));
-            }catch (Exception ex) {
-                //
-            }
+            invasion_location.setText(_items.get(position).get_location());
+            invasion_type.setText(String.format("%s vs %s", _items.get(position).get_attacker_faction(), _items.get(position).get_defender_faction()));
+            invasion_reward_attacker.setText(String.format("%s %s", _items.get(position).get_attacker_reward_count() > 1 ? _items.get(position).get_attacker_reward_count() : "", _items.get(position).get_reward_defender()));
+            invasion_reward_defender.setText(String.format("%s %s", _items.get(position).get_defender_reward_count() > 1 ? _items.get(position).get_defender_reward_count() : "", _items.get(position).get_reward_defender()));
 
-            String attacker = _items.get(position).get_attacker_faction();
-            try {
-                attacker = _context.getResources().getString(_context.getResources().getIdentifier(attacker, "string", _context.getPackageName()));
-            } catch (Exception ex) {
-                //
-            }
-
-            String defender = _items.get(position).get_defender_faction();
-            try {
-                defender = _context.getResources().getString(_context.getResources().getIdentifier(defender, "string", _context.getPackageName()));
-            } catch (Exception ex) {
-                //
-            }
-
-            String reward_defender = _items.get(position).get_reward_defender();
-
-            try {
-                reward_defender = _context.getResources().getString(_context.getResources().getIdentifier(reward_defender, "string", _context.getPackageName()));
-            } catch (Exception ex) {
-                //
-            }
-
-            String reward_attacker = _items.get(position).get_reward_attacker();
-
-            try {
-                reward_attacker = _context.getResources().getString(_context.getResources().getIdentifier(reward_attacker, "string", _context.getPackageName()));
-            } catch (Exception ex) {
-                //
-            }
-
-            invasion_location.setText(location);
-            invasion_type.setText(String.format("%s vs %s", attacker, defender));
-            invasion_reward_attacker.setText((reward_attacker==null?"": (_items.get(position).get_attacker_reward_count()>1?_items.get(position).get_attacker_reward_count() + " ":"") + reward_attacker));
-            invasion_reward_defender.setText((reward_defender==null?"": (_items.get(position).get_defender_reward_count()>1?_items.get(position).get_defender_reward_count() + " ":"") + reward_defender));
-
-            invasion_progress.setMax((int)_items.get(position).getGoal());
-            invasion_progress.setProgress((int)_items.get(position).getCount());
+            invasion_progress.setMax((int)_items.get(position).get_goal());
+            invasion_progress.setProgress((int)_items.get(position).get_count());
             invasion_progress.setProgressDrawable(_items.get(position).get_progressBar());
             invasion_percent_attacker.setText(String.format("%s%%", _items.get(position).get_percent_attacker()));
             invasion_percent_defender.setText(String.format("%s%%", _items.get(position).get_percent_defender()));

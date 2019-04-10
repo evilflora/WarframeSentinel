@@ -44,7 +44,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         hReloadWarframeWorldState.post(runnableReloadWarframeWorldState); // On rafraichis toutes les secondes les timers
 
-        // disallowAddToBackStack empêche le bouton retour de revenir avant l'execution de cette ligne où le fragment ne contient pas de vue
+        // disallowAddToBackStack prevents the return button from coming back before executing this line where the fragment does not contain a view...
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, currentFrag).disallowAddToBackStack().commit();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

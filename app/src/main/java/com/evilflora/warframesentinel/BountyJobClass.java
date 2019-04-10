@@ -5,6 +5,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 class BountyJobClass {
+    private final String CurrentFileName = "BountyJobClass"; // filename
     private String _job_type;
     //private String _rewards;
     private String _min_ennemy_level;
@@ -23,36 +24,52 @@ class BountyJobClass {
                     this._xp_amounts[i] = cetusJob.getJSONArray("xpAmounts").getInt(i);
                 }
             }catch (Exception ex) {
-                Log.e("CetusJobClass","Error while reading job xp amount - " + ex.getMessage());
+                Log.e(CurrentFileName,"Error while reading job xp amount - " + ex.getMessage());
             }
         } catch (Exception ex) {
-            Log.e("CetusJobClass","Error while reading cetus job - " + ex.getMessage());
+            Log.e(CurrentFileName,"Error while reading cetus job - " + ex.getMessage());
         }
     }
+
+    /**
+     * Returns the job type
+     *
+     * @return      string
+     */
     String get_job_type() { return (_job_type != null ? _job_type.substring(_job_type.lastIndexOf("/")).replace("/","") : null ); }
 
-    /*public String get_rewards() {
-        String rewards;
-        try {
-            rewards = _context.getResources().getString(_context.getResources().getIdentifier(_rewards, "string", _context.getPackageName()));
-        } catch (Exception ex) {
-            rewards = _rewards;
-        }
-        return rewards;
-    }*/
-
+    /**
+     * Returns the job's level range
+     *
+     * @return      string
+     */
     String get_ennemy_level() {
         return _min_ennemy_level + " - " + _max_ennemy_level;
     }
 
+    /**
+     * Returns the number of job steps
+     *
+     * @return      int
+     */
     int get_xp_amounts_size() {
         return _xp_amounts.length;
     }
 
+    /**
+     * Returns the standing of a job step
+     *
+     * @return      int
+     */
     int get_xp_amounts(int i) {
         return _xp_amounts[i];
     }
 
+    /**
+     * Returns the total job standing
+     *
+     * @return      string
+     */
     int get_total_xp_amounts() {
         int sum = 0;
         for (int xp:_xp_amounts)

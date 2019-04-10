@@ -12,6 +12,7 @@ class AppSettings {
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
 
+    // todo : need to be verified and completed
     AppSettings(Context context) {
         this._context = context.getApplicationContext();
         this.loadSettings();

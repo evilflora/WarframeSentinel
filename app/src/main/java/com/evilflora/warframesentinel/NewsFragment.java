@@ -17,8 +17,8 @@ import java.util.List;
 
 public class NewsFragment extends Fragment {
 
-    final String CurrentFileName = "NewsFragment";
-    List<NewsClass> newsList = new ArrayList<>(); // Liste des invasions
+    private final String CurrentFileName = "NewsFragment"; // filename
+    List<NewsClass> newsList = new ArrayList<>();
     NewsListView adapterNews;
     Handler hLoadNews = new Handler();
     ListView listViewNews;
@@ -34,7 +34,7 @@ public class NewsFragment extends Fragment {
         adapterNews = new NewsListView(getContext(), newsList);
         listViewNews.setAdapter(adapterNews);
 
-        hLoadNews.post(runnableLoadNews); // On rafraichis toutes les secondes les timers
+        hLoadNews.post(runnableLoadNews);
 
         return view;
     }
@@ -49,28 +49,31 @@ public class NewsFragment extends Fragment {
 
     void load() {
         try {
-            JSONArray news_update = MenuActivity.warframeWorldState.getNews(); // on récupère la liste des alertes
+            JSONArray news_update = MenuActivity.warframeWorldState.getNews();
 
             boolean stop;
-            for (int i = 0; i < news_update.length(); i++) { // on parcours la nouvelle liste (surement plus grande que l'ancienne)
-                stop = false; // on remet à false
+            for (int i = 0; i < news_update.length(); i++) {
+
+                stop = false;
+
                 NewsClass news_tmp = new NewsClass(news_update.getJSONObject(i));
-                for(int j = 0; j < newsList.size(); j++) { // on compare à l'ancienne liste
-                    if (news_tmp.get_id().compareTo(newsList.get(j).get_id()) == 0) { // Si la news n'existe pas encore dans notre liste
-                        stop = true; // on indique que l'on en a trouvé une
-                        break; // on casse la boucle car inutile de continuer
+
+                for(int j = 0; j < newsList.size(); j++) { // we compare to the old list
+                    if (news_tmp.get_id().compareTo(newsList.get(j).get_id()) == 0) { // If the news exists in our old list
+                        stop = true; // we indicate that we have found one
+                        break; // we break the loop because it is useless to continue
                     }
                 }
-                if (!stop && news_tmp.get_language_code().compareTo("en") == 0) { // si on n'a pas quitté la boucle alors c'est que cette alerte est nouvelle
-                    Log.i(CurrentFileName,"Added new news id: " + news_tmp.get_id());
-                    newsList.add(news_tmp); // on l'ajoute à la liste
-                    Collections.sort(newsList,(o1, o2) -> Long.compare(o1.get_date_activation(),o2.get_date_activation()));
-                    adapterNews.notifyDataSetChanged();
 
+                if (!stop && news_tmp.get_language_code().compareTo("en") == 0) { // if we have not found news and the news corresponds to the desired language
+                    Log.i(CurrentFileName,"Ajout de la news ID : " + news_tmp.get_id());
+                    newsList.add(news_tmp);
+                    Collections.sort(newsList,(o1, o2) -> Long.compare(o1.get_date_activation(),o2.get_date_activation())); // Sort by the most recent news
+                    adapterNews.notifyDataSetChanged(); // we update the view
                 }
             }
         } catch (Exception ex) {
-            Log.e(CurrentFileName,"Cannot add new news | " + ex.getMessage());
+            Log.e(CurrentFileName,"Impossible d'ajouter la news | " + ex.getMessage());
         }
     }
 }

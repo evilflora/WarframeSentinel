@@ -45,17 +45,10 @@ class MarketItemsListView extends BaseAdapter {
             TextView market_item_time_left = convertView.findViewById(R.id.market_item_time_left);
             TextView market_item_reduction = convertView.findViewById(R.id.market_item_reduction);
 
-            String item_name = _items.get(position).get_item_name();
-
-            try {
-                item_name = _context.getResources().getString(_context.getResources().getIdentifier(item_name, "string", _context.getPackageName()));
-            } catch (Exception ex) {
-                //
-            }
-
-            market_item_name.setText(item_name);
+            market_item_name.setText(_items.get(position).get_item_name());
             market_item_time_left.setText(_items.get(position).get_time_before_expiry());
-            market_item_reduction.setText( _items.get(position).get_is_regular_override() ?  String.format("%s %s",_items.get(position).get_regular_override(), _context.getString(R.string.credits)):(_items.get(position).get_discount() > 0 ? String.format("%s % %s %s",_items.get(position).get_discount(), _items.get(position).get_premium_override() , _context.getString(R.string.plats) ): String.format("%s %s",_items.get(position).get_premium_override() , _context.getString(R.string.plats))));
+            // todo
+            market_item_reduction.setText( _items.get(position).is_regular_override() ?  String.format("%s %s",_items.get(position).get_regular_override(), _context.getString(R.string.credits)):(_items.get(position).get_discount() > 0 ? String.format("%s % %s %s",_items.get(position).get_discount(), _items.get(position).get_premium_override() , _context.getString(R.string.plats) ): String.format("%s %s",_items.get(position).get_premium_override() , _context.getString(R.string.plats))));
         }
 
         return convertView;

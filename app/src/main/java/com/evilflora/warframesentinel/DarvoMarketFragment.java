@@ -18,10 +18,10 @@ import java.util.List;
 public class DarvoMarketFragment  extends Fragment {
 
     final String CurrentFileName = "DarvoMarketFragment";
-    List<DarvoDealsClass> darvoDealsList = new ArrayList<>(); // Liste des invasions
-    List<MarketItemsClass> marketItemsList = new ArrayList<>(); // Liste des invasions
-    DarvoDealsListView adapterDarvoDeals; // La liste customisé basé sur le layout
-    MarketItemsListView adapterMarketItems; // La liste customisé basé sur le layout
+    List<DarvoDealsClass> darvoDealsList = new ArrayList<>();
+    List<MarketItemsClass> marketItemsList = new ArrayList<>();
+    DarvoDealsListView adapterDarvoDeals;
+    MarketItemsListView adapterMarketItems;
     Handler hTimerDarvoMarket = new Handler();
     Handler hTimerDarvoMarketLoad = new Handler();
 
@@ -55,8 +55,8 @@ public class DarvoMarketFragment  extends Fragment {
         listViewDarvoDeals.setAdapter(adapterDarvoDeals);
         listViewMarketItems.setAdapter(adapterMarketItems);
 
-        hTimerDarvoMarketLoad.post(runnableDarvoMarketLoad); // On rafraichis toutes les secondes les timers
-        hTimerDarvoMarket.post(runnableDarvoMarket); // On rafraichis toutes les secondes les timers
+        hTimerDarvoMarketLoad.post(runnableDarvoMarketLoad);
+        hTimerDarvoMarket.post(runnableDarvoMarket);
 
         return view;
     }
@@ -68,13 +68,13 @@ public class DarvoMarketFragment  extends Fragment {
                 if(adapterDarvoDeals.getCount() > 0)
                     adapterDarvoDeals.notifyDataSetChanged();
             } catch(Exception ex) {
-                Log.e(CurrentFileName,"Cannot update Darvo items timer | " + ex.getMessage());
+                Log.e(CurrentFileName,"Cannot update Darvo items timer - " + ex.getMessage());
             }
             try {
                 if(adapterMarketItems.getCount() > 0)
                     adapterMarketItems.notifyDataSetChanged();
             } catch(Exception ex) {
-                Log.e(CurrentFileName,"Cannot update Market items timer | " + ex.getMessage());
+                Log.e(CurrentFileName,"Cannot update Market items timer - " + ex.getMessage());
             }
 
             hTimerDarvoMarket.postDelayed(this, 1000);
@@ -94,18 +94,18 @@ public class DarvoMarketFragment  extends Fragment {
         try {
             JSONArray darvoDeals = MenuActivity.warframeWorldState.getDailyDeals();
             for (int i = 0; i < darvoDeals.length(); i++) {
-                darvoDealsList.add(new DarvoDealsClass(darvoDeals.getJSONObject(i))); // Instancie l'alerte et l'ajoute dans la liste
+                darvoDealsList.add(new DarvoDealsClass(getActivity(),darvoDeals.getJSONObject(i)));
             }
         } catch (Exception ex){
-            Log.e(CurrentFileName,"Cannot read darvo deals | " + ex.getMessage());
+            Log.e(CurrentFileName,"Cannot read darvo deals - " + ex.getMessage());
         }
         try {
             JSONArray marketItems = MenuActivity.warframeWorldState.getFlashSales();
             for (int i = 0; i < marketItems.length(); i++) {
-                marketItemsList.add(new MarketItemsClass(marketItems.getJSONObject(i))); // Instancie l'alerte et l'ajoute dans la liste
+                marketItemsList.add(new MarketItemsClass(getActivity(),marketItems.getJSONObject(i)));
             }
         } catch (Exception ex){
-            Log.e(CurrentFileName,"Cannot read market items | " + ex.getMessage());
+            Log.e(CurrentFileName,"Cannot read market items - " + ex.getMessage());
         }
     }
 }

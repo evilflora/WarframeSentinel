@@ -6,6 +6,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 class FissureClass {
+    private final String CurrentFileName = "FissureClass";
     private Context _context;
     private String _id;
     private long _date_activation;
@@ -26,39 +27,67 @@ class FissureClass {
             this._node              = fissure.getString("Node");
             this._modifier          = fissure.getString("Modifier");
         } catch (Exception e) {
-            Log.e("App","Alert Data Error");
+            Log.e(CurrentFileName,"Cannot load fissure - " + e.getMessage());
         }
     }
 
+    /**
+     * Return fissure timeleft before start or end
+     *
+     * @return      string
+     */
     public String get_time_before_expiry() {
+        // todo
         return ( System.currentTimeMillis() < _date_activation ? "Start in " + TimestampToDate.convert(_date_activation - System.currentTimeMillis(),true): TimestampToDate.convert((_date_expiration - System.currentTimeMillis()),true));
     }
 
+    /**
+     * Returns the type of the fissure
+     *
+     * @return      string
+     */
     String get_modifier() {
         return _modifier;
     }
 
+    /**
+     * Returns the translated type of the fissure
+     *
+     * @return      string
+     */
     String get_type() {
-        String type;
         try {
-            type = _context.getResources().getString(_context.getResources().getIdentifier(_modifier, "string", _context.getPackageName()));
+            return _context.getResources().getString(_context.getResources().getIdentifier(_modifier, "string", _context.getPackageName()));
         } catch (Exception ex) {
-            type = _modifier;
+            return _modifier;
         }
-        return type;
     }
 
+    /**
+     * Returns the nodes location
+     *
+     * @return      string
+     */
     String get_location() {
-        String location;
         try {
-            location = _context.getResources().getString(_context.getResources().getIdentifier(_node, "string", _context.getPackageName()));
+            return _context.getResources().getString(_context.getResources().getIdentifier(_node, "string", _context.getPackageName()));
         } catch (Exception ex) {
-            location = _node;
+            return _node;
         }
-        return location;    }
+    }
 
-    boolean end_of_fissure() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
+    /**
+     * Retourne true if fissure is closed
+     *
+     * @return      boolean
+     */
+    boolean is_end_of_fissure() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
 
+    /**
+     * Retourne fissure ID
+     *
+     * @return      string
+     */
     String get_id() {
         return _id;
     }

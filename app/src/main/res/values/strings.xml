@@ -61,6 +61,7 @@
     <string name="syndicate">Syndicate</string>
     <string name="world_cycle">World Cycles</string>
     <string name="earth">Earth</string>
+    <string name="time_ago">ago</string>
 
     <!-- Syndicates -->
     <string name="SteelMeridianSyndicate">Steel Merdian</string>
@@ -106,6 +107,7 @@
     <string name="TrapperHelmetBlueprint">Vauban Helmet Blueprint</string>
     <string name="DarkDaggerBlueprint">Dark Dagger Blueprint</string>
     <string name="FormaBlueprint">Forma Blueprint</string>
+    <string name="UtilityUnlockerBlueprint">Exilus Adapter Blueprint</string>
 
     <!-- Special weapons -->
     <string name="DeraVandalBlueprint">Dera Vandal Blueprint</string>
@@ -190,6 +192,35 @@
     <string name="RandomProjection">Relic Pack</string>
     <string name="OstronShipDecoPackA">Reclamator Pack or ?</string>
 
+    <!-- Darvo Deal -->
+    <string name="QuadShotgun">Hek</string>
+
+    <!-- Void Trader -->
+    <string name="KubrowKavatLowPolyPoster">Prisma Companion Poster</string>
+    <string name="SentinelLootRadarEnemyRadarExpertMod">Primed Animal Instinct</string>
+    <string name="WeaponImpactDamageModExpert">Primed Heavy Trauma</string>
+    <string name="WeaponEventPistolImpactDamageMod">Pummel</string>
+    <string name="WeaponEventRifleImpactDamageMod">Crash Course</string>
+    <string name="WeaponEventShotgunImpactDamageMod">Full Contact</string>
+    <string name="WeaponEventMeleeImpactDamageMod">Collision Force</string>
+    <string name="VTDetron">Mara Detron</string>
+    <string name="PrismaGrakata">Prisma Grakata</string>
+    <string name="SummerSolsticeTwinGrakatas">Twin Grakatas Towsun Skin</string>
+    <string name="ElixisOpticor">Opticor Elixis Skin</string>
+    <string name="BaroArmourTwoA">Ki\'teer Foros Shoulder Plates</string>
+    <string name="BaroArmourTwoC">Ki\'teer Foros Chest Plate</string>
+    <string name="BaroArmourTwoL">Ki\'teer Foros Leg Plates</string>
+    <string name="BaroCape2Scarf">Ki\'teer Razza Synadana</string>
+    <string name="MirageAlternateSkin">Mirage Immortal Skin</string>
+    <string name="KubrowArmorBaro">Ki\'teer Kubrow Armor</string>
+    <string name="CatbrowArmorVoidTraderA">Ki\'teer Kavat Armor</string>
+    <string name="KubrowArmorPrisma">Prisma Rostam Kubrow Armor</string>
+    <string name="PhotoboothTileOrokinExtraction">Orokin Tower Extraction Scene</string>
+    <string name="LisetSkinVoidTrader">Liset Prisma Skin</string>
+    <string name="BaroKiTeerBobbleHead">Noggle Statue - Baro Ki\'teer </string>
+    <string name="CorruptedBombardBallBlueprint">Corrupted Bombard Blueprint</string>
+    <string name="MummyQuestKeyBlueprint">Sands of Inaros Blueprint</string>
+
     <!-- Potato -->
     <string name="OrokinCatalystBlueprint">Orokin Catalyst Blueprint</string>
     <string name="OrokinReactorBlueprint">Orokin Reactor Blueprint</string>
@@ -237,44 +268,56 @@
     <string name="SORTIE_MODIFIER_SHOTGUN_ONLY">Shotgun Only</string>
     <string name="SORTIE_MODIFIER_PISTOL_ONLY">Pistol Only</string>
     <string name="SORTIE_MODIFIER_RIFLE_ONLY">Assault Rifle Only</string>
-
     <string name="SORTIE_MODIFIER_HAZARD_ICE">Cryogenic Leakage</string>
     <string name="SORTIE_MODIFIER_HAZARD_COLD">Extreme Cold</string>
     <string name="SORTIE_MODIFIER_HAZARD_MAGNETIC">Electromagnetic Anomalies</string>
     <string name="SORTIE_MODIFIER_HAZARD_RADIATION">Radiation Hazard</string>
-
     <string name="SORTIE_MODIFIER_CORROSIVE">Corrosive Enemy Elemental Enhancement</string>
     <string name="SORTIE_MODIFIER_FREEZE">Cold Enemy Elemental Enhancement</string>
     <string name="SORTIE_MODIFIER_MAGNETIC">Magnetic Enemy Elemental Enhancement</string>
     <string name="SORTIE_MODIFIER_ARMOR">Augmented Enemy Armor</string>
+    <string name="SORTIE_MODIFIER_FIRE">Fire Enemy Elemental Enhancement</string>
     <string name="SORTIE_MODIFIER_SLASH">Slash Enemy Elemental Enhancement</string>
     <string name="SORTIE_MODIFIER_ELECTRICITY">Electricity Enemy Elemental Enhancement</string>
     <string name="SORTIE_MODIFIER_PUNCTURE">Puncture Enemy Elemental Enhancement</string>
     <string name="SORTIE_MODIFIER_RADIATION">Radiation Enemy Elemental Enhancement</string>
-    <string name="SORTIE_MODIFIER_SHIELDS">Augmented Ennemy Shidelds</string>
-
+    <string name="SORTIE_MODIFIER_SHIELDS">Augmented Ennemy Shields</string>
     <string name="SORTIE_MODIFIER_EXIMUS">Eximus Stronghold</string>
     <string name="SORTIE_MODIFIER_LOW_ENERGY">Energy Reduction</string>
 
-    <!-- Bounties job names -->
+    <!-- Cetus Bounties job names -->
     <string name="AttritionBountyCap">Capture their leader</string>
     <string name="AttritionBountySab">Sabotage Grineer supply lines</string>
     <string name="AttritionBountyExt">Cull the ennmy</string>
     <string name="AttritionBountyLib">Weaken the Grineer foothold</string>
-
     <string name="CaptureBountyCapOne">Capture the Grineer commander</string>
     <string name="CaptureBountyCapTwo">Spy catcher</string>
-
     <string name="RescueBountyResc">Search and rescue</string>
-
     <string name="ReclamationBountyCache">Find the hidden artifact</string>
     <string name="ReclamationBountyCap">Capture the Grineer agent</string>
     <string name="ReclamationBountyTheft">Reclaim the stolen artifact</string>
-
     <string name="AssassinateBountyAss">Assassinate the commander</string>
     <string name="AssassinateBountyCap">Capture the new Grineer commander</string>
-
     <string name="SabotageBountySab">Prototype Sabotage</string>
+
+    <!-- Orb Vallis Bounties job names -->
+    <string name="VenusIntelJobSpy">Financial Liberation</string>
+    <string name="VenusTheftJobResource">Tax The Taxmen</string>
+    <string name="VenusTheftJobExcavation">Resource Theft</string>
+    <string name="VenusTheftJobAmbush">Software Subterfuge</string>
+    <string name="VenusSpyJobSpy">Agent Down</string>
+    <string name="VenusWetworkJobAssassinate">Served Cold</string>
+    <string name="VenusWetworkJobSpy">Falling Star</string>
+    <string name="VenusArtifactJobRecovery">Blood Relics</string>
+    <string name="VenusArtifactJobAmbush">Courier Ambush</string>
+    <string name="VenusArtifactJobExcavation">Archaeology</string>
+    <string name="VenusPreservationJobDefense">Picket Duty</string>
+    <string name="VenusChaosJobAssassinate">Scorched Earth</string>
+    <string name="VenusChaosJobExcavation">Bury Them</string>
+    <string name="VenusHelpingJobResource">Dirt Unit</string>
+    <string name="VenusCullJobExterminate">Hunter-Killer</string>
+    <string name="VenusCullJobResource">Distract And Divert</string>
+    <string name="VenusCullJobAssassinate">Network Collapse</string>
 
     <!-- Fissures -->
     <string name="all">all</string>
@@ -552,6 +595,7 @@
     <string name="SettlementNode19">Phobos - Todd</string>
     <string name="SettlementNode20">Phobos - Iliad</string>
 
+    <!-- Relay -->
     <string name="MercuryHUB">Mercury - Lanrunda</string>
     <string name="VenusHUB">Venus - Vesper</string>
     <string name="EarthHUB">Earth - Strata</string>
@@ -585,6 +629,7 @@
     <string name="EventNode22">Uranus - SealabGeneric</string>
     <string name="EventNode23">Uranus - SealabGeneric</string>
 
+    <!-- PVP -->
     <string name="PvpNode0">Saturn - ConclaveCTF</string>
     <string name="PvpNode1">Venus - Conclave</string>
     <string name="PvpNode2">Phobos - Conclave</string>
@@ -597,6 +642,7 @@
     <string name="PvpNode9">Saturn - ConclaveTDM</string>
     <string name="PvpNode10">Saturn - ConclaveDM</string>
 
+    <!-- Dark Sectors -->
     <string name="ClanNode0">Venus - Romula</string>
     <string name="ClanNode1">Venus - Malva</string>
     <string name="ClanNode2">Earth - Coba</string>

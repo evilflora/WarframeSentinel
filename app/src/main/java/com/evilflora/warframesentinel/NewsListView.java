@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -48,19 +47,15 @@ class NewsListView extends BaseAdapter {
             TextView news_date = convertView.findViewById(R.id.news_date);
             //ImageView news_image = convertView.findViewById(R.id.news_image);
 
-            news_name.setText(_items.get(position).get_type());
-            news_date.setText(_items.get(position).get_date());
+            news_name.setText(_items.get(position).get_message());
+            news_date.setText(String.format("%s %s", TimestampToDate.convert(_items.get(position).get_date(), false), _context.getResources().getString(R.string.time_ago)));
+            //if(!_items.get(position).is_image_downloaded()) _items.get(position).download_image();
             //news_image.setImageBitmap(_items.get(position).get_image());
 
             convertView.setOnClickListener(v -> {
-                Uri uri = Uri.parse(_items.get(position).get_url()); // missing 'http://' will cause crashed
+                Uri uri = Uri.parse(_items.get(position).get_url());
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 _context.startActivity(intent);
-            });
-
-            convertView.setOnLongClickListener( v -> {
-                Toast.makeText(_context, "Will show all informations collected from worldState", Toast.LENGTH_SHORT).show();
-                return true;
             });
         }
 

@@ -18,8 +18,8 @@ import java.util.List;
 public class InvasionFragment extends Fragment {
 
     final String CurrentFileName = "InvasionFragment";
-    List<InvasionClass> invasionListCurrent = new ArrayList<>(); // Liste des invasions
-    List<InvasionClass> invasionListCompleted = new ArrayList<>(); // Liste des invasions
+    List<InvasionClass> invasionListCurrent = new ArrayList<>();
+    List<InvasionClass> invasionListCompleted = new ArrayList<>();
     Handler hTimerInvasionCurrent = new Handler();
     InvasionListView adapterCurrent;
     InvasionListView adapterCompleted;
@@ -54,7 +54,7 @@ public class InvasionFragment extends Fragment {
         listViewCurrent.setAdapter(adapterCurrent);
         listViewCompleted.setAdapter(adapterCompleted);
 
-        hTimerInvasionCurrent.post(runnableLoadInvasionCurrent); // On rafraichis toutes les secondes les timers
+        hTimerInvasionCurrent.post(runnableLoadInvasionCurrent);
 
         return view;
     }
@@ -74,8 +74,8 @@ public class InvasionFragment extends Fragment {
             invasionListCompleted.clear();
 
             for (int i = 0; i < invasions.length(); i++) {
-                InvasionClass tmpInvasion = new InvasionClass(invasions.getJSONObject(i));
-                if (!tmpInvasion.get_completed()) {
+                InvasionClass tmpInvasion = new InvasionClass(getActivity(),invasions.getJSONObject(i));
+                if (!tmpInvasion.is_completed()) {
                     Log.i(CurrentFileName,"Added new current invasion id: " + tmpInvasion.get_id());
                     invasionListCurrent.add(tmpInvasion); // Instancie l'alerte et l'ajoute dans la liste
                 }else {
@@ -91,7 +91,7 @@ public class InvasionFragment extends Fragment {
 
 
         } catch (Exception ex){
-            Log.e(CurrentFileName,"Cannot read invasion | " + ex.getMessage());
+            Log.e(CurrentFileName,"Cannot read invasion - " + ex.getMessage());
         }
     }
 }

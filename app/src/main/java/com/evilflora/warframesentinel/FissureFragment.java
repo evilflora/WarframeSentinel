@@ -21,8 +21,8 @@ import java.util.List;
 public class FissureFragment extends Fragment {
 
     final String CurrentFileName = "FissureFragment";
-    List<List<FissureClass>> fissureList = new ArrayList<>(); // Liste des invasions
-    List<FissureListView> adapterFissureList; // La liste customisé basé sur le layout alerte_element
+    List<List<FissureClass>> fissureList = new ArrayList<>();
+    List<FissureListView> adapterFissureList;
     JSONArray fissures;
     List<String> _tabHostContent;
     Handler hTimerFissure = new Handler();
@@ -51,7 +51,7 @@ public class FissureFragment extends Fragment {
         // End tabs
 
         // Adapter
-        adapterFissureList = new ArrayList<>(_tabHostContent.size()); // on, créé une liste d'adapter de la taille du nombre de types de fissures plus la catégorie all
+        adapterFissureList = new ArrayList<>(_tabHostContent.size()); // we created a list to fit the size of the number of types of fissure plus the category all
         List<ListView> listView = new ArrayList<>(_tabHostContent.size());
         fissures = MenuActivity.warframeWorldState.getFissures();
         for (int i = 0; i < _tabHostContent.size(); i++) {
@@ -66,16 +66,16 @@ public class FissureFragment extends Fragment {
         for(int i = 0; i < fissures.length(); i++){
             try {
                 FissureClass tmp = new FissureClass(getActivity(),fissures.getJSONObject(i));
-                fissureList.get(0).add(tmp); // Instancie l'alerte et l'ajoute dans la liste
-                fissureList.get(_tabHostContent.indexOf(tmp.get_modifier())).add(tmp); // Instancie la fissure et l'ajoute dans la liste
+                fissureList.get(0).add(tmp); // add fissure to category 'all'
+                fissureList.get(_tabHostContent.indexOf(tmp.get_modifier())).add(tmp); // add fissure to it's good category
             } catch (JSONException e) {
-                Log.e(CurrentFileName,e.getMessage());
+                Log.e(CurrentFileName,"Cannot add new fissure - " + e.getMessage());
             }
         }
         // End data load
 
-        hTimerFissure.post(runnableFissure); // On rafraichis toutes les secondes les timers
-        hReloadFissure.post(runnableReloadFissure); // On rafraichis toutes les secondes les timers
+        hTimerFissure.post(runnableFissure);
+        hReloadFissure.post(runnableReloadFissure);
 
         return view;
     }
@@ -85,7 +85,7 @@ public class FissureFragment extends Fragment {
         public void run() {
             for (int i = 0; i < fissureList.size();i++) {
                 for(int j = 0; j < fissureList.get(i).size(); j++) {
-                    if (fissureList.get(i).get(j).end_of_fissure()) {
+                    if (fissureList.get(i).get(j).is_end_of_fissure()) {
                         fissureList.get(i).remove(j);
                     }
                 }
@@ -102,27 +102,27 @@ public class FissureFragment extends Fragment {
         @Override
         public void run() {
             try {
-                fissures = MenuActivity.warframeWorldState.getFissures(); // on récupère la liste des alertes
+                fissures = MenuActivity.warframeWorldState.getFissures();
 
                 boolean stop;
-                for (int i = 0; i < fissures.length(); i++) { // on parcours la nouvelle liste (surement plus grande que l'ancienne)
+                for (int i = 0; i < fissures.length(); i++) { // we go through the new list (probably bigger than the old one)
                     stop = false; // on remet à false
-                    for(int j = 0; j < fissureList.get(0).size(); j++) { // on compare à l'ancienne liste
+                    for(int j = 0; j < fissureList.get(0).size(); j++) { // we compare to the old list
                         if(fissures.getJSONObject(i).getJSONObject("_id").getString("$oid").compareTo(fissureList.get(0).get(j).get_id()) == 0) {
-                            stop = true; // on indique que l'on en a trouvé une
-                            break; // on casse la boucle car inutile de continuer
+                            stop = true; // we indicate that we have found one
+                            break; // we break the loop because it is useless to continue
                         }
                     }
-                    if (!stop) { // si on n'a pas quitté la boucle alors c'est que cette alerte est nouvelle
+                    if (!stop) { // if we did not leave the loop then it's because this alert is new
                         FissureClass tmp = new FissureClass(getActivity(),fissures.getJSONObject(i));
-                        fissureList.get(0).add(tmp); // Instancie l'alerte et l'ajoute dans la liste
-                        fissureList.get(_tabHostContent.indexOf(tmp.get_modifier())).add(tmp); // Instancie l'alerte et l'ajoute dans la liste
+                        fissureList.get(0).add(tmp); // add fissure to category 'all'
+                        fissureList.get(_tabHostContent.indexOf(tmp.get_modifier())).add(tmp); // add fissure to it's good category
                     }
                     Collections.sort(fissureList.get(0),(o1, o2) -> o1.get_modifier().compareTo(o2.get_modifier()) );
                 }
             } catch (Exception ex) {
-                Log.e(CurrentFileName,"Cannot add new fissure | " + ex.getMessage());
-                ex.printStackTrace();
+                Log.e(CurrentFileName,"Cannot add new fissure - " + ex.getMessage());
+                ex.printStackTrace(); // todo why this ?
             }
             hReloadFissure.postDelayed(this, 60 * 1000);
         }

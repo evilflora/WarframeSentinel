@@ -40,7 +40,7 @@ public class EventFragment extends Fragment {
             event.addView(v_WorldCycle);
 
         } catch (Exception ex) {
-            Log.e(CurrentFileName,"Cannot add events | " + ex.getMessage());
+            Log.e(CurrentFileName,"Cannot read events - " + ex.getMessage());
         }
 
         return view;

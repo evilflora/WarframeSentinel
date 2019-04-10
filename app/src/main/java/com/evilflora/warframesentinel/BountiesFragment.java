@@ -15,7 +15,7 @@ import org.json.JSONArray;
 
 public class BountiesFragment extends Fragment {
 
-    final String CurrentFileName = "CetusEarthFragment";
+    final String CurrentFileName = "CetusEarthFragment"; // filename
     BountiesClass cetusClass;
     BountiesClass orbVallisClass;
     TextView cetus_day_night_time_left;
@@ -35,13 +35,13 @@ public class BountiesFragment extends Fragment {
         tabHost.setup();
 
         //Tab 1
-        TabHost.TabSpec spec = tabHost.newTabSpec(getString(R.string.current)); // todo a quoi ça sert ?
+        TabHost.TabSpec spec = tabHost.newTabSpec(getString(R.string.current)); // todo why this ?
         spec.setContent(R.id.cetus_bounties);
         spec.setIndicator(getString(R.string.cetus));
         tabHost.addTab(spec);
 
         //Tab 2
-        spec = tabHost.newTabSpec(getString(R.string.completed)); // todo a quoi ça sert ?
+        spec = tabHost.newTabSpec(getString(R.string.completed)); // todo why this ?
         spec.setContent(R.id.orb_vallis_bounties);
         spec.setIndicator(getString(R.string.orb_vallis));
         tabHost.addTab(spec);
@@ -61,8 +61,8 @@ public class BountiesFragment extends Fragment {
         cetus_day_night_time_left = view.findViewById(R.id.cetus_bounties_timer_reset);
         orb_vallis_bounties_timer_reset = view.findViewById(R.id.orb_vallis_bounties_timer_reset);
 
-        hTimerResetBounties.post(runnableLoadBounties); // On rafraichis toutes les secondes les timers
-        hTimerBounties.post(runnableBounties); // On rafraichis toutes les secondes les timers
+        hTimerResetBounties.post(runnableLoadBounties); // we are refreshing every seconds
+        hTimerBounties.post(runnableBounties); // we are refreshing every seconds
 
         return view;
     }
@@ -74,7 +74,7 @@ public class BountiesFragment extends Fragment {
                 cetus_day_night_time_left.setText(String.format("%s: %s", getString(R.string.time_before_reset), cetusClass.get_time_before_expiry()));
                 orb_vallis_bounties_timer_reset.setText(String.format("%s: %s", getString(R.string.time_before_reset), orbVallisClass.get_time_before_expiry()));
             } catch (Exception ex){
-                Log.e(CurrentFileName,"Cannot update bounties timer | " + ex.getMessage());
+                Log.e(CurrentFileName,"Cannot update bounties timer - " + ex.getMessage());
             }
             hTimerBounties.postDelayed(this, 1000);
         }
@@ -84,8 +84,7 @@ public class BountiesFragment extends Fragment {
         @Override
         public void run() {
             load();
-            // relance le refresh des bounties au moment du reset puis tant que le statut est indéterminé on rééssaie toutes les minutes
-            //Log.i(CurrentFileName, getString(R.string.status) + ": " + cetusClass.get_status() + " - " + TimestampToDate.convert(cetusClass.get_status() ? 60 * 1000 : cetusClass.get_time_left(),true));
+            // restart the refresh of the bounties at the time of the reset and as long as the status is undetermined then we retry every minute
             hTimerResetBounties.postDelayed(this, (cetusClass.get_status() ? 60 * 1000 : cetusClass.get_time_left()));
         }
     };
@@ -95,16 +94,16 @@ public class BountiesFragment extends Fragment {
             JSONArray cetus = MenuActivity.warframeWorldState.getCetusMissions();
             JSONArray orb_vallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
 
-            cetusClass = new BountiesClass(cetus); // on l'instancie
-            orbVallisClass = new BountiesClass(orb_vallis); // on l'instancie
+            cetusClass = new BountiesClass(cetus);
+            orbVallisClass = new BountiesClass(orb_vallis);
 
-            Log.e(CurrentFileName,"Reading news bounties"); // todo pourquoi cette fonction est-elle lancée 2 fois lors de l'affichage de la vue ?
+            Log.e(CurrentFileName,"Reading news bounties"); // todo why is this function started 2 times when viewing the view?
             if (cetusClass.get_status()) {
                 cetusClass.get_cetus_jobs().clear();
                 adapterCetusBounties.notifyDataSetChanged();
             }
 
-            Log.e(CurrentFileName,"Reading news bounties"); // todo pourquoi cette fonction est-elle lancée 2 fois lors de l'affichage de la vue ?
+            Log.e(CurrentFileName,"Reading news bounties"); // todo why is this function started 2 times when viewing the view?
             if (orbVallisClass.get_status()) {
                 orbVallisClass.get_cetus_jobs().clear();
                 adapterOrbVallisBounties.notifyDataSetChanged();

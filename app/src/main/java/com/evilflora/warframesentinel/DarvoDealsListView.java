@@ -46,15 +46,7 @@ class DarvoDealsListView extends BaseAdapter {
                 TextView darvo_deal_reduction = convertView.findViewById(R.id.darvo_deal_reduction);
                 TextView darvo_deal_items_left = convertView.findViewById(R.id.darvo_deal_items_left);
 
-                String item_name = _items.get(position).get_item_name();
-
-                try {
-                    item_name = _context.getResources().getString(_context.getResources().getIdentifier(item_name, "string", _context.getPackageName()));
-                } catch (Exception ex) {
-                    //
-                }
-
-                darvo_deal_item_name.setText(item_name);
+                darvo_deal_item_name.setText(_items.get(position).get_item_name());
                 darvo_deal_time_left.setText(_items.get(position).get_time_before_expiry());
                 darvo_deal_reduction.setText(_items.get(position).get_reduction());
                 darvo_deal_items_left.setText(String.format("%s %s", _items.get(position).get_items_left(), _context.getString(R.string.left)));

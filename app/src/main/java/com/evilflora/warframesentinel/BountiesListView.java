@@ -57,7 +57,7 @@ class BountiesListView extends BaseAdapter {
             cetus_job_level.setText(String.format(_context.getString(R.string.level) + ": %s", _items.get(position).get_ennemy_level()));
             cetus_total_xp_reward.setText(String.format(_context.getString(R.string.total) + ": %d", _items.get(position).get_total_xp_amounts()));
 
-            cetus_total_reward.removeAllViews(); // Fix : corrige l'ajout infini des récompenses en standing lors du scroll
+            cetus_total_reward.removeAllViews(); // Fix the infinite addition of standing rewards while scrolling
 
             for (int i = 0; i < _items.get(position).get_xp_amounts_size(); i++) {
                 View view = LayoutInflater.from(_context).inflate(R.layout.standing_reward_view, parent, false);

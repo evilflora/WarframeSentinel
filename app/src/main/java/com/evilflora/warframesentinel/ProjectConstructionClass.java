@@ -7,18 +7,13 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by guill on 20/03/2019 for WarframeSentinel
- */
-
 class ProjectConstructionClass {
     /**
-     * Normalement un tableau de 2 mais parfois 3
      * 1) Fomorian
      * 2) Razorback
-     * 3) ???, peut être les relays mais il existe un ConstructionProjects
+     * 3) ???, can be relays but there is a Construction Projects
      */
-    final String CurrentFileName = "ProjectConstructionClas";
+    private final String CurrentFileName = "ProjectConstructionClas";
     private List<Integer> _ProjectPct = new ArrayList<>(3);
 
     ProjectConstructionClass(JSONArray project) {
@@ -30,7 +25,11 @@ class ProjectConstructionClass {
             Log.e(CurrentFileName, "Error while reading construction project data");
         }
     }
-
+    /**
+     * percentage of construction progress
+     *
+     * @return      int
+     */
     int getProjectPct(int i) {
         return _ProjectPct.get(i);
     }
