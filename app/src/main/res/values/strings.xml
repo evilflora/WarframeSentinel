@@ -42,7 +42,7 @@
     <string name="orb_vallis">Orb Vallis</string>
     <string name="day_night">Day/Night Cycle</string>
     <string name="possible_rewards">Possible rewards</string>
-    <string name="pvp">PVP</string>
+    <string name="pvp">PVP Challenge</string>
     <string name="darvo_market">Darvo/Market</string>
     <string name="baro_kiteer">Baro KiTeer</string>
     <string name="darvo_sales">Darvo sales</string>
@@ -62,6 +62,9 @@
     <string name="world_cycle">World Cycles</string>
     <string name="earth">Earth</string>
     <string name="time_ago">ago</string>
+    <string name="events">Events</string>
+    <string name="mode">Mode</string>
+
 
     <!-- Syndicates -->
     <string name="SteelMeridianSyndicate">Steel Merdian</string>
@@ -320,11 +323,32 @@
     <string name="VenusCullJobAssassinate">Network Collapse</string>
 
     <!-- Fissures -->
-    <string name="all">all</string>
+    <string name="all">All</string>
     <string name="VoidT1">Lith</string>
     <string name="VoidT2">Meso</string>
     <string name="VoidT3">Neo</string>
     <string name="VoidT4">Axi</string>
+
+    <!-- PVP Challenge -->
+    <string name="PVPChallengeTypeCategory_DAILY">Daily</string>
+    <string name="PVPChallengeTypeCategory_WEEKLY">Weekly</string>
+    <string name="PVPMODE_TEAMDEATHMATCH">Team Annihilation</string>
+    <string name="PVPMODE_DEATHMATCH">Annihilation</string>
+    <string name="PVPMODE_CAPTURETHEFLAG">Cephalon Capture</string>
+    <string name="PVPMODE_SPEEDBALL">Lunaro</string>
+    <string name="PVPMODE_ALL">Everywhere</string>
+    <string name="PVPTimedChallengeGameModeComplete">Complete %1$s matches of any game type</string>
+    <string name="PVPTimedChallengeOtherChallengeCompleteANY">Complete %1$s Daily challenges</string>
+    <string name="PVPTimedChallengeGameModeWins">Win %1$s matches of any game type</string>
+
+    <string name="PVPTimedChallengeFlagReturnEASY">Return your team\'s Cephalon %1$s time</string>
+    <string name="PVPTimedChallengeFlagCaptureMEDIUM">Capture %1$s Cephalons</string>
+    <string name="PVPTimedChallengeSpeedballGoalsEASY">Score %1$s goals</string>
+    <string name="PVPTimedChallengeSpeedballPassesHARD">Complete %1$s successful passes to teammates in a match</string>
+    <string name="PVPTimedChallengeKillsStreakDominationHARD">Kill %1$s ennemies without them killing you in a match</string>
+    <string name="PVPTimedChallengeKillsPowerEASY">Get %1$s Warframe power kills</string>
+    <string name="PVPTimedChallengeKillsHeadShotsEASY">Get %1$s headshot kills</string>
+    <string name="PVPTimedChallengeKillsComboMEDIUM">Kill %1$s  opponents using two of melee, guns, powers</string>
 
     <!-- Nodes -->
     <string name="SolNode1">Neptune - Galatea</string>

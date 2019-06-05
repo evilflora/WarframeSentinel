@@ -55,9 +55,11 @@ Syndicate
 "SyndicateMissions": En partie utilisé
  - CetusSyndicate (Ostron), SolarisSyndicate (Solaris United)
  - ArbitersSyndicate, CephalonSudaSyndicate, NewLokaSyndicate, PerrinSyndicate, RedVeilSyndicate, SteelMeridianSyndicate
- - AssassinsSyndicate (Conclave)
+ - AssassinsSyndicate // todo qu'est-ce ????
  - EventSyndicate (Operation Supplies), VentKidsSyndicate (Ventkids), QuillsSyndicate (The Quills), VoxSyndicate (Vox Solaris), RadioLegionSyndicate (Nightwave)
  - Un autre syndicat existe mais n'est pas présent dans cette liste : Cephalon Simaris
+
+"PVPChallengeInstances": les challenges du PVP
 
 "WorldSeed": Non utilisé
 "Version": Non utilisé
@@ -73,7 +75,6 @@ Syndicate
 "PrimeAccessAvailability": Non utilisé
 "PrimeVaultAvailabilities": Non utilisé
 "LibraryInfo": Non utilisé (la dernière recherche du Cephalon Simaris)
-"PVPChallengeInstances": Non utilisé
 "PersistentEnemies": Non utilisé
 "PVPAlternativeModes": Non utilisé
 "PVPActiveTournaments": Non utilisé

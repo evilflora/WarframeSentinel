@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
-            android:name=".MenuActivity"
+            android:name=".Controller.MenuActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,14 +25,14 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".NotificationServiceReceiver" android:enabled="true" android:exported="false">
+        <receiver android:name=".Modele.NotificationServiceReceiver" android:enabled="true" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".NotificationServiceClass"
+            android:name=".Modele.NotificationServiceClass"
             android:enabled="true"
             android:exported="false" />
 

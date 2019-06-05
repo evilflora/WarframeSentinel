@@ -35,7 +35,7 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/fissures" />
         <item
-            android:id="@+id/nav_pvp"
+            android:id="@+id/nav_pvp_challenge"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/pvp" />
         <item
