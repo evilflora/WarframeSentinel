@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.evilflora.warframesentinel.Modele.BountiesClass;
 import com.evilflora.warframesentinel.Modele.ProjectConstructionClass;
@@ -17,7 +17,9 @@ import com.evilflora.warframesentinel.Vue.WorldCyclesView;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class EventFragment extends Fragment {
 
@@ -28,8 +30,9 @@ public class EventFragment extends Fragment {
     View v_WorldCycle;
     Handler hTimerConstructionStatus = new Handler();
     Handler hTimerWorldCycle = new Handler();
-    LinearLayout event_contrusction_project ;
-    LinearLayout event_world_cycle;
+    List<WorldCyclesView> adapterWorldCyclesList;
+    List<ProjectConstructionView> adapterProjectConstructionList;
+    List<ListView> listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,8 +40,10 @@ public class EventFragment extends Fragment {
         getActivity().setTitle(getString(R.string.events));
 
         View view = inflater.inflate(R.layout.event_content, container, false);
-        event_contrusction_project = view.findViewById(R.id.LinearLayout_construction_project);
-        event_world_cycle = view.findViewById(R.id.LinearLayout_world_cycle);
+
+        adapterWorldCyclesList = new ArrayList<>(1);
+        adapterProjectConstructionList = new ArrayList<>(1);
+        listView = new ArrayList<>(2);
 
         try {
             JSONArray _ProjectPct = MenuActivity.warframeWorldState.getProjectPct();
@@ -47,11 +52,15 @@ public class EventFragment extends Fragment {
             _projectPct = new ProjectConstructionClass(_ProjectPct);
             _cetusDayNight = new BountiesClass(getActivity(),_CetusDayNight, Arrays.asList("Day", "Night", "Indeterminate"));
 
-            v_ProjectConstruction = new ProjectConstructionView(getContext(), _projectPct).getView(0,null,event_contrusction_project);
-            v_WorldCycle = new WorldCyclesView(getContext(), _cetusDayNight).getView(0,null,event_world_cycle);
+            adapterProjectConstructionList.add(0,new ProjectConstructionView(getActivity(), _projectPct));
+            adapterWorldCyclesList.add(0,new WorldCyclesView(getActivity(), _cetusDayNight));
 
-            event_contrusction_project.addView(v_ProjectConstruction);
-            event_world_cycle.addView(v_WorldCycle);
+            listView.add(0, view.findViewById(R.id.ListView_construction_project));
+            listView.add(1, view.findViewById(R.id.ListView_world_cycle));
+
+            listView.get(0).setAdapter(adapterProjectConstructionList.get(0));
+            listView.get(1).setAdapter(adapterWorldCyclesList.get(0));
+
 
         } catch (Exception ex) {
             Log.e(CurrentFileName,"Cannot read events - " + ex.getMessage());
@@ -68,10 +77,11 @@ public class EventFragment extends Fragment {
         public void run() {
             try {
                 // todo  we need to refresh progressbar and value
+                adapterProjectConstructionList.get(0).notifyDataSetChanged();
             } catch (Exception ex){
                 Log.e(CurrentFileName,"Cannot update sortie timer | " + ex.getMessage());
             }
-            hTimerConstructionStatus.postDelayed(this, 5 * 60 * 1000);
+            hTimerConstructionStatus.postDelayed(this, 300000); // 5 * 60 * 10000
         }
     };
 
@@ -79,6 +89,7 @@ public class EventFragment extends Fragment {
         @Override
         public void run() {
             // todo we neeed to refresh timers
+            adapterWorldCyclesList.get(0).notifyDataSetChanged();
             hTimerWorldCycle.postDelayed(this, 1000);
         }
     };

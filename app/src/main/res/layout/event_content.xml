@@ -10,19 +10,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/LinearLayout_construction_project"
+        <ListView
+            android:id="@+id/ListView_construction_project"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:padding="5dp">
 
-        </LinearLayout>
+        </ListView>
 
-        <LinearLayout
-            android:id="@+id/LinearLayout_world_cycle"
+        <ListView
+            android:id="@+id/ListView_world_cycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+            android:padding="5dp" />
 
     </LinearLayout>
 

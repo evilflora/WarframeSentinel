@@ -27,7 +27,7 @@ Darvo/Market
  - Ajouter la detection swipe gauche ou droite
 
 Baro KiTeer
- - ??? attendre son retour et vérifier
+ - Ajouter la detection swipe gauche ou droite
 
 Sorties
  ~ Mettre les récompenses, en liste expensive pour le détail
@@ -37,7 +37,7 @@ Fissures
  - Ajouter la detection swipe gauche ou droite
 
 PVP
- - A implémenter
+ - Ajouter la detection swipe gauche ou droite
 
 Syndicate
  - Ajouter les levels manquants
@@ -51,6 +51,7 @@ Syndicate
 "VoidTraders": Dans "Baro KiTeer"
 "DailyDeals": Dans "Darvo/Market"
 "ProjectPct": Dans "Alertes" (Fomorian, Razorback et ???)
+"PVPChallengeInstances": Dans PVP Challenge
 
 "SyndicateMissions": En partie utilisé
  - CetusSyndicate (Ostron), SolarisSyndicate (Solaris United)
@@ -59,7 +60,6 @@ Syndicate
  - EventSyndicate (Operation Supplies), VentKidsSyndicate (Ventkids), QuillsSyndicate (The Quills), VoxSyndicate (Vox Solaris), RadioLegionSyndicate (Nightwave)
  - Un autre syndicat existe mais n'est pas présent dans cette liste : Cephalon Simaris
 
-"PVPChallengeInstances": les challenges du PVP
 
 "WorldSeed": Non utilisé
 "Version": Non utilisé

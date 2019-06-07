@@ -70,7 +70,7 @@ public class PvpChallengeFragment extends Fragment {
         for(int i = 0; i < pvpChallenges.length(); i++){
             try {
                 PvpChallengeClass tmp = new PvpChallengeClass(getActivity(),pvpChallenges.getJSONObject(i));
-                if (!tmp.get_category_code().equals("PVPChallengeTypeCategory_WEEKLY_ROOT")) // todo hum, need to enhance
+                if(_tabHostContent.contains(tmp.get_category_code())) // si il est dans notre liste, alors on l'autorise à être afficher
                 {
                     pvpChallengeList.get(0).add(tmp); // add pvpChallenge to category 'all'
                     pvpChallengeList.get(_tabHostContent.indexOf(tmp.get_category_code())).add(tmp); // add pvpChallenge to it's good category
@@ -122,7 +122,7 @@ public class PvpChallengeFragment extends Fragment {
                     }
                     if (!stop) { // if we did not leave the loop then it's because this alert is new
                         PvpChallengeClass tmp = new PvpChallengeClass(getActivity(),pvpChallenges.getJSONObject(i));
-                        if (!tmp.get_category_code().equals("PVPChallengeTypeCategory_WEEKLY_ROOT")) // todo hum, need to enhance
+                        if(_tabHostContent.contains(tmp.get_category_code())) // si il est dans notre liste, alors on l'autorise à être afficher
                         {
                             pvpChallengeList.get(0).add(tmp); // add pvpChallenge to category 'all'
                             pvpChallengeList.get(_tabHostContent.indexOf(tmp.get_category_code())).add(tmp); // add pvpChallenge to it's good category
