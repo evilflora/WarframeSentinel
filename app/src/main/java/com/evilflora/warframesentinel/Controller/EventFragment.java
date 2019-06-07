@@ -26,14 +26,11 @@ public class EventFragment extends Fragment {
     final String CurrentFileName = "EventFragment";
     ProjectConstructionClass _projectPct;
     BountiesClass _cetusDayNight;
-    View v_ProjectConstruction;
-    View v_WorldCycle;
     Handler hTimerConstructionStatus = new Handler();
     Handler hTimerWorldCycle = new Handler();
-    List<WorldCyclesView> adapterWorldCyclesList;
-    List<ProjectConstructionView> adapterProjectConstructionList;
+    WorldCyclesView adapterWorldCycles;
+    ProjectConstructionView adapterProjectConstruction;
     List<ListView> listView;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -41,9 +38,9 @@ public class EventFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.event_content, container, false);
 
-        adapterWorldCyclesList = new ArrayList<>(1);
-        adapterProjectConstructionList = new ArrayList<>(1);
-        listView = new ArrayList<>(2);
+        int[] tabContent = {R.id.ListView_construction_project,R.id.ListView_world_cycle};
+
+        listView = new ArrayList<>(tabContent.length);
 
         try {
             JSONArray _ProjectPct = MenuActivity.warframeWorldState.getProjectPct();
@@ -52,14 +49,15 @@ public class EventFragment extends Fragment {
             _projectPct = new ProjectConstructionClass(_ProjectPct);
             _cetusDayNight = new BountiesClass(getActivity(),_CetusDayNight, Arrays.asList("Day", "Night", "Indeterminate"));
 
-            adapterProjectConstructionList.add(0,new ProjectConstructionView(getActivity(), _projectPct));
-            adapterWorldCyclesList.add(0,new WorldCyclesView(getActivity(), _cetusDayNight));
+            adapterProjectConstruction = new ProjectConstructionView(getActivity(), _projectPct);
+            adapterWorldCycles = new WorldCyclesView(getActivity(), _cetusDayNight);
 
-            listView.add(0, view.findViewById(R.id.ListView_construction_project));
-            listView.add(1, view.findViewById(R.id.ListView_world_cycle));
+            for (int i = 0; i < tabContent.length; i++) {
+                listView.add(i, view.findViewById(tabContent[i]));
+            }
 
-            listView.get(0).setAdapter(adapterProjectConstructionList.get(0));
-            listView.get(1).setAdapter(adapterWorldCyclesList.get(0));
+            listView.get(0).setAdapter(adapterProjectConstruction);
+            listView.get(1).setAdapter(adapterWorldCycles);
 
 
         } catch (Exception ex) {
@@ -76,8 +74,7 @@ public class EventFragment extends Fragment {
         @Override
         public void run() {
             try {
-                // todo  we need to refresh progressbar and value
-                adapterProjectConstructionList.get(0).notifyDataSetChanged();
+                adapterProjectConstruction.notifyDataSetChanged();
             } catch (Exception ex){
                 Log.e(CurrentFileName,"Cannot update sortie timer | " + ex.getMessage());
             }
@@ -88,8 +85,7 @@ public class EventFragment extends Fragment {
     private Runnable runnableWorldCycle = new Runnable() {
         @Override
         public void run() {
-            // todo we neeed to refresh timers
-            adapterWorldCyclesList.get(0).notifyDataSetChanged();
+            adapterWorldCycles.notifyDataSetChanged();
             hTimerWorldCycle.postDelayed(this, 1000);
         }
     };

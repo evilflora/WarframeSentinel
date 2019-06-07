@@ -41,14 +41,14 @@ public class FissureFragment extends Fragment {
 
         // Tabs
         _tabHostContent = Arrays.asList("all", "VoidT1", "VoidT2" , "VoidT3", "VoidT4");
-        int[] _idLinear = {R.id.fissures_all, R.id.fissures_lith,R.id.fissures_meso,R.id.fissures_neo,R.id.fissures_axi};
-        int[] _idListView = {R.id.listView_fissure_all,R.id.listView_fissure_lith,R.id.listView_fissure_meso,R.id.listView_fissure_neo,R.id.listView_fissure_axi};
+        int[] tab = {R.id.fissures_all, R.id.fissures_lith,R.id.fissures_meso,R.id.fissures_neo,R.id.fissures_axi};
+        int[] tabContent = {R.id.listView_fissure_all,R.id.listView_fissure_lith,R.id.listView_fissure_meso,R.id.listView_fissure_neo,R.id.listView_fissure_axi};
         TabHost tabHost = view.findViewById(R.id.tabHost_fissures);
         tabHost.setup();
         TabHost.TabSpec spec;
         for (int i = 0; i < _tabHostContent.size(); i++) {
             spec = tabHost.newTabSpec(_tabHostContent.get(i));
-            spec.setContent(_idLinear[i]);
+            spec.setContent(tab[i]);
             spec.setIndicator(getResources().getString(getResources().getIdentifier(_tabHostContent.get(i), "string", getActivity().getPackageName())));
             tabHost.addTab(spec);
         }
@@ -61,7 +61,7 @@ public class FissureFragment extends Fragment {
         for (int i = 0; i < _tabHostContent.size(); i++) {
                 fissureList.add(new ArrayList<>());
                 adapterFissureList.add(i,new FissureListView(getActivity(), fissureList.get(i)));
-                listView.add(i, view.findViewById(_idListView[i]));
+                listView.add(i, view.findViewById(tabContent[i]));
                 listView.get(i).setAdapter(adapterFissureList.get(i));
         }
         // end adapter

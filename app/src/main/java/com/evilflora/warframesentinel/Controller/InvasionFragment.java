@@ -66,7 +66,7 @@ public class InvasionFragment extends Fragment {
     private Runnable runnableLoadInvasionCurrent = new Runnable() {
         @Override
         public void run() {
-            load();
+            load(); // todo voir fissure
             hTimerInvasionCurrent.postDelayed(this, 60 * 1000 * 5);
         }
     };

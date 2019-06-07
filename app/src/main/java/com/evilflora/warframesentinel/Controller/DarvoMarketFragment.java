@@ -89,7 +89,7 @@ public class DarvoMarketFragment  extends Fragment {
     private Runnable runnableDarvoMarketLoad = new Runnable() {
         @Override
         public void run() {
-            load();
+            load(); // todo utiliser la technique des fissures
             hTimerDarvoMarket.postDelayed(this, 60 * 1000);
         }
     };
