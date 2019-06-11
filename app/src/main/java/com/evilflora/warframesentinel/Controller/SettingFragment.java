@@ -2,6 +2,7 @@ package com.evilflora.warframesentinel.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,21 +22,21 @@ public class SettingFragment extends Fragment {
     AppSettings settings;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.setting_content, container, false);
         getActivity().setTitle(getString(R.string.settings));
 
         settings = new AppSettings(getContext());
 
-        Spinner spinner_platform_choice = view.findViewById(R.id.spinner_platform_choice);
+        Spinner spinnerPlatformChoice = view.findViewById(R.id.spinner_platform_choice);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.platform_choice, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_platform_choice.setAdapter(adapter);
+        spinnerPlatformChoice.setAdapter(adapter);
 
-        spinner_platform_choice.setSelection(adapter.getPosition(settings.getPlatform()));
+        spinnerPlatformChoice.setSelection(adapter.getPosition(settings.getPlatform()));
 
-        spinner_platform_choice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerPlatformChoice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
                 settings.setPlatform(arg0.getItemAtPosition(pos).toString());

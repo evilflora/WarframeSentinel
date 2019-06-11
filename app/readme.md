@@ -5,12 +5,13 @@ News
  - Mettre l'image par défaut si pas d'image disponible
 
 Alertes (Events)
- - Implémenter correctement l'ajout dynamique des vues
- - Corriger "Construction Status" et mettre un refresh du pourcentage toutes les 5 minutes
- - Corriger "World cycles" et mettre une refresh toutes les secondes, ajouter le cycle "Orb Vallis" et "Terre"
  - Ajouter les "Goals" du jeu
  - Ajouter les "Acolytes"
  - Ajouter le "Nightwave"
+ - Ajouter les "Alerts" (il y a encore les gifts du lotus etc)
+ - Ajouter "Arbitration" (todo on ne peut pas prévoir sa postion ?!)
+ - Ajouter "Maroo's Bazar"
+ - Ajouter "Clem"
 
 Invasions
  - Ajouter la detection swipe gauche ou droite
@@ -57,7 +58,7 @@ Syndicate
  - CetusSyndicate (Ostron), SolarisSyndicate (Solaris United)
  - ArbitersSyndicate, CephalonSudaSyndicate, NewLokaSyndicate, PerrinSyndicate, RedVeilSyndicate, SteelMeridianSyndicate
  - AssassinsSyndicate // todo qu'est-ce ????
- - EventSyndicate (Operation Supplies), VentKidsSyndicate (Ventkids), QuillsSyndicate (The Quills), VoxSyndicate (Vox Solaris), RadioLegionSyndicate (Nightwave)
+ - EventSyndicate (Operation Supplies), VentKidsSyndicate (Ventkids), QuillsSyndicate (The Quills), VoxSyndicate (Vox Solaris), RadioLegionSyndicate (Nightwave) // todo Non utilisés
  - Un autre syndicat existe mais n'est pas présent dans cette liste : Cephalon Simaris
 
 

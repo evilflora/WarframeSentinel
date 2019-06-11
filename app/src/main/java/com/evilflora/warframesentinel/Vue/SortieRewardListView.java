@@ -36,19 +36,17 @@ public class SortieRewardListView extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) { // todo create item class
 
         if (inflater == null) inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) if (inflater != null) {
-            convertView = inflater.inflate(R.layout.item, parent, false);
-        }
+        if (convertView == null && inflater != null) convertView = inflater.inflate(R.layout.item, parent, false);
 
         if (convertView != null) {
-            TextView item_name = convertView.findViewById(R.id.item_name);
-            TextView item_drop_chance = convertView.findViewById(R.id.item_drop_chance);
+            TextView itemName = convertView.findViewById(R.id.item_name);
+            TextView itemDropChance = convertView.findViewById(R.id.item_drop_chance);
 
-            item_name.setText(sortieReward[position]);
-            item_drop_chance.setText(String.format("%s%%", dropChance[position]));
+            itemName.setText(sortieReward[position]);
+            itemDropChance.setText(String.format("%s%%", dropChance[position]));
         }
 
         return convertView;

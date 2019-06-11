@@ -42,22 +42,20 @@ public class SortieStepListView extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (inflater == null) inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) if (inflater != null) {
-            convertView = inflater.inflate(R.layout.sortie_element_view, parent, false);
-        }
+        if (convertView == null && inflater != null) convertView = inflater.inflate(R.layout.sortie_element_view, parent, false);
 
         if (convertView != null) {
-            TextView sortie_location = convertView.findViewById(R.id.sortie_location);
-            TextView sortie_type = convertView.findViewById(R.id.sortie_type);
-            TextView sortie_level = convertView.findViewById(R.id.sortie_level);
-            TextView sortie_condition = convertView.findViewById(R.id.sortie_condition);
-            TextView sortie_credits = convertView.findViewById(R.id.sortie_credits);
+            TextView sortieLocation = convertView.findViewById(R.id.sortie_location);
+            TextView sortieType = convertView.findViewById(R.id.sortie_type);
+            TextView sortieLevel = convertView.findViewById(R.id.sortie_level);
+            TextView sortieCondition = convertView.findViewById(R.id.sortie_condition);
+            TextView sortieCredits = convertView.findViewById(R.id.sortie_credits);
 
-            sortie_location.setText(sortieStep.get(position).get_location());
-            sortie_type.setText(sortieStep.get(position).get_mission_type());
-            sortie_level.setText(sortieStep.get(position).get_level());
-            sortie_condition.setText(sortieStep.get(position).get_condition());
-            sortie_credits.setText(sortieStep.get(position).get_credits());
+            sortieLocation.setText(sortieStep.get(position).getLocation());
+            sortieType.setText(sortieStep.get(position).getMissionType());
+            sortieLevel.setText(sortieStep.get(position).getLevel());
+            sortieCondition.setText(sortieStep.get(position).getCondition());
+            sortieCredits.setText(sortieStep.get(position).getCredits());
         }
 
         return convertView;

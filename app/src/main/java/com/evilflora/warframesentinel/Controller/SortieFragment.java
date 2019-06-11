@@ -2,6 +2,7 @@ package com.evilflora.warframesentinel.Controller;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,52 +25,59 @@ import java.util.List;
 
 public class SortieFragment extends Fragment {
 
-    final String CurrentFileName = "SortieFragment";
-    List<SortieStepClass> sortieStepList = new ArrayList<>(); // Liste des sortie
-    SortieClass sortieClass;
-    SortieStepListView adapterSortie; // La liste customisé basé sur le layout alerte_element
-    SortieRewardListView adapterRewards; // La liste customisé basé sur le layout alerte_element
-    TextView sortie_reset_timer;
-    TextView sortie_type;
-    Handler hTimerSortie = new Handler();
-    Handler hReloadSortie = new Handler();
+    private static String _currentFileName = "SortieFragment";
+    private List<SortieStepClass> _sortieStepList = new ArrayList<>(); // Liste des sortie
+    private SortieClass _sortieClass = null;
+    private SortieStepListView _adapterSortie; // La liste customisé basé sur le layout alerte_element
+    private SortieRewardListView _adapterRewards; // La liste customisé basé sur le layout alerte_element
+    private TextView _sortie_reset_timer;
+    private TextView _sortie_type;
+    private Handler _hTimerSortie = new Handler();
+    private Handler _hReloadSortie = new Handler();
+    JSONArray _sortie;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.sortie_content, container, false);
-        sortieStepList.clear();
         getActivity().setTitle(getString(R.string.sorties));
 
+        // Tabs
+        int[] tab = {R.id.sortie_steps, R.id.sortie_rewards};
+        int[] tabContent =  {R.id.list_sortie_steps, R.id.list_sortie_rewards};
+        int[] tabHostContent =  {R.string.missions, R.string.rewards};
         TabHost tabHost = view.findViewById(R.id.tabHost_sortie);
         tabHost.setup();
+        TabHost.TabSpec spec;
+        for (int i = 0; i < tabHostContent.length; i++) {
+            spec = tabHost.newTabSpec(getString(tabHostContent[i]));
+            spec.setContent(tab[i]);
+            spec.setIndicator(getString(tabHostContent[i]));
+            tabHost.addTab(spec);
+        }
+        //end tabs
 
-        //Tab 1
-        TabHost.TabSpec spec = tabHost.newTabSpec(getString(R.string.current));
-        spec.setContent(R.id.sortie_steps);
-        spec.setIndicator(getString(R.string.missions));
-        tabHost.addTab(spec);
+        // Adapters
+        _sortie = MenuActivity.warframeWorldState.getSorties();
 
-        //Tab 2
-        spec = tabHost.newTabSpec(getString(R.string.completed));
-        spec.setContent(R.id.sortie_rewards);
-        spec.setIndicator(getString(R.string.rewards));
-        tabHost.addTab(spec);
+        _sortieClass = new SortieClass(getActivity(), _sortie); // on l'instancie
 
-        sortie_reset_timer = view.findViewById(R.id.sortie_reset_timer);
-        sortie_type = view.findViewById(R.id.sortie_type);
+        _sortie_reset_timer = view.findViewById(R.id.sortie_reset_timer);
+        _sortie_type = view.findViewById(R.id.sortie_type);
 
-        load();
+        _adapterSortie = new SortieStepListView(getActivity(), _sortieStepList);
+        ListView listViewSortie = view.findViewById(tabContent[0]);
+        listViewSortie.setAdapter(_adapterSortie);
 
-        ListView listViewSortie = view.findViewById(R.id.list_sortie_steps);
-        ListView listViewRewards = view.findViewById(R.id.list_sortie_rewards);
-        adapterSortie = new SortieStepListView(getActivity(), sortieStepList);
-        adapterRewards = new SortieRewardListView(getActivity(), sortieClass.get_rewards(),sortieClass.get_drop_chance());
-        listViewSortie.setAdapter(adapterSortie);
-        listViewRewards.setAdapter(adapterRewards);
+        _adapterRewards = new SortieRewardListView(getActivity(), _sortieClass.getRewards(),_sortieClass.getDropChance());
+        ListView listViewRewards = view.findViewById(tabContent[1]);
+        listViewRewards.setAdapter(_adapterRewards);
+        // end adapters
 
-        hTimerSortie.post(runnableSortie); // On rafraichis toutes les secondes les timers
-        hReloadSortie.post(runnableReloadSortie); // On rafraichis toutes les secondes les timers
+        // Timers
+        _hTimerSortie.post(runnableSortie);
+        _hReloadSortie.post(runnableReloadSortie);
+        // end timers
 
         return view;
     }
@@ -78,33 +86,32 @@ public class SortieFragment extends Fragment {
         @Override
         public void run() {
             try {
-                sortie_reset_timer.setText(sortieClass.get_time_before_expiry());
-                sortie_type.setText(sortieClass.get_sortie_type());
+                _sortie_reset_timer.setText(_sortieClass.getTimeBeforeEnd());
+                _sortie_type.setText(_sortieClass.getSortieType());
             } catch (Exception ex){
-                Log.e(CurrentFileName,"Cannot update sortie timer | " + ex.getMessage());
+                Log.e(_currentFileName,"Cannot update sortie timer | " + ex.getMessage());
             }
-            hTimerSortie.postDelayed(this, 1000);
+            _hTimerSortie.postDelayed(this, 1000);
         }
     };
 
     private Runnable runnableReloadSortie = new Runnable() {
         @Override
         public void run() {
-            load();
-            hReloadSortie.postDelayed(this, 60 * 1000);
+            try {
+                _sortie = MenuActivity.warframeWorldState.getSorties();
+                _sortieClass = new SortieClass(getActivity(), _sortie); // on l'instancie
+                _sortieStepList.clear();
+                for (int i = 0; i < _sortieClass.getSortieStepLenght(); i++) {
+                    _sortieStepList.add(_sortieClass.getStep(i)); // on ajoute les étapes à l'interface
+                }
+                if(_adapterSortie.getCount() > 0)_adapterSortie.notifyDataSetChanged();
+                if(_adapterRewards.getCount() > 0)_adapterRewards.notifyDataSetChanged();
+            } catch (Exception ex){
+                Log.e(_currentFileName,"Cannot read sortie | " + ex.getMessage());
+            }
+            _hReloadSortie.postDelayed(this, 60000);
         }
     };
 
-    public void load() {
-        try {
-            JSONArray sortie = MenuActivity.warframeWorldState.getSorties();
-            sortieClass = new SortieClass(getActivity(), sortie.getJSONObject(0)); // on l'instancie
-            sortieStepList.clear();
-            for (int i = 0; i < sortieClass.get_sortie_lenght(); i++) {
-                sortieStepList.add(sortieClass.get_step(i)); // on ajoute les étapes à l'interface
-            }
-        } catch (Exception ex){
-            Log.e(CurrentFileName,"Cannot read sortie | " + ex.getMessage());
-        }
-    }
 }

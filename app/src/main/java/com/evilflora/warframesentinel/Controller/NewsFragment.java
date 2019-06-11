@@ -2,6 +2,7 @@ package com.evilflora.warframesentinel.Controller;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,24 +22,23 @@ import java.util.List;
 
 public class NewsFragment extends Fragment {
 
-    private final String CurrentFileName = "NewsFragment"; // filename
-    List<NewsClass> newsList = new ArrayList<>();
-    NewsListView adapterNews;
-    Handler hLoadNews = new Handler();
-    ListView listViewNews;
+    private static String _currentFileName = "NewsFragment"; // filename
+    List<NewsClass> _newsList = new ArrayList<>();
+    NewsListView _adapterNews;
+    Handler _hLoadNews = new Handler();
+    ListView _listViewNews;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.news_content, container, false);
-        newsList.clear();
         getActivity().setTitle(getString(R.string.news));
 
-        listViewNews = view.findViewById(R.id.listView_news);
-        adapterNews = new NewsListView(getContext(), newsList);
-        listViewNews.setAdapter(adapterNews);
+        _listViewNews = view.findViewById(R.id.listView_news);
+        _adapterNews = new NewsListView(getContext(), _newsList);
+        _listViewNews.setAdapter(_adapterNews);
 
-        hLoadNews.post(runnableLoadNews);
+        _hLoadNews.post(runnableLoadNews);
 
         return view;
     }
@@ -46,39 +46,36 @@ public class NewsFragment extends Fragment {
     private Runnable runnableLoadNews = new Runnable() {
         @Override
         public void run() {
-            load();
-            hLoadNews.postDelayed(this, 60 * 1000);
+            try {
+                JSONArray newsUpdate = MenuActivity.warframeWorldState.getNews();
+
+                boolean stop;
+                for (int i = 0; i < newsUpdate.length(); i++) {
+
+                    stop = false;
+
+                    NewsClass tmp = new NewsClass(getActivity(),newsUpdate.getJSONObject(i));
+
+                    for(int j = 0; j < _newsList.size(); j++) { // we compare to the old list
+                        if (tmp.getId().compareTo(_newsList.get(j).getId()) == 0) { // If the news exists in our old list
+                            stop = true; // we indicate that we have found one
+                            break; // we break the loop because it is useless to continue
+                        }
+                    }
+
+                    if (!stop && tmp.getLanguageCode().compareTo("en") == 0) { // if we have not found news and the news corresponds to the desired language
+                        Log.i(_currentFileName,"Ajout de la news ID : " + tmp.getId());
+                        _newsList.add(tmp);
+                        Collections.sort(_newsList,(o1, o2) -> Long.compare(o1.getDateActivation(),o2.getDateActivation())); // Sort by the most recent news
+                        _adapterNews.notifyDataSetChanged(); // we update the view
+                    }
+                }
+            } catch (Exception ex) {
+                Log.e(_currentFileName,"Impossible d'ajouter la news | " + ex.getMessage());
+            }
+            _hLoadNews.postDelayed(this, 60000);
         }
     };
 
-    void load() {
-        try {
-            JSONArray news_update = MenuActivity.warframeWorldState.getNews();
-
-            boolean stop;
-            for (int i = 0; i < news_update.length(); i++) {
-
-                stop = false;
-
-                NewsClass news_tmp = new NewsClass(getActivity(),news_update.getJSONObject(i));
-
-                for(int j = 0; j < newsList.size(); j++) { // we compare to the old list
-                    if (news_tmp.get_id().compareTo(newsList.get(j).get_id()) == 0) { // If the news exists in our old list
-                        stop = true; // we indicate that we have found one
-                        break; // we break the loop because it is useless to continue
-                    }
-                }
-
-                if (!stop && news_tmp.get_language_code().compareTo("en") == 0) { // if we have not found news and the news corresponds to the desired language
-                    Log.i(CurrentFileName,"Ajout de la news ID : " + news_tmp.get_id());
-                    newsList.add(news_tmp);
-                    Collections.sort(newsList,(o1, o2) -> Long.compare(o1.get_date_activation(),o2.get_date_activation())); // Sort by the most recent news
-                    adapterNews.notifyDataSetChanged(); // we update the view
-                }
-            }
-        } catch (Exception ex) {
-            Log.e(CurrentFileName,"Impossible d'ajouter la news | " + ex.getMessage());
-        }
-    }
 }
 

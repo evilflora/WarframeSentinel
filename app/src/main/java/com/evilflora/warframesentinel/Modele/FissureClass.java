@@ -6,7 +6,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 public class FissureClass {
-    private final String CurrentFileName = "FissureClass";
+    private static String _currentFileName = "FissureClass";
     private Context _context;
     private String _id;
     private long _date_activation;
@@ -16,7 +16,7 @@ public class FissureClass {
     private String _node;
     private String _modifier;
 
-    public FissureClass(Context context, JSONObject fissure) { // constructor
+    public FissureClass(Context context, JSONObject fissure) {
         try {
             this._context           = context;
             this._id                = fissure.getJSONObject("_id").getString("$oid");
@@ -27,37 +27,38 @@ public class FissureClass {
             this._node              = fissure.getString("Node");
             this._modifier          = fissure.getString("Modifier");
         } catch (Exception e) {
-            Log.e(CurrentFileName,"Cannot load fissure - " + e.getMessage());
+            Log.e(_currentFileName,"Cannot load fissure - " + e.getMessage());
         }
     }
 
     /**
-     * Return fissure timeleft before start or end
+     * Translated time before start or end
      *
      * @return      string
      */
-    public String get_time_before_expiry() {
-        // todo le Start in, ne semble pas fonctionner, sauf si pas de délai ?
-        if (System.currentTimeMillis() < _date_activation) Log.i(CurrentFileName,"" + System.currentTimeMillis() + "<" + _date_activation);
-
-        return ( System.currentTimeMillis() < _date_activation ? "Start in " + TimestampToTimeleft.convert(_date_activation - System.currentTimeMillis(),true): TimestampToTimeleft.convert((_date_expiration - System.currentTimeMillis()),true));
+    public String getTimeBeforeEnd() {
+        if (System.currentTimeMillis() < _date_activation) {
+            return _context.getResources().getString(_context.getResources().getIdentifier("start_in", "string", _context.getPackageName()), TimestampToTimeleft.convert(_date_activation - System.currentTimeMillis(),true));
+        } else {
+            return TimestampToTimeleft.convert(getTimeLeft(),true);
+        }
     }
 
     /**
-     * Returns the type of the fissure
+     * The type of the fissure
      *
      * @return      string
      */
-    public String get_modifier() {
+    public String getModifier() {
         return _modifier;
     }
 
     /**
-     * Returns the translated type of the fissure
+     * The translated type of the fissure
      *
      * @return      string
      */
-    public String get_type() {
+    public String getType() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_modifier, "string", _context.getPackageName()));
         } catch (Exception ex) {
@@ -66,11 +67,11 @@ public class FissureClass {
     }
 
     /**
-     * Returns the nodes location
+     * The translated nodes location
      *
      * @return      string
      */
-    public String get_location() {
+    public String getLocation() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_node, "string", _context.getPackageName()));
         } catch (Exception ex) {
@@ -79,18 +80,25 @@ public class FissureClass {
     }
 
     /**
-     * Retourne true if fissure is closed
+     * Time left before reset of the fissure
+     *
+     * @return      long
+     */
+    private long getTimeLeft() { return _date_expiration - System.currentTimeMillis(); }
+
+    /**
+     * True if fissure is closed
      *
      * @return      boolean
      */
-    public boolean is_end_of_fissure() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
+    public boolean isEndOfFissure() { return (getTimeLeft() <= 0); }
 
     /**
-     * Retourne fissure ID
+     * Fissure ID
      *
      * @return      string
      */
-    public String get_id() {
+    public String getId() {
         return _id;
     }
 }

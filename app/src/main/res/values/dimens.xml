@@ -7,9 +7,9 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Alertes -->
-    <dimen name="location">17dp</dimen>
-    <dimen name="time">15dip</dimen>
-    <dimen name="type">13dip</dimen>
-    <dimen name="reward">12dip</dimen>
-    <dimen name="level">12dip</dimen>
+    <dimen name="location">15sp</dimen>
+    <dimen name="time">15sp</dimen>
+    <dimen name="type">12sp</dimen>
+    <dimen name="reward">12sp</dimen>
+    <dimen name="level">12sp</dimen>
 </resources>

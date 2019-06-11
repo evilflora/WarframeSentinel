@@ -13,7 +13,7 @@ public class ProjectConstructionClass {
      * 2) Razorback
      * 3) ???, can be relays but there is a Construction Projects
      */
-    private final String CurrentFileName = "ProjectConstructionClas";
+    private static String _currentFileName = "ProjectConstructionClas";
     private List<Integer> _ProjectPct = new ArrayList<>(3);
 
     public ProjectConstructionClass(JSONArray project) {
@@ -22,7 +22,7 @@ public class ProjectConstructionClass {
                 _ProjectPct.add(project.getInt(i));
             }
         } catch (Exception e) {
-            Log.e(CurrentFileName, "Error while reading construction project data");
+            Log.e(_currentFileName, "Error while reading construction project data");
         }
     }
     /**

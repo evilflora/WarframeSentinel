@@ -83,8 +83,9 @@ public class WarframeWorldState {
         }
     }
 
-    public JSONArray getSyndicateMissions( ArrayList<String> list) {
-        JSONArray allSyndicateMissions, syndicateMissions = new JSONArray();
+    private JSONArray getSyndicateMissions( ArrayList<String> list) {
+        JSONArray allSyndicateMissions;
+        JSONArray syndicateMissions = new JSONArray();
         try {
             allSyndicateMissions = _data.getJSONArray("SyndicateMissions");
             if (allSyndicateMissions != null) {
@@ -97,10 +98,10 @@ public class WarframeWorldState {
                     }
                 }
             } else {
-                Log.e("WarframeWorldState","Cannot retreive SyndicateMissions or no syndicate missions avaialble");
+                Log.e("WarframeWorldState","Cannot retrieve SyndicateMissions or no syndicate missions available");
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("WarframeWorldState","Error while retrieving SyndicateMissions or no syndicate missions available");;
         }
         return syndicateMissions;
 

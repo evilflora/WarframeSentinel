@@ -31,46 +31,55 @@ public class BountiesFragment extends Fragment {
     Handler _hTimerResetBounties = new Handler();
     BountiesListView _adapterCetusBounties;
     BountiesListView _adapterOrbVallisBounties;
+    JSONArray _cetus;
+    JSONArray _orbVallis;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.bounties_content, container, false);
-        //noinspection ConstantConditions
         getActivity().setTitle(getString(R.string.bounties));
 
+        // Tabs
+        int[] tab = {R.id.cetus_bounties, R.id.orb_vallis_bounties};
+        int[] tabContent = {R.id.list_cetus_bounties, R.id.list_orb_vallis_bounties};
+        int[] tabHostContent = {R.string.cetus, R.string.orb_vallis};
         TabHost tabHost = view.findViewById(R.id.tabHost_bounties);
         tabHost.setup();
+        TabHost.TabSpec spec;
+        for (int i = 0; i < tabHostContent.length; i++) {
+            spec = tabHost.newTabSpec(getString(tabHostContent[i]));
+            spec.setContent(tab[i]);
+            spec.setIndicator(getString(tabHostContent[i]));
+            tabHost.addTab(spec);
+        }
+        // End tabs
 
-        //Tab 1
-        TabHost.TabSpec spec = tabHost.newTabSpec(getString(R.string.cetus));
-        spec.setContent(R.id.cetus_bounties);
-        spec.setIndicator(getString(R.string.cetus));
-        tabHost.addTab(spec);
+        // Adapters
+        _cetus = MenuActivity.warframeWorldState.getCetusMissions();
+        _orbVallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
 
-        //Tab 2
-        spec = tabHost.newTabSpec(getString(R.string.orb_vallis));
-        spec.setContent(R.id.orb_vallis_bounties);
-        spec.setIndicator(getString(R.string.orb_vallis));
-        tabHost.addTab(spec);
+        _cetusBounty = new BountiesClass(getActivity(),_cetus,50, Arrays.asList("day", "night", "indeterminate"));
+        _orbVallisBounty = new BountiesClass(getActivity(), _orbVallis, 50,Arrays.asList("warm", "cold", "indeterminate"));
 
-        load(); // todo due to the structure, this is called two times, here dans with runnableLoadBounties
-
-        // chargement des bounties pour cetus
-        ListView listViewCetusBounties = view.findViewById(R.id.list_cetus_bounties);
-        _adapterCetusBounties = new BountiesListView(getContext(), _cetusBounty.getBountyJobs());
+        _adapterCetusBounties = new BountiesListView(getActivity(), _cetusBounty.getBountyJobs());
+        ListView listViewCetusBounties = view.findViewById(tabContent[0]);
         listViewCetusBounties.setAdapter(_adapterCetusBounties);
 
-        // chargement des bounties pour orb vallis
-        ListView listViewOrbVallisBounties = view.findViewById(R.id.list_orb_vallis_bounties);
-        _adapterOrbVallisBounties = new BountiesListView(getContext(), _orbVallisBounty.getBountyJobs());
+        _adapterOrbVallisBounties = new BountiesListView(getActivity(), _orbVallisBounty.getBountyJobs());
+        ListView listViewOrbVallisBounties = view.findViewById(tabContent[1]);
         listViewOrbVallisBounties.setAdapter(_adapterOrbVallisBounties);
+        // end adapters
 
+        // Timers
         _cetus_day_night_time_left = view.findViewById(R.id.cetus_bounties_timer_reset);
         _orb_vallis_bounties_timer_reset = view.findViewById(R.id.orb_vallis_bounties_timer_reset);
+        // end timers
 
+        // Handlers
         _hTimerResetBounties.post(runnableLoadBounties);
         _hTimerBounties.post(runnableBounties);
+        // end handlers
 
         return view;
     }
@@ -79,8 +88,8 @@ public class BountiesFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _cetus_day_night_time_left.setText(String.format("%s: %s", getString(R.string.time_before_reset), _cetusBounty.getTimeBeforeExpiry()));
-                _orb_vallis_bounties_timer_reset.setText(String.format("%s: %s", getString(R.string.time_before_reset), _orbVallisBounty.getTimeBeforeExpiry()));
+                _cetus_day_night_time_left.setText(_cetusBounty.getTimeBeforeReset());
+                _orb_vallis_bounties_timer_reset.setText(_orbVallisBounty.getTimeBeforeReset());
             } catch (Exception ex){
                 Log.e(_currentFileName,"Cannot update bounties timer - " + ex.getMessage());
             }
@@ -91,31 +100,27 @@ public class BountiesFragment extends Fragment {
     private Runnable runnableLoadBounties = new Runnable() {
         @Override
         public void run() {
-            load();
-            // restart the refresh of the bounties at the time of the reset and as long as the status is undetermined then we retry every minute
-            _hTimerResetBounties.postDelayed(this, (_cetusBounty.getCycleStatus() ? 60 * 1000 : _cetusBounty.getTimeLeft()));
+            try {
+                if (_cetusBounty.isEndOfBounty()) {
+                    _cetusBounty.getBountyJobs().clear();
+                    _cetus = MenuActivity.warframeWorldState.getCetusMissions();
+                    _cetusBounty = new BountiesClass(getActivity(),_cetus,50, Arrays.asList("day", "night", "indeterminate"));
+                }
+
+                if (_orbVallisBounty.isEndOfBounty()) {
+                    _orbVallisBounty.getBountyJobs().clear();
+                    _orbVallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
+                    _orbVallisBounty = new BountiesClass(getActivity(), _orbVallis, 50,Arrays.asList("warm", "cold", "indeterminate"));
+                }
+
+                if(_adapterOrbVallisBounties.getCount() > 0)_adapterOrbVallisBounties.notifyDataSetChanged();
+                if(_adapterCetusBounties.getCount() > 0)_adapterCetusBounties.notifyDataSetChanged();
+            } catch (Exception ex){
+                Log.e(_currentFileName,"Cannot read bounties - " + ex.getMessage());
+            }
+
+            _hTimerResetBounties.postDelayed(this, (_cetusBounty.isEndOfBounty() ? 60000 : _cetusBounty.getTimeLeft()));
         }
     };
 
-    void load() {
-        try {
-            JSONArray cetus = MenuActivity.warframeWorldState.getCetusMissions();
-            JSONArray orbVallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
-
-            _cetusBounty = new BountiesClass(getActivity(),cetus, Arrays.asList("Day", "Night", "Indeterminate"));
-            _orbVallisBounty = new BountiesClass(getActivity(), orbVallis,Arrays.asList("Warm", "Cold", "Indeterminate"));
-
-            if (_cetusBounty.getCycleStatus()) {
-                _cetusBounty.getBountyJobs().clear();
-                _adapterCetusBounties.notifyDataSetChanged();
-            }
-
-            if (_orbVallisBounty.getCycleStatus()) {
-                _orbVallisBounty.getBountyJobs().clear();
-                _adapterOrbVallisBounties.notifyDataSetChanged();
-            }
-        } catch (Exception ex){
-            Log.e(_currentFileName,"Cannot read bounties - " + ex.getMessage());
-        }
-    }
 }

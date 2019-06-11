@@ -2,6 +2,7 @@ package com.evilflora.warframesentinel.Controller;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,44 +22,48 @@ import java.util.List;
 
 public class InvasionFragment extends Fragment {
 
-    final String CurrentFileName = "InvasionFragment";
-    List<InvasionClass> invasionListCurrent = new ArrayList<>();
-    List<InvasionClass> invasionListCompleted = new ArrayList<>();
-    Handler hTimerInvasionCurrent = new Handler();
-    InvasionListView adapterCurrent;
-    InvasionListView adapterCompleted;
+    private static String _currentFileName = "InvasionFragment";
+    List<InvasionClass> _invasionListCurrent = new ArrayList<>();
+    List<InvasionClass> _invasionListCompleted = new ArrayList<>();
+    Handler _hTimerInvasionCurrent = new Handler();
+    InvasionListView _adapterCurrent;
+    InvasionListView _adapterCompleted;
+    JSONArray _invasions;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.invasions_content, container, false);
-        invasionListCurrent.clear();
-        invasionListCompleted.clear();
         getActivity().setTitle(getString(R.string.invasions));
 
+        // Tabs
+        int[] tab = {R.id.invasions_current, R.id.invasions_completed};
+        int[] tabContent = {R.id.list_invasion_current, R.id.list_invasion_completed};
+        int[] tabHostContent = {R.string.current, R.string.completed};
         TabHost tabHost = view.findViewById(R.id.tabHost_invasions);
         tabHost.setup();
+        TabHost.TabSpec spec;
+        for (int i = 0; i < tabHostContent.length; i++) {
+            spec = tabHost.newTabSpec(getString(tabHostContent[i]));
+            spec.setContent(tab[i]);
+            spec.setIndicator(getString(tabHostContent[i]));
+            tabHost.addTab(spec);
+        }
+        // end tabs
 
-        //Tab 1
-        TabHost.TabSpec spec = tabHost.newTabSpec(getString(R.string.current));
-        spec.setContent(R.id.invasions_current);
-        spec.setIndicator(getString(R.string.current));
-        tabHost.addTab(spec);
+        // Adapter
+        _adapterCurrent = new InvasionListView(getActivity(), _invasionListCurrent);
+        ListView listViewCurrent = view.findViewById(tabContent[0]);
+        listViewCurrent.setAdapter(_adapterCurrent);
 
-        //Tab 2
-        spec = tabHost.newTabSpec(getString(R.string.completed));
-        spec.setContent(R.id.invasions_completed);
-        spec.setIndicator(getString(R.string.completed));
-        tabHost.addTab(spec);
+        _adapterCompleted = new InvasionListView(getActivity(), _invasionListCompleted);
+        ListView listViewCompleted = view.findViewById(tabContent[1]);
+        listViewCompleted.setAdapter(_adapterCompleted);
+        // end adapters
 
-        ListView listViewCurrent = view.findViewById(R.id.list_invasion_current);
-        ListView listViewCompleted = view.findViewById(R.id.list_invasion_completed);
-        adapterCurrent = new InvasionListView(getActivity(), invasionListCurrent);
-        adapterCompleted = new InvasionListView(getActivity(), invasionListCompleted);
-        listViewCurrent.setAdapter(adapterCurrent);
-        listViewCompleted.setAdapter(adapterCompleted);
-
-        hTimerInvasionCurrent.post(runnableLoadInvasionCurrent);
+        // Handlers
+        _hTimerInvasionCurrent.post(runnableLoadInvasionCurrent);
+        // end handlers
 
         return view;
     }
@@ -66,36 +71,30 @@ public class InvasionFragment extends Fragment {
     private Runnable runnableLoadInvasionCurrent = new Runnable() {
         @Override
         public void run() {
-            load(); // todo voir fissure
-            hTimerInvasionCurrent.postDelayed(this, 60 * 1000 * 5);
+            try {
+                _invasionListCurrent.clear();
+                _invasionListCompleted.clear();
+
+                _invasions = MenuActivity.warframeWorldState.getInvasions();
+
+                for (int i = 0; i < _invasions.length(); i++) { // for the number of invasion
+                    InvasionClass tmp = new InvasionClass(getActivity(), _invasions.getJSONObject(i));
+                    if (!tmp.isCompleted()) { // if it's complete
+                        _invasionListCurrent.add(tmp);
+                    } else {
+                        _invasionListCompleted.add(tmp);
+                    }
+                }
+
+                if(_adapterCurrent.getCount() > 0) _adapterCurrent.notifyDataSetChanged();
+                if(_adapterCompleted.getCount() > 0)  _adapterCompleted.notifyDataSetChanged();
+
+            } catch (Exception ex){
+                Log.e(_currentFileName,"Cannot read invasion - " + ex.getMessage());
+            }
+
+            _hTimerInvasionCurrent.postDelayed(this, 60000);
         }
     };
 
-    void load() {
-        try {
-            JSONArray invasions = MenuActivity.warframeWorldState.getInvasions();
-            invasionListCurrent.clear();
-            invasionListCompleted.clear();
-
-            for (int i = 0; i < invasions.length(); i++) {
-                InvasionClass tmpInvasion = new InvasionClass(getActivity(),invasions.getJSONObject(i));
-                if (!tmpInvasion.is_completed()) {
-                    Log.i(CurrentFileName,"Added new current invasion id: " + tmpInvasion.get_id());
-                    invasionListCurrent.add(tmpInvasion); // Instancie l'alerte et l'ajoute dans la liste
-                }else {
-                    Log.i(CurrentFileName,"Added new completed invasion id: " + tmpInvasion.get_id());
-                    invasionListCompleted.add(tmpInvasion); // Instancie l'alerte et l'ajoute dans la liste
-                }
-            }
-
-            if(adapterCurrent.getCount() > 0)
-                adapterCurrent.notifyDataSetChanged();
-            if(adapterCompleted.getCount() > 0)
-                adapterCompleted.notifyDataSetChanged();
-
-
-        } catch (Exception ex){
-            Log.e(CurrentFileName,"Cannot read invasion - " + ex.getMessage());
-        }
-    }
 }

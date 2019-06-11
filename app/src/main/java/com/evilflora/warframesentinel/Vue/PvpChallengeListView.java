@@ -48,10 +48,10 @@ public class PvpChallengeListView extends BaseAdapter {
             TextView mode      = convertView.findViewById(R.id.pvp_challenge_mode);
             TextView time      = convertView.findViewById(R.id.pvp_challenge_time);
 
-            category.setText(_items.get(position).get_category());
-            challenge.setText(_items.get(position).get_challenge());
-            mode.setText(_items.get(position).get_mode());
-            time.setText(_items.get(position).get_time_before_expiry());
+            category.setText(_items.get(position).getCategory());
+            challenge.setText(_items.get(position).getChallenge());
+            mode.setText(_items.get(position).getMode());
+            time.setText(_items.get(position).getTimeBeforeEnd());
         }
 
         return convertView;

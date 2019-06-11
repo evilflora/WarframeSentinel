@@ -2,6 +2,7 @@ package com.evilflora.warframesentinel.Controller;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,46 +24,51 @@ import java.util.List;
 
 public class DarvoMarketFragment  extends Fragment {
 
-    final String CurrentFileName = "DarvoMarketFragment";
-    List<DarvoDealsClass> darvoDealsList = new ArrayList<>();
-    List<MarketItemsClass> marketItemsList = new ArrayList<>();
-    DarvoDealsListView adapterDarvoDeals;
-    MarketItemsListView adapterMarketItems;
-    Handler hTimerDarvoMarket = new Handler();
-    Handler hTimerDarvoMarketLoad = new Handler();
+    private static String _currentFileName = "DarvoMarketFragment";
+    List<DarvoDealsClass> _darvoDealsList = new ArrayList<>();
+    List<MarketItemsClass> _marketItemsList = new ArrayList<>();
+    DarvoDealsListView _adapterDarvoDeals;
+    MarketItemsListView _adapterMarketItems;
+    Handler _hTimerDarvoMarket = new Handler();
+    Handler _hTimerDarvoMarketLoad = new Handler();
+    JSONArray _darvoDeals;
+    JSONArray _marketItems;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.darvo_market_content, container, false);
-        darvoDealsList.clear();
-        marketItemsList.clear();
         getActivity().setTitle(getString(R.string.darvo_market));
 
+        // Tabs
+        int[] tab = {R.id.darvo_current, R.id.market_current};
+        int[] tabContent = {R.id.list_darvo_current, R.id.list_market_current};
+        int[] tabHostContent = {R.string.darvo_sales, R.string.market_items};
         TabHost tabHost = view.findViewById(R.id.tabHost_darvo_market);
         tabHost.setup();
+        TabHost.TabSpec spec;
+        for (int i = 0; i < tabHostContent.length; i++) {
+            spec = tabHost.newTabSpec(getString(tabHostContent[i]));
+            spec.setContent(tab[i]);
+            spec.setIndicator(getString(tabHostContent[i]));
+            tabHost.addTab(spec);
+        }
+        // end tabs
 
-        //Tab 1
-        TabHost.TabSpec spec = tabHost.newTabSpec(getString(R.string.darvo_sales));
-        spec.setContent(R.id.darvo_current);
-        spec.setIndicator(getString(R.string.darvo_sales));
-        tabHost.addTab(spec);
+        // Adapter
+        _adapterDarvoDeals = new DarvoDealsListView(getActivity(), _darvoDealsList);
+        ListView listViewDarvoDeals = view.findViewById(tabContent[0]);
+        listViewDarvoDeals.setAdapter(_adapterDarvoDeals);
 
-        //Tab 2
-        spec = tabHost.newTabSpec(getString(R.string.market_items));
-        spec.setContent(R.id.market_current);
-        spec.setIndicator(getString(R.string.market_items));
-        tabHost.addTab(spec);
+        _adapterMarketItems = new MarketItemsListView(getActivity(), _marketItemsList);
+        ListView listViewMarketItems = view.findViewById(tabContent[1]);
+        listViewMarketItems.setAdapter(_adapterMarketItems);
+        // end adapters
 
-        ListView listViewDarvoDeals = view.findViewById(R.id.list_darvo_current);
-        ListView listViewMarketItems = view.findViewById(R.id.list_market_current);
-        adapterDarvoDeals = new DarvoDealsListView(getActivity(), darvoDealsList);
-        adapterMarketItems = new MarketItemsListView(getActivity(), marketItemsList);
-        listViewDarvoDeals.setAdapter(adapterDarvoDeals);
-        listViewMarketItems.setAdapter(adapterMarketItems);
-
-        hTimerDarvoMarketLoad.post(runnableDarvoMarketLoad);
-        hTimerDarvoMarket.post(runnableDarvoMarket);
+        // Handlers
+        _hTimerDarvoMarketLoad.post(runnableDarvoMarketLoad);
+        _hTimerDarvoMarket.post(runnableDarvoMarket);
+        // end handlers
 
         return view;
     }
@@ -70,48 +76,50 @@ public class DarvoMarketFragment  extends Fragment {
     private Runnable runnableDarvoMarket = new Runnable() {
         @Override
         public void run() {
-            try {
-                if(adapterDarvoDeals.getCount() > 0)
-                    adapterDarvoDeals.notifyDataSetChanged();
-            } catch(Exception ex) {
-                Log.e(CurrentFileName,"Cannot update Darvo items timer - " + ex.getMessage());
+            for (int i = 0; i < _darvoDealsList.size();i++) {
+                if (_darvoDealsList.get(i).isEndOfSale()) {
+                    _darvoDealsList.remove(i);
+                }
             }
-            try {
-                if(adapterMarketItems.getCount() > 0)
-                    adapterMarketItems.notifyDataSetChanged();
-            } catch(Exception ex) {
-                Log.e(CurrentFileName,"Cannot update Market items timer - " + ex.getMessage());
+            for (int i = 0; i < _marketItemsList.size();i++) {
+                if (_marketItemsList.get(i).isEndOfSale()) {
+                    _marketItemsList.remove(i);
+                }
             }
 
-            hTimerDarvoMarket.postDelayed(this, 1000);
+            if(_adapterDarvoDeals.getCount() > 0)_adapterDarvoDeals.notifyDataSetChanged();
+            if(_adapterMarketItems.getCount() > 0)_adapterMarketItems.notifyDataSetChanged();
+
+            _hTimerDarvoMarket.postDelayed(this, 1000);
         }
     };
     private Runnable runnableDarvoMarketLoad = new Runnable() {
         @Override
         public void run() {
-            load(); // todo utiliser la technique des fissures
-            hTimerDarvoMarket.postDelayed(this, 60 * 1000);
+            _darvoDealsList.clear();
+            _marketItemsList.clear();
+
+            _darvoDeals = MenuActivity.warframeWorldState.getDailyDeals();
+            _marketItems = MenuActivity.warframeWorldState.getFlashSales();
+
+            try {
+                for (int i = 0; i < _darvoDeals.length(); i++) {
+                    _darvoDealsList.add(new DarvoDealsClass(getActivity(),_darvoDeals.getJSONObject(i)));
+                }
+            } catch (Exception ex){
+                Log.e(_currentFileName,"Cannot read darvo deals - " + ex.getMessage());
+            }
+
+            try {
+                for (int i = 0; i < _marketItems.length(); i++) {
+                    _marketItemsList.add(new MarketItemsClass(getActivity(),_marketItems.getJSONObject(i)));
+                }
+            } catch (Exception ex){
+                Log.e(_currentFileName,"Cannot read market items - " + ex.getMessage());
+            }
+
+            _hTimerDarvoMarket.postDelayed(this, 60000);
         }
     };
 
-    void load() {
-        darvoDealsList.clear();
-        marketItemsList.clear();
-        try {
-            JSONArray darvoDeals = MenuActivity.warframeWorldState.getDailyDeals();
-            for (int i = 0; i < darvoDeals.length(); i++) {
-                darvoDealsList.add(new DarvoDealsClass(getActivity(),darvoDeals.getJSONObject(i)));
-            }
-        } catch (Exception ex){
-            Log.e(CurrentFileName,"Cannot read darvo deals - " + ex.getMessage());
-        }
-        try {
-            JSONArray marketItems = MenuActivity.warframeWorldState.getFlashSales();
-            for (int i = 0; i < marketItems.length(); i++) {
-                marketItemsList.add(new MarketItemsClass(getActivity(),marketItems.getJSONObject(i)));
-            }
-        } catch (Exception ex){
-            Log.e(CurrentFileName,"Cannot read market items - " + ex.getMessage());
-        }
-    }
 }

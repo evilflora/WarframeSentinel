@@ -16,24 +16,30 @@ public class DarvoDealsClass {
     private int _amountTotal;
     private int _amountSold;
 
-    public DarvoDealsClass(Context context, JSONObject darvoDeal) { // constructor
+    /**
+     * Returns item name
+     *
+     * @param context       Activity context
+     * @param darvoDeal     Data
+     */
+    public DarvoDealsClass(Context context, JSONObject darvoDeal) {
         try {
             this._context           = context;
             this._storedItem        = darvoDeal.getString("StoreItem");
             //this._date_activation   = darvoDeal.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._dateExpiration   = darvoDeal.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            this._dateExpiration    = darvoDeal.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
             this._discount          = darvoDeal.getInt("Discount");
-            this._originalPrice    = darvoDeal.getInt("OriginalPrice");
-            this._salePrice        = darvoDeal.getInt("SalePrice");
-            this._amountTotal      = darvoDeal.getInt("AmountTotal");
-            this._amountSold       = darvoDeal.getInt("AmountSold");
+            this._originalPrice     = darvoDeal.getInt("OriginalPrice");
+            this._salePrice         = darvoDeal.getInt("SalePrice");
+            this._amountTotal       = darvoDeal.getInt("AmountTotal");
+            this._amountSold        = darvoDeal.getInt("AmountSold");
         } catch (Exception ex) {
             Log.e("CetusClass","Error while reading cetus bounties - " + ex.getMessage());
         }
     }
 
     /**
-     * Returns item name
+     * Translated item name
      *
      * @return      string
      */
@@ -47,46 +53,46 @@ public class DarvoDealsClass {
     }
 
     /**
-     * Returns the discount
+     * The discount
      *
      * @return      int
      */
-    public int getDiscount() { return _discount; }
+    private int getDiscount() { return _discount; }
 
     /**
-     * Returns the original price
+     * The original price
      *
      * @return      int
      */
-    public int getOriginalPrice() { return _originalPrice; }
+    private int getOriginalPrice() { return _originalPrice; }
 
     /**
-     * Returns the sale price
+     * The sale price
      *
      * @return      int
      */
-    public int getSalePrice() { return _salePrice; }
+    private int getSalePrice() { return _salePrice; }
 
     /**
-     * Returns items left
+     * Items left
      *
      * @return      int
      */
-    public int getItemsLeft() {
+    private int getItemsLeft() {
         return (_amountTotal - _amountSold);
     }
 
     /**
-     * Returns total item
+     * Total items
      *
      * @return      int
      */
-    public int getTotalItems() {
+    private int getTotalItems() {
         return _amountTotal;
     }
 
     /**
-     * Returns item discount expiry timer
+     * Translated time before end
      *
      * @return      string
      */
@@ -94,4 +100,30 @@ public class DarvoDealsClass {
         return TimestampToTimeleft.convert(_dateExpiration - System.currentTimeMillis(),true);
     }
 
+    /**
+     * Returns
+     *
+     * @return      string
+     */
+    public String getPriceAndDiscount() {
+        return _context.getResources().getString(_context.getResources().getIdentifier("price_and_discount", "string", _context.getPackageName()), getDiscount(), getOriginalPrice(), getSalePrice());
+
+    }
+
+    /**
+     * Returns
+     *
+     * @return      string
+     */
+    public String getItemAmountLeft() {
+        return _context.getResources().getString(_context.getResources().getIdentifier("item_amount_left", "string", _context.getPackageName()), getItemsLeft(), getTotalItems());
+
+    }
+
+    /**
+     * True if darvo deal is ended
+     *
+     * @return      boolean
+     */
+    public boolean isEndOfSale() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
 }

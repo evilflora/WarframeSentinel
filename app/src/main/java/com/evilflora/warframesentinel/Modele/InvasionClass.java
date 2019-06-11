@@ -7,7 +7,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 public class InvasionClass {
-    private final String CurrentFileName = "InvasionClass"; // le nom du fichier
+    private static String _currentFileName = "InvasionClass"; // le nom du fichier
     private Context _context;
     private String _id;
     //private String _faction;
@@ -25,7 +25,13 @@ public class InvasionClass {
     //private long _date_activation;
     private LayerDrawable _progressBar;
 
-    public InvasionClass(Context context,JSONObject invasion) { // constructor
+    /**
+     * Return time left before reset of bounty
+     *
+     * @param context           Activity context
+     * @param invasion          The JSONObject containing data
+     */
+    public InvasionClass(Context context,JSONObject invasion) {
         try {
             this._context               = context;
             this._id                    = invasion.getJSONObject("_id").getString("$oid");
@@ -42,24 +48,24 @@ public class InvasionClass {
                 this._attackerReward        = invasion.getJSONObject("AttackerReward").getJSONArray("countedItems").getJSONObject(0).getString("ItemType");
                 this._attackerRewardCount   = invasion.getJSONObject("AttackerReward").getJSONArray("countedItems").getJSONObject(0).getInt("ItemCount");
             } catch (Exception ex) {
-                Log.i(CurrentFileName,"Warning : No attacker reward");
+                Log.i(_currentFileName,"Warning : No attacker reward");
             }
 
             try {
                 this._defenderReward        = invasion.getJSONObject("DefenderReward").getJSONArray("countedItems").getJSONObject(0).getString("ItemType");
                 this._defenderRewardCount   = invasion.getJSONObject("DefenderReward").getJSONArray("countedItems").getJSONObject(0).getInt("ItemCount");
             } catch (Exception ex) {
-                Log.i(CurrentFileName,"Warning : No defender reward");
+                Log.i(_currentFileName,"Warning : No defender reward");
             }
         } catch (Exception e) {
-            Log.e(CurrentFileName,"Error while reading invasion data");
+            Log.e(_currentFileName,"Error while reading invasion data");
         }
     }
 
     /**
      * Associates the progress bar with the class
      */
-    public void set_progressBar(LayerDrawable layer) {
+    public void setProgressBar(LayerDrawable layer) {
         _progressBar = layer;
     }
 
@@ -68,7 +74,7 @@ public class InvasionClass {
      *
      * @return      layer drawable
      */
-    public LayerDrawable get_progressBar() {
+    public LayerDrawable getProgressBar() {
         return _progressBar;
     }
 
@@ -77,14 +83,14 @@ public class InvasionClass {
      *
      * @return      float
      */
-    public float get_goal() { return _goal * 2; }
+    public float getGoal() { return _goal * 2F; }
 
     /**
      * Returns the attacker's progress
      *
      * @return      float
      */
-    public float get_count() {
+    public float getCount() {
         return (_attackerFaction.compareTo("FC_INFESTATION") == 0 ? ((_goal - _count * -1) * 2) : (_count + _goal));
     }
 
@@ -93,8 +99,8 @@ public class InvasionClass {
      *
      * @return      float
      */
-    public float get_percent_attacker() {
-        return MinMaxForValue.valueOf(((float)Math.round(((get_count() / get_goal())*100) * 100) / 100),0,100);
+    private float getPercentAttacker() {
+        return MinMaxForValue.valueOf(((float)Math.round(((getCount() / getGoal())*100) * 100) / 100),0,100);
     }
 
     /**
@@ -102,8 +108,8 @@ public class InvasionClass {
      *
      * @return      float
      */
-    public float get_percent_defender() {
-        return MinMaxForValue.valueOf(((float)Math.round((100.0 - get_percent_attacker()) * 100) / 100),0,100);
+    private float getPercentDefender() {
+        return MinMaxForValue.valueOf(((float)Math.round((100.0 - getPercentAttacker()) * 100) / 100),0,100);
     }
 
     /**
@@ -111,9 +117,9 @@ public class InvasionClass {
      *
      * @return      string
      */
-    public String get_reward_attacker() {
+    private String getRewardAttacker() {
 
-        String reward = ( _attackerReward != null ? _attackerReward.substring(_attackerReward.lastIndexOf("/")).replace("/","") : "");
+        String reward = ( _attackerReward != null ? _attackerReward.substring(_attackerReward.lastIndexOf('/')).replace("/","") : "");
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(reward, "string", _context.getPackageName()));
         }catch (Exception ex) {
@@ -126,15 +132,15 @@ public class InvasionClass {
      *
      * @return      int
      */
-    public int get_attacker_reward_count() { return _attackerRewardCount; }
+    private int getAttackerRewardCount() { return _attackerRewardCount; }
 
     /**
      * Returns the code name of the reward item if the defender wins
      *
      * @return      string
      */
-    public String get_reward_defender() {
-        String reward = ( _defenderReward != null ? _defenderReward.substring(_defenderReward.lastIndexOf("/")).replace("/","") : "");
+    private String getRewardDefender() {
+        String reward = ( _defenderReward != null ? _defenderReward.substring(_defenderReward.lastIndexOf('/')).replace("/","") : "");
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(reward, "string", _context.getPackageName()));
         }catch (Exception ex) {
@@ -147,14 +153,14 @@ public class InvasionClass {
      *
      * @return      int
      */
-    public int get_defender_reward_count() { return _defenderRewardCount; }
+    private int getDefenderRewardCount() { return _defenderRewardCount; }
 
     /**
      * Returns the name of the attacker
      *
      * @return      string
      */
-    public String get_attacker_faction() {
+    private String getAttackerFaction() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_attackerFaction, "string", _context.getPackageName()));
         }catch (Exception ex) {
@@ -167,7 +173,7 @@ public class InvasionClass {
      *
      * @return      string
      */
-    public String get_attacker_faction_code() {
+    public String getAttackerFactionCode() {
         return _attackerFaction;
     }
 
@@ -176,7 +182,7 @@ public class InvasionClass {
      *
      * @return      string
      */
-    public String get_defender_faction() {
+    private String getDefenderFaction() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_defenderFaction, "string", _context.getPackageName()));
         }catch (Exception ex) {
@@ -189,7 +195,7 @@ public class InvasionClass {
      *
      * @return      string
      */
-    public String get_defender_faction_code() {
+    public String getDefenderFactionCode() {
         return _defenderFaction;
     }
 
@@ -198,7 +204,7 @@ public class InvasionClass {
      *
      * @return      string
      */
-    public String get_location() {
+    public String getLocation() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_location, "string", _context.getPackageName()));
         }catch (Exception ex) {
@@ -211,13 +217,68 @@ public class InvasionClass {
      *
      * @return      string
      */
-    public String get_id() { return _id;}
+    public String getId() { return _id;}
 
     /**
      * Indicates if the invasion has been completed
      *
      * @return      boolean
      */
-    public Boolean is_completed() { return _completed; }
+    public Boolean isCompleted() { return _completed; }
 
+    /**
+     * Attacker vs Defender
+     *
+     * @return      String
+     */
+    public String getVersus()
+    {
+        return _context.getResources().getString(_context.getResources().getIdentifier("invasion_versus", "string", _context.getPackageName()), getAttackerFaction(), getDefenderFaction());
+    }
+
+    /**
+     * Translated reward and quantity
+     *
+     * @return      String
+     */
+    public String getAttackerReward()
+    {
+        if (getAttackerRewardCount() > 1)
+            return _context.getResources().getString(_context.getResources().getIdentifier("invasion_rewards", "string", _context.getPackageName()), getAttackerRewardCount(), getRewardAttacker());
+        else
+            return _context.getResources().getString(_context.getResources().getIdentifier("invasion_reward", "string", _context.getPackageName()), getRewardAttacker());
+    }
+
+    /**
+     * Translated reward and quantity
+     *
+     * @return      String
+     */
+    public String getDefenderReward()
+    {
+        if (getAttackerRewardCount() > 1)
+            return _context.getResources().getString(_context.getResources().getIdentifier("invasion_rewards", "string", _context.getPackageName()), getDefenderRewardCount(), getRewardDefender());
+        else
+            return _context.getResources().getString(_context.getResources().getIdentifier("invasion_reward", "string", _context.getPackageName()), getRewardDefender());
+    }
+
+    /**
+     * Progress string in percent
+     *
+     * @return      String
+     */
+    public String getAttackerProgress()
+    {
+        return _context.getResources().getString(_context.getResources().getIdentifier("invasion_progress", "string", _context.getPackageName()), getPercentAttacker());
+    }
+
+    /**
+     * Progress string in percent
+     *
+     * @return      String
+     */
+    public String getDefenderProgress()
+    {
+        return _context.getResources().getString(_context.getResources().getIdentifier("invasion_progress", "string", _context.getPackageName()), getPercentDefender());
+    }
 }

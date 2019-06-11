@@ -11,6 +11,14 @@
         android:orientation="vertical">
 
         <ListView
+            android:id="@+id/ListView_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+        </ListView>
+
+        <ListView
             android:id="@+id/ListView_construction_project"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

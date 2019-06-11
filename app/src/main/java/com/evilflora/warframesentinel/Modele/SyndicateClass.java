@@ -20,36 +20,57 @@ public class SyndicateClass {
     private List<String> _levels = Arrays.asList("? - ?","? - ?","? - ?","? - ?","20 - 25","25 - 30","30 - 35");
     //private List<String> _syndicate_rank; // todo mettre les rangs pour tous les syndicats (1 à 5, 6 fois)
 
-    public SyndicateClass(Context context, JSONObject object) { // constructor
+    /**
+     * Return time left before reset of bounty
+     *
+     * @param context           Activity context
+     * @param syndicate         The JSONArray containing data
+     */
+    public SyndicateClass(Context context, JSONObject syndicate) {
         try {
             this._context           = context;
-            this._id                = object.getJSONObject("_id").getString("$oid");
-            this._date_activation   = object.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = object.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
-            this._tag               = object.getString("Tag");
+            this._id                = syndicate.getJSONObject("_id").getString("$oid");
+            this._date_activation   = syndicate.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            this._date_expiration   = syndicate.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            this._tag               = syndicate.getString("Tag");
             //this._seed              = object.getInt("Seed");
             this._nodes             = new ArrayList<>();
-            try {
-                for (int i = 0; i < object.getJSONArray("Nodes").length(); i++) {
-                    this._nodes.add(object.getJSONArray("Nodes").getString(i));
-                }
-            } catch(Exception ex) {
-                Log.e("SyndicateClass","Error while syndicate nodes " + ex.getMessage());
+            for (int i = 0; i < syndicate.getJSONArray("Nodes").length(); i++) {
+                this._nodes.add(syndicate.getJSONArray("Nodes").getString(i));
             }
         } catch (Exception e) {
             Log.e("SyndicateClass","Error while reading Syndicates" + e.getMessage());
         }
     }
 
-    public String get_time_before_expiry() {
-        return ( System.currentTimeMillis() < _date_activation ? "Start in " + TimestampToTimeleft.convert(_date_activation - System.currentTimeMillis(),true): TimestampToTimeleft.convert((_date_expiration - System.currentTimeMillis()),true));
+    /**
+     * Translated time left before reset of the mission
+     *
+     * @return      string
+     */
+    public String getTimeBeforeEnd() {
+        if (System.currentTimeMillis() < _date_activation) {
+            return _context.getResources().getString(_context.getResources().getIdentifier("start_in", "string", _context.getPackageName()), TimestampToTimeleft.convert(_date_activation - System.currentTimeMillis(), true));
+        } else {
+            return TimestampToTimeleft.convert(getTimeLeft(),true);
+        }
     }
 
-    public String get_tag() {
+    /**
+     * Syndicate owner of missions
+     *
+     * @return      long
+     */
+    public String getTag() {
         return _tag;
     }
 
-    public String get_type() {
+    /**
+     * Translated syndicate name
+     *
+     * @return      long
+     */
+    public String getType() {
         String type;
         try {
             type = _context.getResources().getString(_context.getResources().getIdentifier(_tag, "string", _context.getPackageName()));
@@ -59,7 +80,12 @@ public class SyndicateClass {
         return type;
     }
 
-    public String get_node(int i) {
+    /**
+     * Translated node name
+     *
+     * @return      long
+     */
+    public String getNode(int i) {
         String location;
         try {
             location = _context.getResources().getString(_context.getResources().getIdentifier(_nodes.get(i), "string", _context.getPackageName()));
@@ -69,14 +95,43 @@ public class SyndicateClass {
         return location;
     }
 
-    public int get_nodes_size() { return this._nodes.size(); }
+    /**
+     * Time left before reset of the mission
+     *
+     * @return      long
+     */
+    private long getTimeLeft() { return _date_expiration - System.currentTimeMillis(); }
 
-    public boolean end_of_syndicate() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
+    /**
+     * Where missions are located
+     *
+     * @return      int
+     */
+    public int getNodeSize() { return this._nodes.size(); }
 
-    public String get_id() {
+    /**
+     * True if the mission has ended
+     *
+     * @return      int
+     */
+    public boolean isEndOfMission() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
+
+    /**
+     * Id of the mission
+     *
+     * @return      int
+     */
+    public String getId() {
         return _id;
     }
 
-    public String get_level(int i) { return "Level: " + _levels.get(i); }
+    /**
+     * Level of the current mission
+     *
+     * @return      int
+     */
+    public String getLevel(int i) {
+        return _context.getResources().getString(_context.getResources().getIdentifier("syndicate_level", "string", _context.getPackageName()), _levels.get(i));
+    }
 
 }

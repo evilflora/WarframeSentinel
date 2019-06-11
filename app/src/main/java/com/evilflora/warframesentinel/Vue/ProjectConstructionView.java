@@ -40,9 +40,8 @@ public class ProjectConstructionView extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (_inflater == null) _inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) if (_inflater != null) {
-            convertView = _inflater.inflate(R.layout.project_construction_fomo_razor_view, parent, false);
-        }
+        if (convertView == null && _inflater != null) convertView = _inflater.inflate(R.layout.project_construction_fomo_razor_view, parent, false);
+
         if (convertView != null) {
             ProgressBar progressBarFomorian = convertView.findViewById(R.id.progressBarFomorian);
             ProgressBar progressBarRazorback = convertView.findViewById(R.id.progressBarRazorback);
@@ -53,9 +52,9 @@ public class ProjectConstructionView extends BaseAdapter {
             progressBarFomorian.setProgress(_items.getProjectPct(0));
             progressBarRazorback.setProgress(_items.getProjectPct(1));
 
+            // todo
             textViewPercentFomorian.setText(String.format("%d%%", _items.getProjectPct(0)));
             textViewPercentRazorback.setText(String.format("%d%%", _items.getProjectPct(1)));
-
         }
 
         return convertView;

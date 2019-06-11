@@ -7,32 +7,38 @@ import org.json.JSONObject;
 
 public class MarketItemsClass {
     private Context _context;
-    private String _type_name;
-    //private long _date_activation;
-    private long _date_expiration;
+    private String _typeName;
+    //private long _dateActivation;
+    private long _dateExpiration;
     //private boolean _featured;
     //private boolean _popular;
-    //private int _banner_index;
+    //private int _bannerIndex;
     private int _discount;
-    private int _regular_override;
-    private int _premium_override;
-    //private int _bogo_buy;
-    //private int _bogo_get;
+    private int _regularOverride;
+    private int _premiumOverride;
+    //private int _bogoBuy;
+    //private int _bogoGet;
 
-    public MarketItemsClass(Context context, JSONObject market_item) { // constructor
+    /**
+     * Returns item name
+     *
+     * @param context       Activity context
+     * @param marketItem    Data
+     */
+    public MarketItemsClass(Context context, JSONObject marketItem) {
         try {
             this._context           = context;
-            this._type_name         = market_item.getString("TypeName");
-            //this._date_activation   = market_item.getJSONObject("StartDate").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = market_item.getJSONObject("EndDate").getJSONObject("$date").getLong("$numberLong");
-            //this._featured          = market_item.getBoolean("Featured");
-            //this._popular           = market_item.getBoolean("Popular");
-            //this._banner_index      = market_item.getInt("BannerIndex");
-            this._discount          = market_item.getInt("Discount");
-            this._regular_override  = market_item.getInt("RegularOverride"); // prix en crédit
-            this._premium_override  = market_item.getInt("PremiumOverride"); // prix en plat
-            //this._bogo_buy          = market_item.getInt("BogoBuy");
-            //this._bogo_get          = market_item.getInt("BogoGet");
+            this._typeName         = marketItem.getString("TypeName");
+            //this._dateActivation   = marketItem.getJSONObject("StartDate").getJSONObject("$date").getLong("$numberLong");
+            this._dateExpiration   = marketItem.getJSONObject("EndDate").getJSONObject("$date").getLong("$numberLong");
+            //this._featured          = marketItem.getBoolean("Featured");
+            //this._popular           = marketItem.getBoolean("Popular");
+            //this._banner_index      = marketItem.getInt("BannerIndex");
+            this._discount          = marketItem.getInt("Discount");
+            this._regularOverride  = marketItem.getInt("RegularOverride"); // prix en crédit
+            this._premiumOverride  = marketItem.getInt("PremiumOverride"); // prix en plat
+            //this._bogo_buy          = marketItem.getInt("BogoBuy");
+            //this._bogo_get          = marketItem.getInt("BogoGet");
         } catch (Exception ex) {
             Log.e("CetusClass","Error while reading cetus bounties - " + ex.getMessage());
         }
@@ -43,48 +49,50 @@ public class MarketItemsClass {
      *
      * @return      string
      */
-    public String get_item_name() {
-        String type_name = _type_name.substring(_type_name.lastIndexOf("/")).replace("/","");
+    public String getItemName() {
+        String typeName = _typeName.substring(_typeName.lastIndexOf('/')).replace("/","");
         try {
-            return _context.getResources().getString(_context.getResources().getIdentifier(type_name, "string", _context.getPackageName()));
+            return _context.getResources().getString(_context.getResources().getIdentifier(typeName, "string", _context.getPackageName()));
         } catch (Exception ex) {
-            return type_name;
+            return typeName;
         }
     }
 
     /**
-     * True if price is in credits // todo i'm not sure
+     * True if price is in credits
      *
      * @return      boolean
      */
-    public Boolean is_regular_override() { return _regular_override == 1; }
-
-    /**
-     * Percent discount of item
-     *
-     * @return      int
-     */
-    public int get_discount() { return _discount;}
-
-    /**
-     * Price is in plats // todo
-     *
-     * @return      int
-     */
-    public int get_premium_override() {return _premium_override; }
-
-    /**
-     * Price in credits // todo
-     *
-     * @return      int
-     */
-    public int get_regular_override() { return _regular_override; }
+    private Boolean isRegularOverride() { return _regularOverride >= 1; }
 
     /**
      * Time left before the expiry of discounted item
      *
      * @return      string
      */
-    public String get_time_before_expiry() { return TimestampToTimeleft.convert(_date_expiration - System.currentTimeMillis(),true); }
+    public String getTimeBeforeEnd() { return TimestampToTimeleft.convert(_dateExpiration - System.currentTimeMillis(),true); }
 
+
+    /**
+     * True if darvo deal is ended
+     *
+     * @return      boolean
+     */
+    public boolean isEndOfSale() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
+
+    /**
+     * Translated discount
+     *
+     * @return      string
+     */
+    public String getReduction() // todo need to
+    {
+        if (isRegularOverride()) {
+            return String.format("%s %s",_regularOverride, _context.getResources().getString(_context.getResources().getIdentifier("credits", "string", _context.getPackageName())));
+        } else if (_discount > 0) {
+            return String.format("%s%% %s %s",_discount, _premiumOverride , _context.getResources().getString(_context.getResources().getIdentifier("plats", "string", _context.getPackageName())));
+        } else {
+            return String.format("%s %s",_premiumOverride , _context.getResources().getString(_context.getResources().getIdentifier("plats", "string", _context.getPackageName())));
+        }
+    }
 }

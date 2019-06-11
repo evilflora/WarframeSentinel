@@ -40,7 +40,6 @@ public class BountiesListView extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (_inflater == null) _inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         if (convertView == null && _inflater != null) convertView = _inflater.inflate(R.layout.bounty_job_view, parent, false);
 
         if (convertView != null) {
@@ -50,8 +49,8 @@ public class BountiesListView extends BaseAdapter {
             LinearLayout bountyLinearLayoutRewardList = convertView.findViewById(R.id.bounty_rewards);
 
             bountyJobType.setText(_items.get(position).getJobType());
-            bountyJobLevel.setText(String.format(String.format("%s: %%s", _context.getString(R.string.level)), _items.get(position).getEnnemyLevel()));
-            bountyTotalStanding.setText(String.format(String.format("%s: %%d", _context.getString(R.string.total)), _items.get(position).getTotalStanding()));
+            bountyJobLevel.setText(_items.get(position).getEnnemyLevel());
+            bountyTotalStanding.setText(_items.get(position).getTotalStanding());
 
             bountyLinearLayoutRewardList.removeAllViews(); // Fix the infinite addition of standing rewards while scrolling
 

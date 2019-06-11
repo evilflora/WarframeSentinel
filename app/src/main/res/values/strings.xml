@@ -41,6 +41,11 @@
     <string name="timers">Timers</string>
     <string name="orb_vallis">Orb Vallis</string>
     <string name="day_night">Day/Night Cycle</string>
+    <string name="night">Day</string>
+    <string name="day">Night</string>
+    <string name="warm">Warm</string>
+    <string name="cold">Cold</string>
+    <string name="indeterminate">Indeterminate</string>
     <string name="possible_rewards">Possible rewards</string>
     <string name="pvp">PVP Challenge</string>
     <string name="darvo_market">Darvo/Market</string>
@@ -56,7 +61,6 @@
     <string name="razorback">Razorback Armada</string>
     <string name="date">Date</string>
     <string name="time_left">Time left</string>
-    <string name="time_before_reset">Time before reset</string>
     <string name="cetus_waiting_reset">Waiting for the new end time …</string>
     <string name="syndicate">Syndicate</string>
     <string name="world_cycle">World Cycles</string>
@@ -65,6 +69,30 @@
     <string name="events">Events</string>
     <string name="mode">Mode</string>
 
+    <string name="invasion_versus">%1$s vs %2$s</string>
+    <string name="invasion_progress">%1$s%%</string>
+    <string name="invasion_reward">%1$s</string>
+    <string name="invasion_rewards">%1$s x %2$s</string>
+
+    <string name="news_date_ago">%1$s ago</string>
+
+    <string name="sortie_drop_chance">>%1$s%%</string>
+
+    <string name="construction_project_progress">>%1$s%%</string>
+
+    <string name="syndicate_level">Level: %1$s</string>
+
+    <string name="void_trader_ducat_price">%1$s Ducats</string>
+    <string name="void_trader_credit_price">%1$s Credits</string>
+
+    <string name="time_before_reset">Time before reset: %1$s</string>
+    <string name="world_cycle_timer">%1$s: %2$s in %3$s, at %4$s</string>
+    <string name="start_in">Start in %1$s</string>
+    <string name="end_in">End in %1$s</string>
+    <string name="ennemy_level">Level: %1$s - %2$s</string>
+    <string name="total_standing">Total : %1$s</string>
+    <string name="price_and_discount">%1$s%% off: %2$s -> %3$s</string>
+    <string name="item_amount_left">%1$s/%2$s left</string>
 
     <!-- Syndicates -->
     <string name="SteelMeridianSyndicate">Steel Merdian</string>
@@ -609,14 +637,17 @@
     <string name="SolNode227">Mercury - Verdi</string>
     <string name="SolNode305">Lua - Stöfler</string>
     <string name="SolNode400">Void - Teshub</string>
+    <string name="SolNode401">Void - Hepit</string>
     <string name="SolNode402">Void - Taranis</string>
+    <string name="SolNode403">Void - Tiwaz</string>
     <string name="SolNode404">Void - Stribog</string>
     <string name="SolNode405">Void - Ani</string>
     <string name="SolNode406">Void - Ukko</string>
     <string name="SolNode407">Void - Oxomoco</string>
-    <string name="SolNode408">Void - Ishtar</string>
+    <string name="SolNode408">Void - Belenus</string>
     <string name="SolNode409">Void - Mot</string>
     <string name="SolNode410">Void - Aten</string>
+    <string name="SolNode411">Void - Marduk</string>
     <string name="SolNode412">Void - Mithra</string>
     <string name="SolNode743">Kuva Fortress - Garus</string>
     <string name="SolNode748">Kuva Fortress - Rotuma</string>

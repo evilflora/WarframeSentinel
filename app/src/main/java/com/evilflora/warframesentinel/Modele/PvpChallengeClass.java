@@ -6,7 +6,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 public class PvpChallengeClass {
-    private final String CurrentFileName = "PvpChallengeClass"; // le nom du fichier
+    private static String _currentFileName = "PvpChallengeClass"; // le nom du fichier
     Context _context;
     private String _id;
     private String _challengeTypeRefID;
@@ -31,7 +31,7 @@ public class PvpChallengeClass {
             // this._subChallenges     = pvpChallenge.getString("subChallenges");
             this._category          = pvpChallenge.getString("Category");
         } catch (Exception e) {
-            Log.e(CurrentFileName,"Connat load PVP Challenges - " + e.getMessage());
+            Log.e(_currentFileName,"Connat load PVP Challenges - " + e.getMessage());
         }
     }
 
@@ -40,21 +40,21 @@ public class PvpChallengeClass {
      *
      * @return      string
      */
-    public String get_time_before_expiry() { return TimestampToTimeleft.convert((_date_expiration - System.currentTimeMillis()),true); }
+    public String getTimeBeforeEnd() { return TimestampToTimeleft.convert((_date_expiration - System.currentTimeMillis()),true); }
 
     /**
      * PVP Challenge ID
      *
      * @return      string
      */
-    public String get_id() { return _id;}
+    public String getId() { return _id;}
 
     /**
      * If it's daily or weekly or neither
      *
      * @return      string
      */
-    public String get_category_code() {
+    public String getCategoryCode() {
         return _category;
     }
 
@@ -64,7 +64,7 @@ public class PvpChallengeClass {
      *
      * @return      string
      */
-    public String get_category() {
+    public String getCategory() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_category, "string", _context.getPackageName()));
         } catch (Exception ex) {
@@ -77,7 +77,7 @@ public class PvpChallengeClass {
      *
      * @return      String
      */
-    public String get_challenge() {
+    public String getChallenge() {
         String challenge = (_challengeTypeRefID != null ? _challengeTypeRefID.substring(_challengeTypeRefID.lastIndexOf('/')).replace("/", "") : "");
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(challenge, "string", _context.getPackageName()), _params);
@@ -91,7 +91,7 @@ public class PvpChallengeClass {
      *
      * @return      String
      */
-    public String get_mode() {
+    public String getMode() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_pvpMode, "string", _context.getPackageName()));
         } catch (Exception ex) {
@@ -104,5 +104,5 @@ public class PvpChallengeClass {
      *
      * @return      boolean
      */
-    public boolean is_end_of_pvp_challenge() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
+    public boolean isEndOfPvpChallenge() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
 }

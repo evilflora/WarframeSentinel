@@ -40,20 +40,18 @@ public class SyndicateListView extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (inflater == null) inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) if (inflater != null) {
-            convertView = inflater.inflate(R.layout.syndicate_element_view, parent, false);
-        }
+        if (convertView == null && inflater != null) convertView = inflater.inflate(R.layout.syndicate_element_view, parent, false);
 
         if(convertView != null) {
-            TextView syndicate_location = convertView.findViewById(R.id.syndicate_location);
-            TextView syndicate_reward   = convertView.findViewById(R.id.syndicate_reward);
-            TextView syndicate_type     = convertView.findViewById(R.id.syndicate_type);
-            TextView syndicate_level    = convertView.findViewById(R.id.syndicate_level);
+            TextView syndicateLocation = convertView.findViewById(R.id.syndicate_location);
+            TextView syndicateType     = convertView.findViewById(R.id.syndicate_type);
+            TextView syndicateReward   = convertView.findViewById(R.id.syndicate_reward);
+            TextView syndicateLevel    = convertView.findViewById(R.id.syndicate_level);
 
-            syndicate_location.setText(items.get(position).get_node(position % items.get(position).get_nodes_size()));
-            syndicate_type.setText(items.get(position).get_type());
-            syndicate_reward.setText(items.get(position).get_time_before_expiry());
-            syndicate_level.setText(items.get(position).get_level(position % items.get(position).get_nodes_size()));
+            syndicateLocation.setText(items.get(position).getNode(position % items.get(position).getNodeSize()));
+            syndicateType.setText(items.get(position).getType());
+            syndicateReward.setText(items.get(position).getTimeBeforeEnd());
+            syndicateLevel.setText(items.get(position).getLevel(position % items.get(position).getNodeSize()));
         }
 
         return convertView;

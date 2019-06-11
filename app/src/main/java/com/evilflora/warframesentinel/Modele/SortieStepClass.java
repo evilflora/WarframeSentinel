@@ -14,7 +14,15 @@ public class SortieStepClass {
     private String _level;
     private Context _context;
 
-    public SortieStepClass(Context context, JSONObject sortie, int credits, String level) { // constructor
+    /**
+     * Return time left before reset of bounty
+     *
+     * @param context           Activity context
+     * @param sortie            The JSONArray containing data
+     * @param credits           Reward in credits for this step
+     * @param level             Current ennemies level of this step
+     */
+    public SortieStepClass(Context context, JSONObject sortie, int credits, String level) {
         try {
             this._context            = context;
             this._mission_type       = sortie.getString("missionType");
@@ -27,17 +35,17 @@ public class SortieStepClass {
             Log.e("SortieStepClass","Error while reading sortie steps");
         }
     }
-    public String get_mission_type() {
-        String mission_type;
+    public String getMissionType() {
+        String missionType;
         try {
-            mission_type = _context.getResources().getString(_context.getResources().getIdentifier(_mission_type, "string", _context.getPackageName()));
+            missionType = _context.getResources().getString(_context.getResources().getIdentifier(_mission_type, "string", _context.getPackageName()));
         } catch (Exception ex) {
-            mission_type = _mission_type;
+            missionType = _mission_type;
         }
-        return mission_type;
+        return missionType;
     }
 
-    public String get_condition() {
+    public String getCondition() {
         String condition;
         try {
             condition = _context.getResources().getString(_context.getResources().getIdentifier(_condition, "string", _context.getPackageName()));
@@ -47,7 +55,7 @@ public class SortieStepClass {
         return condition;
     }
 
-    public String get_location() {
+    public String getLocation() {
         String location;
         try {
             location = _context.getResources().getString(_context.getResources().getIdentifier(_location, "string", _context.getPackageName()));
@@ -57,21 +65,11 @@ public class SortieStepClass {
         return location;
     }
 
-    /*public String get_tileset() {
-        String tileset;
-        try {
-            tileset = _context.getResources().getString(_context.getResources().getIdentifier(_tileset, "string", _context.getPackageName()));
-        } catch (Exception ex) {
-            tileset = _tileset;
-        }
-        return tileset;
-    }*/
-
-    public String get_level() {
+    public String getLevel() {
         return "Level: " + _level;
     }
 
-    public String get_credits() {
+    public String getCredits() {
         return _credits + " Credits";
     }
 }

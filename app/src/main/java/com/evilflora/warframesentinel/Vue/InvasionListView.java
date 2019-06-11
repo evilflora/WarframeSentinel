@@ -63,18 +63,18 @@ public class InvasionListView extends BaseAdapter {
             layerBackground.setShape(GradientDrawable.RECTANGLE);
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) { // if it's Marshmallow / API 23, getColor call has changed
-                layerBackground.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).get_defender_faction_code(), colorName, _context.getPackageName()), _context.getTheme()));
+                layerBackground.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).getDefenderFactionCode(), colorName, _context.getPackageName()), _context.getTheme()));
             } else {
-                layerBackground.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).get_defender_faction_code(), colorName, _context.getPackageName())));
+                layerBackground.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).getDefenderFactionCode(), colorName, _context.getPackageName())));
             }
 
             GradientDrawable layerProgress = new GradientDrawable();
             layerProgress.setShape(GradientDrawable.RECTANGLE);
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) { // if it's Marshmallow / API 23, getColor call has changed
-                layerProgress.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).get_attacker_faction_code(), colorName, _context.getPackageName()), _context.getTheme()));
+                layerProgress.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).getAttackerFactionCode(), colorName, _context.getPackageName()), _context.getTheme()));
             } else {
-                layerProgress.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).get_attacker_faction_code(), colorName, _context.getPackageName())));
+                layerProgress.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).getAttackerFactionCode(), colorName, _context.getPackageName())));
             }
 
             ClipDrawable progress = new ClipDrawable(layerProgress,11,800005);
@@ -84,18 +84,18 @@ public class InvasionListView extends BaseAdapter {
             layerDrawable.setId(1, android.R.id.progress);
 
             // Setter
-            _items.get(position).set_progressBar(layerDrawable);
+            _items.get(position).setProgressBar(layerDrawable);
 
-            invasionLocation.setText(_items.get(position).get_location());
-            invasionType.setText(String.format("%s vs %s", _items.get(position).get_attacker_faction(), _items.get(position).get_defender_faction()));
-            invasionRewardAttacker.setText(String.format("%s %s", _items.get(position).get_attacker_reward_count() > 1 ? _items.get(position).get_attacker_reward_count() : "", _items.get(position).get_reward_defender()));
-            invasionRewardDefender.setText(String.format("%s %s", _items.get(position).get_defender_reward_count() > 1 ? _items.get(position).get_defender_reward_count() : "", _items.get(position).get_reward_defender()));
+            invasionLocation.setText(_items.get(position).getLocation());
+            invasionType.setText(_items.get(position).getVersus());
+            invasionRewardAttacker.setText(_items.get(position).getAttackerReward());
+            invasionRewardDefender.setText(_items.get(position).getDefenderReward());
 
-            invasionProgress.setMax((int)_items.get(position).get_goal());
-            invasionProgress.setProgress((int)_items.get(position).get_count());
-            invasionProgress.setProgressDrawable(_items.get(position).get_progressBar());
-            invasionPercentAattacker.setText(String.format("%s%%", _items.get(position).get_percent_attacker()));
-            invasionPercentDefender.setText(String.format("%s%%", _items.get(position).get_percent_defender()));
+            invasionProgress.setMax((int)_items.get(position).getGoal());
+            invasionProgress.setProgress((int)_items.get(position).getCount());
+            invasionProgress.setProgressDrawable(_items.get(position).getProgressBar());
+            invasionPercentAattacker.setText(_items.get(position).getAttackerProgress());
+            invasionPercentDefender.setText(_items.get(position).getDefenderProgress());
         }
 
         return convertView;

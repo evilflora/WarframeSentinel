@@ -11,7 +11,6 @@ import java.util.List;
 public class BountiesClass {
     private static String _currentFileName = "BountiesClass";
     private Context _context;
-    private int _cycleTime = 50 * 60 * 1000; // in ms 50 minutes
     private List<String> _cycles;
     private String _currentCycle = "";
     //private String _id;
@@ -20,10 +19,30 @@ public class BountiesClass {
     //private String _tag;
     private List<BountyJobClass> _bountyJobs;
 
-    public BountiesClass(Context context, JSONArray cetus, List<String> cycles) { // constructor
+    private int _cycleTime; // in ms
+
+    /**
+     * Return time left before reset of bounty
+     *
+     * @param context           Activity context
+     * @param cetus             The JSONArray containing data
+     * @param cycleTime         Duration in minutes of the shortest cycle (last cycle, 2 cycle per open world)
+     */
+    public BountiesClass(Context context, JSONArray cetus, int cycleTime, List<String> cycles) {
         this._context               = context;
-        _bountyJobs = new ArrayList<>();
-        _cycles = cycles;
+        this._bountyJobs = new ArrayList<>();
+        this._cycleTime = cycleTime * 60000;
+
+        //_cycles = cycles;
+        this._cycles = new ArrayList<>(cycles.size());
+        for(short i = 0; i < cycles.size(); i++) {
+            try {
+                this._cycles.add(_context.getResources().getString(_context.getResources().getIdentifier(cycles.get(i), "string", _context.getPackageName())));
+            } catch (Exception ex) {
+                this._cycles.add(cycles.get(i));
+            }
+        }
+
         try {
             //this._id                = cetus.getJSONObject(0).getJSONObject("_id").getString("$oid");
             //this._dateActivation    = cetus.getJSONObject(0).getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
@@ -44,14 +63,16 @@ public class BountiesClass {
     }
 
     /**
-     * Return time left before reset of bounty
+     * Translated time left before reset of the bounty
      *
      * @return      string
      */
-    public String getTimeBeforeExpiry() { return TimestampToTimeleft.convert(getTimeLeft(),true); }
+    public String getTimeBeforeReset() {
+        return _context.getResources().getString(_context.getResources().getIdentifier("time_before_reset", "string", _context.getPackageName()), TimestampToTimeleft.convert(getTimeLeft(),true));
+    }
 
     /**
-     * Return time left before reset of bounty
+     * Time left before reset of the bounty
      *
      * @return      long
      */
@@ -62,12 +83,12 @@ public class BountiesClass {
      *
      * @return      string
      */
-    public String getCycleTimeLeft() {
-        String timer = "";
+    private String getCycleTimeLeft() {
+        String timer;
         if (_currentCycle.compareTo(_cycles.get(0)) == 0) {
-            timer = TimestampToTimeleft.convert(_dateExpiration - System.currentTimeMillis() - (_cycleTime),true);
-        } else if (_currentCycle.compareTo(_cycles.get(1)) == 0) {
-            timer = TimestampToTimeleft.convert(_dateExpiration - System.currentTimeMillis(),true);
+            timer = TimestampToTimeleft.convert(getTimeLeft() - _cycleTime,true);
+        } else {
+            timer = TimestampToTimeleft.convert(getTimeLeft(),true);
         }
         return timer;
     }
@@ -77,32 +98,33 @@ public class BountiesClass {
      *
      * @return      string
      */
-    public String getCycleEndDate() {
-        String date = "";
+    private String getCycleEndDate() {
+        String date;
         if (_currentCycle.compareTo(_cycles.get(0)) == 0) {
-            date = (android.text.format.DateFormat.format("HH:mm:ss", System.currentTimeMillis() + (_dateExpiration - System.currentTimeMillis()) - (_cycleTime)).toString());
-        } else if (_currentCycle.compareTo(_cycles.get(1)) == 0) {
-            date = (android.text.format.DateFormat.format("HH:mm:ss", System.currentTimeMillis() + (_dateExpiration - System.currentTimeMillis())).toString());
+            date = (android.text.format.DateFormat.format("HH:mm:ss", _dateExpiration - _cycleTime).toString());
+        } else {
+            date = (android.text.format.DateFormat.format("HH:mm:ss", _dateExpiration).toString());
         }
         return date;
     }
-
     /**
-     * Returns true if we are still in transition between the last cycle and the new cycle
+     * Translated time of the end of the cycle and the reset time of the cycle
      *
-     * @return      boolean
-     */
-    public boolean getCycleStatus() {
-        return (_currentCycle.compareTo(_cycles.get(2)) == 0);
-    }
-
-    /**
-     * Returns the state the active cycle
+     * @param       name the name of the currrent bounty set
      *
      * @return      string
      */
-    public String getCurrentCycle() {
-        if ((_dateExpiration - System.currentTimeMillis() <= _cycleTime) && (_dateExpiration - System.currentTimeMillis() >= 0)) {
+    public String getWorldStatusCycleStatus(String name) {
+        return _context.getResources().getString(_context.getResources().getIdentifier("world_cycle_timer", "string", _context.getPackageName()), name, getNextCycle(), getCycleTimeLeft(), getCycleEndDate());
+    }
+
+    /**
+     * The state the active cycle
+     *
+     * @return      string
+     */
+    private String getCurrentCycle() {
+        if ((getTimeLeft() <= _cycleTime) && (getTimeLeft() >= 0)) {
             _currentCycle = _cycles.get(1);
         } else {
             _currentCycle = _cycles.get(0);
@@ -111,20 +133,28 @@ public class BountiesClass {
     }
 
     /**
-     * Return the next cycle
+     * The next cycle
      *
      * @return      string
      */
-    public String getNextCycle() {
+    private String getNextCycle() {
         if (_currentCycle.compareTo(_cycles.get(0)) == 0) return _cycles.get(1);
         else return _cycles.get(0);
     }
 
     /**
-     * Return the steps of the bounty
+     * Steps of the bounty
      *
      * @return      List<BountyJobClass>
      */
     public List<BountyJobClass> getBountyJobs() { return _bountyJobs; }
+
+
+    /**
+     * True if fissure is closed
+     *
+     * @return      boolean
+     */
+    public boolean isEndOfBounty() { return getTimeLeft() <= 0; }
 
 }

@@ -3,14 +3,15 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SortieClass {
+    private static String _currentFileName = "SortieClass"; // le nom du fichier
     private Context _context;
-    private String _id;
+    //private String _id;
     private long _date_activation;
     private long _date_expiration;
     private String _boss;
@@ -18,63 +19,96 @@ public class SortieClass {
     private String[] _rewardsItems = {"AYATAN ANASA SCULPTURE", "RIVEN MOD", "6000 KUVA", "4000 ENDO", "3 DAY BOOSTER", "EXILUS ADAPTER", "FORMA", "OROKIN CATALYST BLEPRINT", "OROKIN REACTOR BLUEPRINT", "LEGENDARY CORE"};
     private double[] _rewardsDropChance = {28.00, 25.9, 14.00, 12.10, 9.81, 2.50, 2.50, 2.50, 2.50, 0.18 };
 
-    public SortieClass(Context context, JSONObject sortie) { // constructor
+    /**
+     * Return time left before reset of bounty
+     *
+     * @param context           Activity context
+     * @param sortie             The JSONArray containing data
+     */
+    public SortieClass(Context context, JSONArray sortie) {
         try {
             this._context            = context;
-            this._id                = sortie.getJSONObject("_id").getString("$oid");
-            this._date_activation   = sortie.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = sortie.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
-            this._boss              = sortie.getString("Boss");
-            try {
-                for (int i = 0; i < (sortie.getJSONArray("Variants").length()); i++) {
-                    String[] _level = {"50 - 60", "65 - 80", "80 - 100"};
-                    int[] _credits = {20000, 30000, 50000};
-                    this._sorties.add(new SortieStepClass(_context,sortie.getJSONArray("Variants").getJSONObject(i), _credits[i], _level[i]));
-                }
-            } catch(Exception ex) {
-                Log.e("SortieClass", ex.toString());
+            int[] credits = {20000, 30000, 50000};
+            String[] level = {"50 - 60", "65 - 80", "80 - 100"};
+            //this._id                = sortie.getJSONObject(0).getJSONObject("_id").getString("$oid");
+            this._date_activation   = sortie.getJSONObject(0).getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            this._date_expiration   = sortie.getJSONObject(0).getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            this._boss              = sortie.getJSONObject(0).getString("Boss");
+            for (int i = 0; i < (sortie.getJSONObject(0).getJSONArray("Variants").length()); i++) {
+                this._sorties.add(new SortieStepClass(_context,sortie.getJSONObject(0).getJSONArray("Variants").getJSONObject(i), credits[i], level[i]));
             }
 
         } catch (Exception e) {
-            Log.e("SortieClass","Error while reading sortie");
+            Log.e(_currentFileName,"Error while reading sortie");
         }
     }
 
-    public int get_sortie_lenght() {
+    /**
+     * Quantity of sortie steps
+     *
+     * @return      int
+     */
+    public int getSortieStepLenght() {
         return _sorties.size();
     }
 
-    public String get_time_before_expiry() {
-        return "Time before reset " + TimestampToTimeleft.convert(_date_expiration - System.currentTimeMillis(),true);
+    /**
+     * Translated time left before end of the sortie
+     *
+     * @return      string
+     */
+    public String getTimeBeforeEnd() {
+        return _context.getResources().getString(_context.getResources().getIdentifier("time_before_reset", "string", _context.getPackageName()), TimestampToTimeleft.convert(_date_expiration - System.currentTimeMillis(),true));
     }
 
-    /*public boolean is_exprired() {
-        return (((_date_expiration - System.currentTimeMillis()) - 3600 * 1000) <= 0);
-    }*/
-
-    public String get_sortie_type() {
-        String sortie_type;
+    /**
+     * Translated name of the current boss
+     *
+     * @return      string
+     */
+    public String getSortieType() {
+        String sortieType;
         try {
-            sortie_type = _context.getResources().getString(_context.getResources().getIdentifier(_boss, "string", _context.getPackageName()));
+            sortieType = _context.getResources().getString(_context.getResources().getIdentifier(_boss, "string", _context.getPackageName()));
         } catch (Exception ex) {
-            sortie_type = _boss;
+            sortieType = _boss;
         }
-        return sortie_type;
+        return sortieType;
     }
 
-    public int get_time_left() {
-        return (int)(_date_expiration - _date_activation);
+    /**
+     * Time left before end of the sortie
+     *
+     * @return      int
+     */
+    public long getTimeLeft() {
+        return (_date_expiration - _date_activation);
     }
 
-    public SortieStepClass get_step(int i) {
+    /**
+     * Get a step frome the steplist
+     *
+     * @return      SortieStepClass
+     */
+    public SortieStepClass getStep(int i) {
         return _sorties.get(i);
     }
 
-    public String[] get_rewards() {
+    /**
+     * The reward list
+     *
+     * @return      string[]
+     */
+    public String[] getRewards() {
         return _rewardsItems;
     }
 
-    public double[] get_drop_chance() {
+    /**
+     * Drop chance for each reward
+     *
+     * @return      double[]
+     */
+    public double[] getDropChance() {
         return _rewardsDropChance;
     }
 

@@ -6,7 +6,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 public class BountyJobClass {
-    private final String _currentFileName = "BountyJobClass"; // filename
+    private static String _currentFileName = "BountyJobClass"; // filename
     private Context _context;
     private String _jobType;
     //private String _rewards;
@@ -14,7 +14,13 @@ public class BountyJobClass {
     private String _maxEnnemyLevel;
     private int[] _xpAmounts;
 
-    public BountyJobClass(Context context, JSONObject cetusJob) { // constructor
+    /**
+     * Return time left before reset of bounty
+     *
+     * @param context           Activity context
+     * @param cetusJob          The JSONArray containing data
+     */
+    BountyJobClass(Context context, JSONObject cetusJob) {
         try {
             this._context           = context;
             this._jobType          = cetusJob.getString("jobType");
@@ -54,7 +60,7 @@ public class BountyJobClass {
      * @return      string
      */
     public String getEnnemyLevel() {
-        return _minEnnemyLevel + " - " + _maxEnnemyLevel;
+        return _context.getResources().getString(_context.getResources().getIdentifier("ennemy_level", "string", _context.getPackageName()), _minEnnemyLevel, _maxEnnemyLevel);
     }
 
     /**
@@ -80,10 +86,10 @@ public class BountyJobClass {
      *
      * @return      string
      */
-    public int getTotalStanding() {
+    public String getTotalStanding() {
         int sum = 0;
         for (int xp:_xpAmounts)
             sum += xp;
-        return sum;
+        return _context.getResources().getString(_context.getResources().getIdentifier("total_standing", "string", _context.getPackageName()), sum);
     }
 }

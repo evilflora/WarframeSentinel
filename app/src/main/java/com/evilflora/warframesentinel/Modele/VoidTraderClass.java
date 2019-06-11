@@ -3,47 +3,70 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VoidTraderClass {
+    private static String _currentFileName = "VoidTraderClass";
     Context _context;
-    private String _id;
+    //private String _id;
     private long _date_activation;
     private long _date_expiration;
-    private String _character;
+    //private String _character;
     private String _node;
     private List<VoidTraderItemClass> _items;
 
-
-    public VoidTraderClass(Context context, JSONObject void_trader) { // constructor
+    /**
+     * Return time left before reset of bounty
+     *
+     * @param context           Activity context
+     * @param deal             The JSONArray containing data
+     */
+    public VoidTraderClass(Context context, JSONArray deal) {
         _items = new ArrayList<>();
         try {
             this._context           = context;
-            this._id                = void_trader.getJSONObject("_id").getString("$oid");
-            this._date_activation   = void_trader.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = void_trader.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
-            this._character         = void_trader.getString("Character");
-            this._node              = void_trader.getString("Node");
-            for (int i =0; i < void_trader.getJSONArray("Manifest").length(); i++) {
-                this._items.add(new VoidTraderItemClass(void_trader.getJSONArray("Manifest").getJSONObject(i)));
+            //this._id                = deal.getJSONObject(0).getJSONObject("_id").getString("$oid");
+            this._date_activation   = deal.getJSONObject(0).getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            this._date_expiration   = deal.getJSONObject(0).getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            //this._character         = void_trader.getString("Character");
+            this._node              = deal.getJSONObject(0).getString("Node");
+            for (int i =0; i < deal.getJSONObject(0).getJSONArray("Manifest").length(); i++) {
+                this._items.add(new VoidTraderItemClass(context, deal.getJSONObject(0).getJSONArray("Manifest").getJSONObject(i)));
             }
         } catch (Exception e) {
-            Log.e("VoidTraderClass","Void Trader Data Error");
+            Log.e(_currentFileName,"Void Trader Data Error");
         }
     }
 
-    public String get_time_before_expiry() {
-        return ( System.currentTimeMillis() < _date_activation ? "Start in " + TimestampToTimeleft.convert(_date_activation - System.currentTimeMillis(),true): TimestampToTimeleft.convert((_date_expiration - System.currentTimeMillis()),true));
+    /**
+     * Translated time left before reset of the void trader
+     *
+     * @return      string
+     */
+    public String getTimeBeforeEnd() {
+        if (System.currentTimeMillis() < _date_activation) {
+            return _context.getResources().getString(_context.getResources().getIdentifier("start_in", "string", _context.getPackageName()), TimestampToTimeleft.convert(_date_activation - System.currentTimeMillis(),true));
+        } else {
+            return _context.getResources().getString(_context.getResources().getIdentifier("end_in", "string", _context.getPackageName()), TimestampToTimeleft.convert(getTimeLeft(),true));
+        }
     }
 
-    public boolean end_of_alert() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
+    /**
+     * Time left end of the void
+     *
+     * @return      long
+     */
+    public long getTimeLeft() { return _date_expiration - System.currentTimeMillis();}
 
-    public long get_time_before_end() { return _date_expiration - System.currentTimeMillis();}
-
-    public String get_location() {
+    /**
+     * Translated node location
+     *
+     * @return      string
+     */
+    public String getLocation() {
         String location;
         try {
             location = _context.getResources().getString(_context.getResources().getIdentifier(_node, "string", _context.getPackageName()));
@@ -53,5 +76,10 @@ public class VoidTraderClass {
         return location;
     }
 
-    public List<VoidTraderItemClass> get_items() { return _items;}
+    /**
+     * All items
+     *
+     * @return      List<VoidTraderItemClass>
+     */
+    public List<VoidTraderItemClass> getItems() { return _items;}
 }
