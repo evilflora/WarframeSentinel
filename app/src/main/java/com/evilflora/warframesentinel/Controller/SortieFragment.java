@@ -34,13 +34,13 @@ public class SortieFragment extends Fragment {
     private TextView _sortie_type;
     private Handler _hTimerSortie = new Handler();
     private Handler _hReloadSortie = new Handler();
-    JSONArray _sortie;
+    private JSONArray _sortie;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.sortie_content, container, false);
-        getActivity().setTitle(getString(R.string.sorties));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.sorties));
 
         // Tabs
         int[] tab = {R.id.sortie_steps, R.id.sortie_rewards};

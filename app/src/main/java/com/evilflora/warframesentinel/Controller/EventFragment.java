@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.evilflora.warframesentinel.Modele.AlertClass;
-import com.evilflora.warframesentinel.Modele.BountiesClass;
 import com.evilflora.warframesentinel.Modele.ProjectConstructionClass;
+import com.evilflora.warframesentinel.Modele.WorldCycleClass;
 import com.evilflora.warframesentinel.R;
 import com.evilflora.warframesentinel.Vue.AlertListView;
 import com.evilflora.warframesentinel.Vue.ProjectConstructionView;
@@ -28,55 +28,44 @@ import java.util.List;
 public class EventFragment extends Fragment {
 
     private static String _currentFileName = "EventFragment";
-    ProjectConstructionClass _projectPct;
-    BountiesClass _cetus;
-    BountiesClass _orbVallis;
-    List<AlertClass> _alerts = new ArrayList<>();
-    Handler hTimerConstructionStatus = new Handler();
-    Handler hTimerWorldCycle = new Handler();
-    Handler hTimerAlerts = new Handler();
-    Handler hReloadAlerts = new Handler();
-    WorldCyclesView adapterWorldCycles;
-    ProjectConstructionView adapterProjectConstruction;
-    AlertListView adaterAlert;
-    List<ListView> listView;
+    private List<AlertClass> _alerts = new ArrayList<>();
+    private Handler _hTimerConstructionStatus = new Handler();
+    private Handler _hTimerWorldCycle = new Handler();
+    private Handler _hTimerAlerts = new Handler();
+    private Handler _hReloadAlerts = new Handler();
+    private WorldCyclesView _adapterWorldCycles;
+    private ProjectConstructionView _adapterProjectConstruction;
+    private AlertListView _adapterAlert;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        getActivity().setTitle(getString(R.string.events));
-
         View view = inflater.inflate(R.layout.event_content, container, false);
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.events));
 
         int[] tabContent = {R.id.ListView_alert, R.id.ListView_construction_project, R.id.ListView_world_cycle};
-
-        listView = new ArrayList<>(tabContent.length);
+        List<ListView> listView = new ArrayList<>(tabContent.length);
 
         try {
-            JSONArray alerts = MenuActivity.warframeWorldState.getAlerts();
-
-            //_alerts = new AlertClass(alerts);
-
-            adaterAlert = new AlertListView(getActivity(), _alerts);
+            _adapterAlert = new AlertListView(getActivity(), _alerts);
 
             listView.add(0, view.findViewById(tabContent[0]));
-            listView.get(0).setAdapter(adaterAlert);
+            listView.get(0).setAdapter(_adapterAlert);
 
-            hReloadAlerts.post(runnableReloadAlerts); // On rafraichis toutes les secondes les timers
-            hTimerAlerts.post(runnableAlerts); // On rafraichis toutes les secondes les timers
+            _hReloadAlerts.post(runnableReloadAlerts); // On rafraichis toutes les secondes les timers
+            _hTimerAlerts.post(runnableAlerts); // On rafraichis toutes les secondes les timers
 
         } catch (Exception ex) {
             Log.e(_currentFileName,"Cannot read alerts - " + ex.getMessage());
         }
+
         try {
             JSONArray project = MenuActivity.warframeWorldState.getProjectPct();
 
-            _projectPct = new ProjectConstructionClass(project);
-
-            adapterProjectConstruction = new ProjectConstructionView(getActivity(), _projectPct);
+            _adapterProjectConstruction = new ProjectConstructionView(getActivity(), new ProjectConstructionClass(project));
 
             listView.add(1, view.findViewById(tabContent[1]));
-            listView.get(1).setAdapter(adapterProjectConstruction);
+            listView.get(1).setAdapter(_adapterProjectConstruction);
 
         } catch (Exception ex) {
             Log.e(_currentFileName,"Cannot read construction project - " + ex.getMessage());
@@ -86,21 +75,20 @@ public class EventFragment extends Fragment {
             JSONArray cetus = MenuActivity.warframeWorldState.getCetusMissions();
             JSONArray orbVallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
 
-            _cetus = new BountiesClass(getActivity(), cetus,50, Arrays.asList("day", "night", "indeterminate"));
-            _orbVallis = new BountiesClass(getActivity(), orbVallis,20, Arrays.asList("warm", "cold", "indeterminate"));
 
-            adapterWorldCycles = new WorldCyclesView(getActivity(), Arrays.asList(_cetus,_orbVallis));
+            _adapterWorldCycles = new WorldCyclesView(getActivity(), Arrays.asList(new WorldCycleClass(getActivity(), cetus, 50, "cetus_cycle"),
+                                                                                   new WorldCycleClass(getActivity(), orbVallis, 50, "orb_vallis_cycle")));
 
             listView.add(2, view.findViewById(tabContent[2]));
-            listView.get(2).setAdapter(adapterWorldCycles);
+            listView.get(2).setAdapter(_adapterWorldCycles);
 
 
         } catch (Exception ex) {
             Log.e(_currentFileName,"Cannot read world status - " + ex.getMessage());
         }
 
-        hTimerConstructionStatus.post(runnableConstructionStatus); // On rafraichis toutes les secondes les timers
-        hTimerWorldCycle.post(runnableWorldCycle); // On rafraichis toutes les secondes les timers
+        _hTimerConstructionStatus.post(runnableConstructionStatus); // On rafraichis toutes les secondes les timers
+        _hTimerWorldCycle.post(runnableWorldCycle); // On rafraichis toutes les secondes les timers
 
         return view;
     }
@@ -108,20 +96,24 @@ public class EventFragment extends Fragment {
     private Runnable runnableConstructionStatus = new Runnable() {
         @Override
         public void run() {
-            try {
-                adapterProjectConstruction.notifyDataSetChanged();
-            } catch (Exception ex){
-                Log.e(_currentFileName,"Cannot update sortie timer | " + ex.getMessage());
+            if (_adapterProjectConstruction != null) {
+                if(_adapterProjectConstruction.getCount() > 0) _adapterProjectConstruction.notifyDataSetChanged();
+            } else {
+                Log.e(_currentFileName,"Cannot update construction project ");
             }
-            hTimerConstructionStatus.postDelayed(this, 300000); // 5 * 60 * 10000
+            _hTimerConstructionStatus.postDelayed(this, 300000); // 5 * 60 * 10000
         }
     };
 
     private Runnable runnableWorldCycle = new Runnable() {
         @Override
         public void run() {
-            adapterWorldCycles.notifyDataSetChanged();
-            hTimerWorldCycle.postDelayed(this, 1000);
+            if (_adapterWorldCycles != null) {
+                if(_adapterWorldCycles.getCount() > 0) _adapterWorldCycles.notifyDataSetChanged();
+            } else {
+                Log.e(_currentFileName,"Cannot update nodes cycle ");
+            }
+            _hTimerWorldCycle.postDelayed(this, 1000);
         }
     };
 
@@ -133,48 +125,43 @@ public class EventFragment extends Fragment {
                     _alerts.remove(i);
                 }
             }
-            try {
-                if(adaterAlert.getCount() > 0)  adaterAlert.notifyDataSetChanged();
-            } catch (Exception ex){
-                Log.e(_currentFileName,"Cannot update alert timer | " + ex.getMessage());
+            if (_adapterAlert != null) {
+                if(_adapterAlert.getCount() > 0) _adapterAlert.notifyDataSetChanged();
+            } else {
+                Log.e(_currentFileName,"Cannot update alertes ");
             }
-            hTimerAlerts.postDelayed(this, 1000);
+            _hTimerAlerts.postDelayed(this, 1000);
         }
     };
 
     private Runnable runnableReloadAlerts = new Runnable() {
         @Override
         public void run() {
-            load();
-            hReloadAlerts.postDelayed(this, 60000);
-        }
-    };
+            try {
+                JSONArray alertsUpdate = MenuActivity.warframeWorldState.getAlerts(); // on récupère la liste des alertes
 
-    void load() {
-        try {
-            JSONArray alertsUpdate = MenuActivity.warframeWorldState.getAlerts(); // on récupère la liste des alertes
-
-            if (alertsUpdate.length() > _alerts.size()) {
-                boolean stop;
-                for (int i = 0; i < alertsUpdate.length(); i++) { // on parcours la nouvelle liste (surement plus grande que l'ancienne)
-                    stop = false; // on remet à false
-                    AlertClass alert = new AlertClass(getActivity(), alertsUpdate.getJSONObject(i));
-                    for(int j = 0; j < _alerts.size(); j++) { // on compare à l'ancienne liste
-                        if(alert.getId().compareTo(_alerts.get(j).getId()) == 0) {
-                            stop = true; // on indique que l'on en a trouvé une
-                            break; // on casse la boucle car inutile de continuer
+                if (alertsUpdate.length() > _alerts.size()) {
+                    boolean stop;
+                    for (int i = 0; i < alertsUpdate.length(); i++) { // on parcours la nouvelle liste (surement plus grande que l'ancienne)
+                        stop = false; // on remet à false
+                        AlertClass alert = new AlertClass(getActivity(), alertsUpdate.getJSONObject(i));
+                        for(int j = 0; j < _alerts.size(); j++) { // on compare à l'ancienne liste
+                            if(alert.getId().compareTo(_alerts.get(j).getId()) == 0) {
+                                stop = true; // on indique que l'on en a trouvé une
+                                break; // on casse la boucle car inutile de continuer
+                            }
+                        }
+                        if (!stop && !alert.isEndOfAlert()) { // si on n'a pas quitté la boucle alors c'est que cette alerte est nouvelle
+                            Log.i(_currentFileName,"Added new alert id: " + alert.getId());
+                            _alerts.add(alert); // on l'ajoute à la liste
+                            Collections.sort(_alerts,(o1, o2) -> Long.compare(o1.getTimeLeft(),o2.getTimeLeft()));
                         }
                     }
-                    if (!stop && !alert.isEndOfAlert()) { // si on n'a pas quitté la boucle alors c'est que cette alerte est nouvelle
-                        Log.i(_currentFileName,"Added new alert id: " + alert.getId());
-                        _alerts.add(alert); // on l'ajoute à la liste
-                        Collections.sort(_alerts,(o1, o2) -> Long.compare(o1.getTimeLeft(),o2.getTimeLeft()));
-                    }
                 }
+            } catch (Exception ex) {
+                Log.e(_currentFileName,"Cannot add new alert | " + ex.getMessage());
             }
-        } catch (Exception ex) {
-            Log.e(_currentFileName,"Cannot add new alert | " + ex.getMessage());
+            _hReloadAlerts.postDelayed(this, 60000);
         }
-    }
-
+    };
 }

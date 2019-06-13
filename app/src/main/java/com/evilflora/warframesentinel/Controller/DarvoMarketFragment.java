@@ -25,20 +25,18 @@ import java.util.List;
 public class DarvoMarketFragment  extends Fragment {
 
     private static String _currentFileName = "DarvoMarketFragment";
-    List<DarvoDealsClass> _darvoDealsList = new ArrayList<>();
-    List<MarketItemsClass> _marketItemsList = new ArrayList<>();
-    DarvoDealsListView _adapterDarvoDeals;
-    MarketItemsListView _adapterMarketItems;
-    Handler _hTimerDarvoMarket = new Handler();
-    Handler _hTimerDarvoMarketLoad = new Handler();
-    JSONArray _darvoDeals;
-    JSONArray _marketItems;
+    private List<DarvoDealsClass> _darvoDealsList = new ArrayList<>();
+    private List<MarketItemsClass> _marketItemsList = new ArrayList<>();
+    private DarvoDealsListView _adapterDarvoDeals;
+    private MarketItemsListView _adapterMarketItems;
+    private Handler _hTimerDarvoMarket = new Handler();
+    private Handler _hTimerDarvoMarketLoad = new Handler();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.darvo_market_content, container, false);
-        getActivity().setTitle(getString(R.string.darvo_market));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.darvo_market));
 
         // Tabs
         int[] tab = {R.id.darvo_current, R.id.market_current};
@@ -99,20 +97,20 @@ public class DarvoMarketFragment  extends Fragment {
             _darvoDealsList.clear();
             _marketItemsList.clear();
 
-            _darvoDeals = MenuActivity.warframeWorldState.getDailyDeals();
-            _marketItems = MenuActivity.warframeWorldState.getFlashSales();
+            JSONArray darvoDeals = MenuActivity.warframeWorldState.getDailyDeals();
+            JSONArray marketItems = MenuActivity.warframeWorldState.getFlashSales();
 
             try {
-                for (int i = 0; i < _darvoDeals.length(); i++) {
-                    _darvoDealsList.add(new DarvoDealsClass(getActivity(),_darvoDeals.getJSONObject(i)));
+                for (int i = 0; i < darvoDeals.length(); i++) {
+                    _darvoDealsList.add(new DarvoDealsClass(getActivity(), darvoDeals.getJSONObject(i)));
                 }
             } catch (Exception ex){
                 Log.e(_currentFileName,"Cannot read darvo deals - " + ex.getMessage());
             }
 
             try {
-                for (int i = 0; i < _marketItems.length(); i++) {
-                    _marketItemsList.add(new MarketItemsClass(getActivity(),_marketItems.getJSONObject(i)));
+                for (int i = 0; i < marketItems.length(); i++) {
+                    _marketItemsList.add(new MarketItemsClass(getActivity(), marketItems.getJSONObject(i)));
                 }
             } catch (Exception ex){
                 Log.e(_currentFileName,"Cannot read market items - " + ex.getMessage());

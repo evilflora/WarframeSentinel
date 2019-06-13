@@ -69,6 +69,11 @@
     <string name="events">Events</string>
     <string name="mode">Mode</string>
 
+    <string name="nightwave">Nightwave</string>
+    <string name="Daily">Daily</string>
+    <string name="Weekly">Weekly</string>
+    <string name="WeeklyHard">Weekly Hard</string>
+
     <string name="invasion_versus">%1$s vs %2$s</string>
     <string name="invasion_progress">%1$s%%</string>
     <string name="invasion_reward">%1$s</string>
@@ -93,6 +98,15 @@
     <string name="total_standing">Total : %1$s</string>
     <string name="price_and_discount">%1$s%% off: %2$s -> %3$s</string>
     <string name="item_amount_left">%1$s/%2$s left</string>
+
+    <string-array name="cetus_cycle">
+        <item>Day</item>
+        <item>Night</item>
+    </string-array>
+    <string-array name="orb_vallis_cycle">
+        <item>Warm</item>
+        <item>Cold</item>
+    </string-array>
 
     <!-- Syndicates -->
     <string name="SteelMeridianSyndicate">Steel Merdian</string>

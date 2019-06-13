@@ -121,6 +121,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_alerts:
                 currentFrag = new EventFragment();
                 break;
+            case R.id.nightwave:
+                currentFrag = new LegionFragment();
+                break;
             case R.id.nav_invasions:
                 currentFrag = new InvasionFragment();
                 break;

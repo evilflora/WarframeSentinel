@@ -25,18 +25,18 @@ import java.util.List;
 public class PvpChallengeFragment extends Fragment {
 
     private static String _currentFileName = "PvpChallengeFragment";
-    List<List<PvpChallengeClass>> _pvpChallengeList = new ArrayList<>();
-    List<PvpChallengeListView> _adapterPvpChallengeList;
-    JSONArray _pvpChallenges;
-    List<String> _tabHostContent;
-    Handler _hTimerPvpChallenge = new Handler();
-    Handler _hReloadPvpChallenge = new Handler();
+    private List<List<PvpChallengeClass>> _pvpChallengeList = new ArrayList<>();
+    private List<PvpChallengeListView> _adapterPvpChallengeList;
+    private JSONArray _pvpChallenges;
+    private List<String> _tabHostContent;
+    private Handler _hTimerPvpChallenge = new Handler();
+    private Handler _hReloadPvpChallenge = new Handler();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.pvp_challenge_content, container, false);
-        getActivity().setTitle(getString(R.string.pvp));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.pvp));
 
         // Tabs
         _tabHostContent = Arrays.asList("all", "PVPChallengeTypeCategory_DAILY", "PVPChallengeTypeCategory_WEEKLY");

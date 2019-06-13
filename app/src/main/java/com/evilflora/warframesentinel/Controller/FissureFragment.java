@@ -25,18 +25,17 @@ import java.util.List;
 public class FissureFragment extends Fragment {
 
     private static String _currentFileName = "FissureFragment";
-    List<List<FissureClass>> _fissureList = new ArrayList<>();
-    List<FissureListView> _adapterFissureList;
-    JSONArray _fissures;
-    List<String> _tabHostContent;
-    Handler _hTimerFissure = new Handler();
-    Handler _hReloadFissure = new Handler();
+    private List<List<FissureClass>> _fissureList = new ArrayList<>();
+    private List<FissureListView> _adapterFissureList;
+    private List<String> _tabHostContent;
+    private Handler _hTimerFissure = new Handler();
+    private Handler _hReloadFissure = new Handler();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fissure_content, container, false);
-        getActivity().setTitle(getString(R.string.fissures));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.fissures));
 
         // Tabs
         int[] tab = {R.id.fissures_all, R.id.fissures_lith,R.id.fissures_meso,R.id.fissures_neo,R.id.fissures_axi};
@@ -94,19 +93,19 @@ public class FissureFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _fissures = MenuActivity.warframeWorldState.getFissures();
+                JSONArray fissures = MenuActivity.warframeWorldState.getFissures();
 
                 boolean stop;
-                for (int i = 0; i < _fissures.length(); i++) { // we go through the new list (probably bigger than the old one)
+                for (int i = 0; i < fissures.length(); i++) { // we go through the new list (probably bigger than the old one)
                     stop = false;
                     for(int j = 0; j < _fissureList.get(0).size(); j++) { // we compare to the old list
-                        if(_fissures.getJSONObject(i).getJSONObject("_id").getString("$oid").compareTo(_fissureList.get(0).get(j).getId()) == 0) {
+                        if(fissures.getJSONObject(i).getJSONObject("_id").getString("$oid").compareTo(_fissureList.get(0).get(j).getId()) == 0) {
                             stop = true; // we indicate that we have found one
                             break; // we break the loop because it is useless to continue
                         }
                     }
                     if (!stop) { // if we did not leave the loop then it's because this alert is new
-                        FissureClass tmp = new FissureClass(getActivity(),_fissures.getJSONObject(i));
+                        FissureClass tmp = new FissureClass(getActivity(), fissures.getJSONObject(i));
                         _fissureList.get(0).add(tmp); // add fissure to category 'all'
                         _fissureList.get(_tabHostContent.indexOf(tmp.getModifier())).add(tmp); // add fissure to it's good category
                     }

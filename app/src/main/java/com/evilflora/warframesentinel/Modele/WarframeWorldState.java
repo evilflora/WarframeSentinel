@@ -116,6 +116,15 @@ public class WarframeWorldState {
         return  getSyndicateMissions(new ArrayList<>(Collections.singletonList("CetusSyndicate")));
     }
 
+    public JSONObject getLegion() {
+        try {
+            return  _data.getJSONObject("SeasonInfo");
+        } catch (JSONException e) {
+            Log.e("WarframeWorldState","Cannot retreive SeasonInfo or no SeasonInfo avaialble");
+            return null;
+        }
+    }
+
     public JSONArray getOrbVallisMissions() {
         return  getSyndicateMissions(new ArrayList<>(Collections.singletonList("SolarisSyndicate")));
     }

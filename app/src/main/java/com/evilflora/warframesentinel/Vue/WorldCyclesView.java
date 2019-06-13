@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.evilflora.warframesentinel.Modele.BountiesClass;
+import com.evilflora.warframesentinel.Modele.WorldCycleClass;
 import com.evilflora.warframesentinel.R;
 
 import java.util.List;
@@ -15,9 +15,9 @@ import java.util.List;
 public class WorldCyclesView extends BaseAdapter {
     private Context _context;
     private LayoutInflater _inflater;
-    private List<BountiesClass> _items;
+    private List<WorldCycleClass> _items;
 
-    public WorldCyclesView(Context context, List<BountiesClass> items) {
+    public WorldCyclesView(Context context, List<WorldCycleClass> items) {
         this._context = context;
         this._items = items;
     }

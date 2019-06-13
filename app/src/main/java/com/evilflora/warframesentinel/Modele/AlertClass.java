@@ -1,6 +1,6 @@
 package com.evilflora.warframesentinel.Modele;
 
-/**
+/*
  * Created by guill on 09/06/2019 for WarframeSentinel
  */
 

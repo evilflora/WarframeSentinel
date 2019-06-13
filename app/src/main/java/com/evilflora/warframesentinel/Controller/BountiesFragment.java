@@ -18,8 +18,6 @@ import com.evilflora.warframesentinel.Vue.BountiesListView;
 
 import org.json.JSONArray;
 
-import java.util.Arrays;
-
 public class BountiesFragment extends Fragment {
 
     private static String _currentFileName = "CetusEarthFragment"; // filename
@@ -38,7 +36,7 @@ public class BountiesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.bounties_content, container, false);
-        getActivity().setTitle(getString(R.string.bounties));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.bounties));
 
         // Tabs
         int[] tab = {R.id.cetus_bounties, R.id.orb_vallis_bounties};
@@ -59,8 +57,8 @@ public class BountiesFragment extends Fragment {
         _cetus = MenuActivity.warframeWorldState.getCetusMissions();
         _orbVallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
 
-        _cetusBounty = new BountiesClass(getActivity(),_cetus,50, Arrays.asList("day", "night", "indeterminate"));
-        _orbVallisBounty = new BountiesClass(getActivity(), _orbVallis, 50,Arrays.asList("warm", "cold", "indeterminate"));
+        _cetusBounty = new BountiesClass(getActivity(),_cetus,50, "cetus_cycle");
+        _orbVallisBounty = new BountiesClass(getActivity(), _orbVallis, 50, "orb_vallis_cycle");
 
         _adapterCetusBounties = new BountiesListView(getActivity(), _cetusBounty.getBountyJobs());
         ListView listViewCetusBounties = view.findViewById(tabContent[0]);
@@ -104,13 +102,13 @@ public class BountiesFragment extends Fragment {
                 if (_cetusBounty.isEndOfBounty()) {
                     _cetusBounty.getBountyJobs().clear();
                     _cetus = MenuActivity.warframeWorldState.getCetusMissions();
-                    _cetusBounty = new BountiesClass(getActivity(),_cetus,50, Arrays.asList("day", "night", "indeterminate"));
+                    _cetusBounty = new BountiesClass(getActivity(),_cetus,50, "cetus_cycle");
                 }
 
                 if (_orbVallisBounty.isEndOfBounty()) {
                     _orbVallisBounty.getBountyJobs().clear();
                     _orbVallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
-                    _orbVallisBounty = new BountiesClass(getActivity(), _orbVallis, 50,Arrays.asList("warm", "cold", "indeterminate"));
+                    _orbVallisBounty = new BountiesClass(getActivity(), _orbVallis, 50, "orb_vallis_cycle");
                 }
 
                 if(_adapterOrbVallisBounties.getCount() > 0)_adapterOrbVallisBounties.notifyDataSetChanged();

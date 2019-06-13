@@ -23,20 +23,19 @@ import java.util.List;
 public class NewsFragment extends Fragment {
 
     private static String _currentFileName = "NewsFragment"; // filename
-    List<NewsClass> _newsList = new ArrayList<>();
-    NewsListView _adapterNews;
-    Handler _hLoadNews = new Handler();
-    ListView _listViewNews;
+    private List<NewsClass> _newsList = new ArrayList<>();
+    private NewsListView _adapterNews;
+    private Handler _hLoadNews = new Handler();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.news_content, container, false);
-        getActivity().setTitle(getString(R.string.news));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.news));
 
-        _listViewNews = view.findViewById(R.id.listView_news);
+        ListView listViewNews = view.findViewById(R.id.listView_news);
         _adapterNews = new NewsListView(getContext(), _newsList);
-        _listViewNews.setAdapter(_adapterNews);
+        listViewNews.setAdapter(_adapterNews);
 
         _hLoadNews.post(runnableLoadNews);
 
@@ -67,7 +66,7 @@ public class NewsFragment extends Fragment {
                         Log.i(_currentFileName,"Ajout de la news ID : " + tmp.getId());
                         _newsList.add(tmp);
                         Collections.sort(_newsList,(o1, o2) -> Long.compare(o1.getDateActivation(),o2.getDateActivation())); // Sort by the most recent news
-                        _adapterNews.notifyDataSetChanged(); // we update the view
+                        if (_adapterNews.getCount() >0) _adapterNews.notifyDataSetChanged(); // we update the view
                     }
                 }
             } catch (Exception ex) {

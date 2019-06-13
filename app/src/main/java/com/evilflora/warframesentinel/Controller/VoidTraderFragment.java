@@ -20,20 +20,20 @@ import org.json.JSONArray;
 public class VoidTraderFragment extends Fragment {
 
     private static String _currentFileName = "VoidTraderFragment";
-    VoidTraderClass _voidTrader;
-    VoidTraderListView _adapterVoidTrader;
-    Handler _hTimerVoidTrader = new Handler();
-    Handler _hReloadVoidTrader = new Handler();
-    ListView _listViewVoidTrader;
-    TextView _void_trader_reset_timer;
-    TextView _void_trader_location;
-    JSONArray _baro;
+    private VoidTraderClass _voidTrader;
+    private Handler _hTimerVoidTrader = new Handler();
+    private Handler _hReloadVoidTrader = new Handler();
+    private ListView _listViewVoidTrader;
+    private VoidTraderListView _adapterVoidTrader;
+    private TextView _void_trader_reset_timer;
+    private TextView _void_trader_location;
+    private JSONArray _baro;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.void_trader_content, container, false);
-        getActivity().setTitle(getString(R.string.baro_kiteer));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.baro_kiteer));
 
         // Adapters
         _baro = MenuActivity.warframeWorldState.getVoidTraders();
@@ -62,6 +62,7 @@ public class VoidTraderFragment extends Fragment {
             try {
                 _void_trader_reset_timer.setText(_voidTrader.getTimeBeforeEnd());
                 _void_trader_location.setText(_voidTrader.getLocation());
+                if (_adapterVoidTrader.getCount() > 0) _adapterVoidTrader.notifyDataSetChanged();
             } catch (Exception ex){
                 Log.e(_currentFileName,"Cannot update void trader timer | " + ex.getMessage());
             }

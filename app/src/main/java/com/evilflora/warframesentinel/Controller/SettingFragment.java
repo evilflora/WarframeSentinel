@@ -19,13 +19,13 @@ import com.evilflora.warframesentinel.R;
 
 public class SettingFragment extends Fragment {
 
-    AppSettings settings;
+    private AppSettings settings;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.setting_content, container, false);
-        getActivity().setTitle(getString(R.string.settings));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.settings));
 
         settings = new AppSettings(getContext());
 
@@ -50,10 +50,10 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        Switch switch_active_notification = view.findViewById(R.id.switch_active_notification);
-        switch_active_notification.setChecked(settings.isNotificationEnabled());
+        Switch switchActiveNotification = view.findViewById(R.id.switch_active_notification);
+        switchActiveNotification.setChecked(settings.isNotificationEnabled());
 
-        switch_active_notification.setOnCheckedChangeListener((compoundButton, b) ->  {
+        switchActiveNotification.setOnCheckedChangeListener((compoundButton, b) ->  {
             settings.setNotificationEnabled(b);
             Intent myService = new Intent(getActivity(), NotificationServiceClass.class);
             if (b) {

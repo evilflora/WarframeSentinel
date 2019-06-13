@@ -23,18 +23,17 @@ import java.util.List;
 public class InvasionFragment extends Fragment {
 
     private static String _currentFileName = "InvasionFragment";
-    List<InvasionClass> _invasionListCurrent = new ArrayList<>();
-    List<InvasionClass> _invasionListCompleted = new ArrayList<>();
-    Handler _hTimerInvasionCurrent = new Handler();
-    InvasionListView _adapterCurrent;
-    InvasionListView _adapterCompleted;
-    JSONArray _invasions;
+    private List<InvasionClass> _invasionListCurrent = new ArrayList<>();
+    private List<InvasionClass> _invasionListCompleted = new ArrayList<>();
+    private Handler _hTimerInvasionCurrent = new Handler();
+    private InvasionListView _adapterCurrent;
+    private InvasionListView _adapterCompleted;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.invasions_content, container, false);
-        getActivity().setTitle(getString(R.string.invasions));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.invasions));
 
         // Tabs
         int[] tab = {R.id.invasions_current, R.id.invasions_completed};
@@ -75,10 +74,10 @@ public class InvasionFragment extends Fragment {
                 _invasionListCurrent.clear();
                 _invasionListCompleted.clear();
 
-                _invasions = MenuActivity.warframeWorldState.getInvasions();
+                JSONArray invasions = MenuActivity.warframeWorldState.getInvasions();
 
-                for (int i = 0; i < _invasions.length(); i++) { // for the number of invasion
-                    InvasionClass tmp = new InvasionClass(getActivity(), _invasions.getJSONObject(i));
+                for (int i = 0; i < invasions.length(); i++) { // for the number of invasion
+                    InvasionClass tmp = new InvasionClass(getActivity(), invasions.getJSONObject(i));
                     if (!tmp.isCompleted()) { // if it's complete
                         _invasionListCurrent.add(tmp);
                     } else {

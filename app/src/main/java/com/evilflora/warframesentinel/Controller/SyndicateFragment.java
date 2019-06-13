@@ -24,18 +24,18 @@ import java.util.List;
 public class SyndicateFragment extends Fragment {
 
     private static String _currentFileName = "SyndicateFragment";
-    List<List<SyndicateClass>> _syndicateList = new ArrayList<>(); // Liste des invasions
-    List<SyndicateListView> _adapterSyndicateList; // La liste customisé basé sur le layout alerte_element
-    JSONArray _syndicate;
-    List<String> _tabHostContent;
-    Handler _hTimerSyndicate = new Handler();
-    Handler _hReloadSyndicate = new Handler();
+    private List<List<SyndicateClass>> _syndicateList = new ArrayList<>(); // Liste des invasions
+    private List<SyndicateListView> _adapterSyndicateList; // La liste customisé basé sur le layout alerte_element
+    private JSONArray _syndicate;
+    private List<String> _tabHostContent;
+    private Handler _hTimerSyndicate = new Handler();
+    private Handler _hReloadSyndicate = new Handler();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.syndicate_content, container, false);
-        getActivity().setTitle(getString(R.string.syndicate));
+        if (getActivity() != null) getActivity().setTitle(getString(R.string.syndicate));
 
         // Tabs
         _tabHostContent = Arrays.asList("all", "SteelMeridianSyndicate", "ArbitersSyndicate" , "CephalonSudaSyndicate", "PerrinSyndicate", "RedVeilSyndicate", "NewLokaSyndicate");
