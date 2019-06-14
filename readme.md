@@ -1,6 +1,6 @@
 # WARFRAME SENTINEL
 
-**In this readme you can found what parts of the JSON are used and my todo list**
+**In this readme you can found what parts of the [JSON](http://content.warframe.com/dynamic/worldState.php) are used and my todo list**
 
 *Italic mean, this is not sure*
 
