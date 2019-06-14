@@ -60,7 +60,7 @@
 - "PVPChallengeInstances": In "PVP Challenge"
 
 - "SyndicateMissions"
-  - Used
+  - Used 
     - CetusSyndicate (Ostron)
     - SolarisSyndicate (Solaris United)
     - ArbitersSyndicate
@@ -74,7 +74,7 @@
     - EventSyndicate (Operation Supplies)
     - VentKidsSyndicate (Ventkids)
     - QuillsSyndicate (The Quills)
-    - VoxSyndicate (Vox Solaris)
+    - VoxSyndicate (Vox Solaris) 
     - RadioLegionSyndicate (Nightwave)
     - RadioLegionIntermissionSyndicate (Nightwave intermission)
     - An other syndicate exist, but not listed : Cephalon Simaris
