@@ -1,6 +1,7 @@
 # WARFRAME SENTINEL
 
 **In this readme you can found what parts of the JSON are used and my todo list**
+
 *Italic mean, this is not sure*
 
 ## News
@@ -8,32 +9,31 @@
  - Automatically removed old images
 
 ## Alertes (Events)
- - Ajouter les "Goals" du jeu
- - Ajouter les "Acolytes"
- - Ajouter les "Alerts" (il y a encore les gifts du lotus etc)
- - Ajouter "Arbitration" (todo on ne peut pas prévoir sa postion ?!)
- - Ajouter "Maroo's Bazar"
- - Ajouter "Clem"
+ - Add "Goals"
+ - Add "Acolytes"
+ - Add "Arbitration" (location not included)
+ - Add "Maroo" mission
+ - Add "Clem" mission
 
 ## Invasions
- - Ajouter la detection swipe gauche ou droite
+ - Add swipe
+ -
 
 ## Bounties
- - Ajouter les "string" manquants
- ~ Ajouter les tables de récompenses ?
- - Le refresh automatique des bounty me semble long
- - Ajouter la detection swipe gauche ou droite
+ - Add missing string
+ - *Add rewards*
+ - Add swipe
 
 ## Darvo/Market
- - Darvo : Améliorer la présentation
- - Market : Compléter les "string"
- - Ajouter la detection swipe gauche ou droite
+ - Darvo : better presentation
+ - Add swipe
+ - Add missing string
 
 ## Baro KiTeer
- - Ajouter la detection swipe gauche ou droite
+ - Add swipe
 
 ## Sorties
- - *Mettre les récompenses, en liste expensive pour le détail*
+ - *Expansive reward list*
  - Add swipe
 
 ## Fissures
@@ -47,7 +47,6 @@
  - Add swipe
 
 ## Currently used
-
 - "Events": In "Alertes"
 - "Alerts": In "Alertes" - Sometimes with "Goft of the Lotus"
 - "SeasonInfo": In "Nightwave"
@@ -60,12 +59,25 @@
 - "ProjectPct": In "Alertes" (Fomorian, Razorback and ???)
 - "PVPChallengeInstances": In "PVP Challenge"
 
-- "SyndicateMissions": En partie utilisé
-  - CetusSyndicate (Ostron), SolarisSyndicate (Solaris United)
-  - ArbitersSyndicate, CephalonSudaSyndicate, NewLokaSyndicate, PerrinSyndicate, RedVeilSyndicate, SteelMeridianSyndicate
-  - AssassinsSyndicate // todo qu'est-ce ????
-  - EventSyndicate (Operation Supplies), VentKidsSyndicate (Ventkids), QuillsSyndicate (The Quills), VoxSyndicate (Vox Solaris), RadioLegionSyndicate (Nightwave) // todo Non utilisés
-  - Un autre syndicat existe mais n'est pas présent dans cette liste : Cephalon Simaris
+- "SyndicateMissions"
+  - Used 
+    - CetusSyndicate (Ostron)
+    - SolarisSyndicate (Solaris United)
+    - ArbitersSyndicate
+    - CephalonSudaSyndicate
+    - NewLokaSyndicate
+    - PerrinSyndicate
+    - RedVeilSyndicate
+    - SteelMeridianSyndicate
+  - Not used
+    - AssassinsSyndicate (who is this ?, seem to be Assassinate missions)
+    - EventSyndicate (Operation Supplies)
+    - VentKidsSyndicate (Ventkids)
+    - QuillsSyndicate (The Quills)
+    - VoxSyndicate (Vox Solaris) 
+    - RadioLegionSyndicate (Nightwave)
+    - RadioLegionIntermissionSyndicate (Nightwave intermission)
+    - An other syndicate exist, but not listed : Cephalon Simaris
 
 ## Not used
 
@@ -77,17 +89,17 @@
 - "Date"
 
 - "Goals"
-- "GlobalUpgrades" : Actives bonuses, Affinity/Credits/Ressources
+- "GlobalUpgrades" : Active bonuses, Affinity/Credits/Ressources
 - "HubEvents"
-- "NodeOverrides": Destroyed HUB + relay Terre + ???
-- "PrimeAccessAvailability": Non utilisé
-- "PrimeVaultAvailabilities": Non utilisé
-- "LibraryInfo": Non utilisé (la dernière recherche du Cephalon Simaris)
-- "PersistentEnemies": Non utilisé
-- "PVPAlternativeModes": Non utilisé
-- "PVPActiveTournaments": Non utilisé
-- "ConstructionProjects": Non utilisé (la construction des relais ?)
-- "TwitchPromos": Non utilisé
+- "NodeOverrides": Destroyed HUB + Earth HUB + ???
+- "PrimeAccessAvailability"
+- "PrimeVaultAvailabilities"
+- "LibraryInfo": Cephalon Simaris Research
+- "PersistentEnemies"
+- "PVPAlternativeModes"
+- "PVPActiveTournaments"
+- "ConstructionProjects": Relay construction ?
+- "TwitchPromos"
 
-- "BadlandNodes": Will not be used (Dark Sector)
-- "FeaturedGuilds": Will not be used (guildes mises en avant, voir le clan)
+- "BadlandNodes": Dark Sectors
+- "FeaturedGuilds": Clan
