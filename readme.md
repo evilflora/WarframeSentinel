@@ -1,58 +1,64 @@
-News
- - Mettre une option pour autoriser le téléchargement des images sinon mettre une image par défaut
- - Ajouter le chargement des images en backgroundTask (à mettre en cache pour éviter le rechargement de l'image ou du timer de verification toute les minutes)
- - Option pour vider le cache
- - Mettre l'image par défaut si pas d'image disponible
+# WARFRAME SENTINEL
 
-Alertes (Events)
+** In this readme you can found what parts of the JSON are used and my todo list **
+* Italic mean, this is not sure *
+
+## News
+ - Add an option to let the user download news images and store them, if set to "no" or if no images available, an default image will be set
+ - Automatically removed old images
+
+## Alertes (Events)
  - Ajouter les "Goals" du jeu
  - Ajouter les "Acolytes"
- - Ajouter le "Nightwave"
  - Ajouter les "Alerts" (il y a encore les gifts du lotus etc)
  - Ajouter "Arbitration" (todo on ne peut pas prévoir sa postion ?!)
  - Ajouter "Maroo's Bazar"
  - Ajouter "Clem"
 
-Invasions
+## Invasions
  - Ajouter la detection swipe gauche ou droite
 
-Bounties
+## Bounties
  - Ajouter les "string" manquants
  ~ Ajouter les tables de récompenses ?
  - Le refresh automatique des bounty me semble long
  - Ajouter la detection swipe gauche ou droite
 
-Darvo/Market
+## Darvo/Market
  - Darvo : Améliorer la présentation
  - Market : Compléter les "string"
  - Ajouter la detection swipe gauche ou droite
 
-Baro KiTeer
+## Baro KiTeer
  - Ajouter la detection swipe gauche ou droite
 
-Sorties
- ~ Mettre les récompenses, en liste expensive pour le détail
- - Ajouter la detection swipe gauche ou droite
+## Sorties
+ - *Mettre les récompenses, en liste expensive pour le détail*
+ - Add swipe
 
-Fissures
- - Ajouter la detection swipe gauche ou droite
+## Fissures
+ - Add swipe
 
-PVP
- - Ajouter la detection swipe gauche ou droite
+## PVP
+ - Add swipe
 
-Syndicate
- - Ajouter les levels manquants
- - Ajouter la detection swipe gauche ou droite
+## Syndicate
+ - Add missing levels
+ - Add swipe
 
-"Events": Dans "Alertes"
-"Sorties": Dans "Sorties"
-"ActiveMissions": Dans "Fissures"
-"FlashSales": Dans "Darvo/Market"
-"Invasions": Dans "Invasions"
-"VoidTraders": Dans "Baro KiTeer"
-"DailyDeals": Dans "Darvo/Market"
-"ProjectPct": Dans "Alertes" (Fomorian, Razorback et ???)
-"PVPChallengeInstances": Dans PVP Challenge
+## Currently used
+
+"Events": In "Alertes"
+"Alerts": In "Alertes" - Sometimes with "Goft of the Lotus"
+"SeasonInfo": In "Nightwave"
+"Sorties": In "Sorties"
+"ActiveMissions": In "Fissures"
+"FlashSales": In "Darvo/Market"
+"Invasions": In "Invasions"
+"VoidTraders": In "Baro KiTeer"
+"DailyDeals": In "Darvo/Market"
+"ProjectPct": In "Alertes" (Fomorian, Razorback and ???)
+"PVPChallengeInstances": In "PVP Challenge"
 
 "SyndicateMissions": En partie utilisé
  - CetusSyndicate (Ostron), SolarisSyndicate (Solaris United)
@@ -61,18 +67,19 @@ Syndicate
  - EventSyndicate (Operation Supplies), VentKidsSyndicate (Ventkids), QuillsSyndicate (The Quills), VoxSyndicate (Vox Solaris), RadioLegionSyndicate (Nightwave) // todo Non utilisés
  - Un autre syndicat existe mais n'est pas présent dans cette liste : Cephalon Simaris
 
+## Not used
 
-"WorldSeed": Non utilisé
-"Version": Non utilisé
-"MobileVersion": Non utilisé
-"BuildLabel": Non utilisé
-"Time": Non utilisé
-"Date": Non utilisé
+"WorldSeed"
+"Version"
+"MobileVersion"
+"BuildLabel"
+"Time"
+"Date"
 
-"Goals": Non utilisé
-"GlobalUpgrades": Non utilisé (les bonus actifs, affinité/crédits/ressources)
-"HubEvents": Non utilisé
-"NodeOverrides": Non utilisé (Hub détruits + relay Terre + ???)
+"Goals"
+"GlobalUpgrades" : Actives bonuses, Affinity/Credits/Ressources
+"HubEvents"
+"NodeOverrides": Destroyed HUB + relay Terre + ???
 "PrimeAccessAvailability": Non utilisé
 "PrimeVaultAvailabilities": Non utilisé
 "LibraryInfo": Non utilisé (la dernière recherche du Cephalon Simaris)
@@ -81,8 +88,6 @@ Syndicate
 "PVPActiveTournaments": Non utilisé
 "ConstructionProjects": Non utilisé (la construction des relais ?)
 "TwitchPromos": Non utilisé
-"SeasonInfo": Non utilisé (Nightwave)
 
-"Alerts": N'existe plus
-"BadlandNodes": Ne sera pas utilisé (Dark Sector)
-"FeaturedGuilds": Ne sera pas utilisé (guildes mises en avant, voir le clan)
+"BadlandNodes": Will not be used (Dark Sector)
+"FeaturedGuilds": Will not be used (guildes mises en avant, voir le clan)
