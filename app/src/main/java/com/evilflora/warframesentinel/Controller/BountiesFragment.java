@@ -54,8 +54,8 @@ public class BountiesFragment extends Fragment {
         // End tabs
 
         // Adapters
-        _cetus = MenuActivity.warframeWorldState.getCetusMissions();
-        _orbVallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
+        _cetus = MenuActivity.getWarframeWorldState().getCetusMissions();
+        _orbVallis = MenuActivity.getWarframeWorldState().getOrbVallisMissions();
 
         _cetusBounty = new BountiesClass(getActivity(),_cetus,50, "cetus_cycle");
         _orbVallisBounty = new BountiesClass(getActivity(), _orbVallis, 50, "orb_vallis_cycle");
@@ -101,13 +101,13 @@ public class BountiesFragment extends Fragment {
             try {
                 if (_cetusBounty.isEndOfBounty()) {
                     _cetusBounty.getBountyJobs().clear();
-                    _cetus = MenuActivity.warframeWorldState.getCetusMissions();
+                    _cetus = MenuActivity.getWarframeWorldState().getCetusMissions();
                     _cetusBounty = new BountiesClass(getActivity(),_cetus,50, "cetus_cycle");
                 }
 
                 if (_orbVallisBounty.isEndOfBounty()) {
                     _orbVallisBounty.getBountyJobs().clear();
-                    _orbVallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
+                    _orbVallis = MenuActivity.getWarframeWorldState().getOrbVallisMissions();
                     _orbVallisBounty = new BountiesClass(getActivity(), _orbVallis, 50, "orb_vallis_cycle");
                 }
 

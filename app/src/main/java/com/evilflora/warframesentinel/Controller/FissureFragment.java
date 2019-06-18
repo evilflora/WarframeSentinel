@@ -93,7 +93,7 @@ public class FissureFragment extends Fragment {
         @Override
         public void run() {
             try {
-                JSONArray fissures = MenuActivity.warframeWorldState.getFissures();
+                JSONArray fissures = MenuActivity.getWarframeWorldState().getFissures();
 
                 boolean stop;
                 for (int i = 0; i < fissures.length(); i++) { // we go through the new list (probably bigger than the old one)

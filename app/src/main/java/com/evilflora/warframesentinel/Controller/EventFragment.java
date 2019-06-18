@@ -19,6 +19,7 @@ import com.evilflora.warframesentinel.Vue.ProjectConstructionView;
 import com.evilflora.warframesentinel.Vue.WorldCyclesView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +61,7 @@ public class EventFragment extends Fragment {
         }
 
         try {
-            JSONArray project = MenuActivity.warframeWorldState.getProjectPct();
+            JSONArray project = MenuActivity.getWarframeWorldState().getProjectPct();
 
             _adapterProjectConstruction = new ProjectConstructionView(getActivity(), new ProjectConstructionClass(project));
 
@@ -72,9 +73,8 @@ public class EventFragment extends Fragment {
         }
 
         try {
-            JSONArray cetus = MenuActivity.warframeWorldState.getCetusMissions();
-            JSONArray orbVallis = MenuActivity.warframeWorldState.getOrbVallisMissions();
-
+            JSONArray cetus = MenuActivity.getWarframeWorldState().getCetusMissions();
+            JSONArray orbVallis = MenuActivity.getWarframeWorldState().getOrbVallisMissions();
 
             _adapterWorldCycles = new WorldCyclesView(getActivity(), Arrays.asList(new WorldCycleClass(getActivity(), cetus, 50, "cetus_cycle"),
                                                                                    new WorldCycleClass(getActivity(), orbVallis, 50, "orb_vallis_cycle")));
@@ -99,7 +99,7 @@ public class EventFragment extends Fragment {
             if (_adapterProjectConstruction != null) {
                 if(_adapterProjectConstruction.getCount() > 0) _adapterProjectConstruction.notifyDataSetChanged();
             } else {
-                Log.e(_currentFileName,"Cannot update construction project ");
+                Log.e(_currentFileName,"Cannot update Construction Project ");
             }
             _hTimerConstructionStatus.postDelayed(this, 300000); // 5 * 60 * 10000
         }
@@ -111,7 +111,7 @@ public class EventFragment extends Fragment {
             if (_adapterWorldCycles != null) {
                 if(_adapterWorldCycles.getCount() > 0) _adapterWorldCycles.notifyDataSetChanged();
             } else {
-                Log.e(_currentFileName,"Cannot update nodes cycle ");
+                Log.e(_currentFileName,"Cannot update World Cycles");
             }
             _hTimerWorldCycle.postDelayed(this, 1000);
         }
@@ -128,7 +128,7 @@ public class EventFragment extends Fragment {
             if (_adapterAlert != null) {
                 if(_adapterAlert.getCount() > 0) _adapterAlert.notifyDataSetChanged();
             } else {
-                Log.e(_currentFileName,"Cannot update alertes ");
+                Log.e(_currentFileName,"Cannot update Alertes ");
             }
             _hTimerAlerts.postDelayed(this, 1000);
         }
@@ -138,7 +138,7 @@ public class EventFragment extends Fragment {
         @Override
         public void run() {
             try {
-                JSONArray alertsUpdate = MenuActivity.warframeWorldState.getAlerts(); // on récupère la liste des alertes
+                JSONArray alertsUpdate = MenuActivity.getWarframeWorldState().getAlerts(); // on récupère la liste des alertes
 
                 if (alertsUpdate.length() > _alerts.size()) {
                     boolean stop;
@@ -158,8 +158,10 @@ public class EventFragment extends Fragment {
                         }
                     }
                 }
+            }catch (JSONException json) {
+                Log.e(_currentFileName,"Cannot get JSONObject from alertsUpdate : " + json.getMessage());
             } catch (Exception ex) {
-                Log.e(_currentFileName,"Cannot add new alert | " + ex.getMessage());
+                Log.e(_currentFileName,"Unknown Exception : " + ex.getMessage());
             }
             _hReloadAlerts.postDelayed(this, 60000);
         }

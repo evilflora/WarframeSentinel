@@ -55,7 +55,7 @@ public class SyndicateFragment extends Fragment {
         // Adapter
         _adapterSyndicateList = new ArrayList<>(_tabHostContent.size()); // we created a list to fit the size of the number syndicates plus the category all
         List<ListView> listView = new ArrayList<>(_tabHostContent.size());
-        _syndicate = MenuActivity.warframeWorldState.getShipSyndicateMissions();
+        _syndicate = MenuActivity.getWarframeWorldState().getShipSyndicateMissions();
         for (int i = 0; i < _tabHostContent.size(); i++) {
             _syndicateList.add(new ArrayList<>());
             _adapterSyndicateList.add(i,new SyndicateListView(getActivity(), _syndicateList.get(i)));
@@ -94,7 +94,7 @@ public class SyndicateFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _syndicate = MenuActivity.warframeWorldState.getShipSyndicateMissions();
+                _syndicate = MenuActivity.getWarframeWorldState().getShipSyndicateMissions();
 
                 boolean stop;
                 for (int i = 0; i < _syndicate.length(); i++) { // we go through the new list (probably bigger than the old one)

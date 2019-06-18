@@ -58,7 +58,7 @@ public class SortieFragment extends Fragment {
         //end tabs
 
         // Adapters
-        _sortie = MenuActivity.warframeWorldState.getSorties();
+        _sortie = MenuActivity.getWarframeWorldState().getSorties();
 
         _sortieClass = new SortieClass(getActivity(), _sortie); // on l'instancie
 
@@ -99,7 +99,7 @@ public class SortieFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _sortie = MenuActivity.warframeWorldState.getSorties();
+                _sortie = MenuActivity.getWarframeWorldState().getSorties();
                 _sortieClass = new SortieClass(getActivity(), _sortie); // on l'instancie
                 _sortieStepList.clear();
                 for (int i = 0; i < _sortieClass.getSortieStepLenght(); i++) {

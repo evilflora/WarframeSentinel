@@ -16,12 +16,12 @@ import java.net.URL;
 
 public class LoadWarframeWorldState extends AsyncTask<String, Integer, JSONObject>
 {
-
     @Override
     public JSONObject doInBackground(String... arg0) {
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
+        String currentFileName = "LoadWarframeWorldState";
 
         try {
             URL url = new URL("http://content" + arg0[0] + ".warframe.com/dynamic/worldState.php");
@@ -38,27 +38,22 @@ public class LoadWarframeWorldState extends AsyncTask<String, Integer, JSONObjec
             while ((line = reader.readLine()) != null) {
                 buffer.append(line).append("\n");
             }
-
-            try {
-                return new JSONObject(buffer.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            return new JSONObject(buffer.toString());
 
         } catch (MalformedURLException e) {
-            Log.e("WarframeWorldState","Erreur URL");
+            Log.e(currentFileName,"Error in URL");
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(currentFileName, "Cannot load WorldState : " + e.getLocalizedMessage());
+        } catch (JSONException e) {
+            Log.e(currentFileName, "Cannot create JSON for WorldState : " + e.getLocalizedMessage());
         } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
+            if (connection != null) connection.disconnect();
             try {
                 if (reader != null) {
                     reader.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(currentFileName, "Cannot load WorldState : " + e.getLocalizedMessage());
             }
         }
         return null;

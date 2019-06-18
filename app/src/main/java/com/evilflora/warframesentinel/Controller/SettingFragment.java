@@ -40,7 +40,7 @@ public class SettingFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
                 settings.setPlatform(arg0.getItemAtPosition(pos).toString());
-                MenuActivity.warframeWorldState.ReloadWarframeWorldSate(settings.getPlatformCode());
+                //MenuActivity.getWarframeWorldState().ReloadWarframeWorldSate(settings.getPlatformCode());
                Toast.makeText(getActivity(), "Please restart the app when platform is changed", Toast.LENGTH_SHORT).show();
             }
 

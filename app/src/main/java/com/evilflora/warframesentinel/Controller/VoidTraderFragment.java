@@ -36,7 +36,7 @@ public class VoidTraderFragment extends Fragment {
         if (getActivity() != null) getActivity().setTitle(getString(R.string.baro_kiteer));
 
         // Adapters
-        _baro = MenuActivity.warframeWorldState.getVoidTraders();
+        _baro = MenuActivity.getWarframeWorldState().getVoidTraders();
         _voidTrader = new VoidTraderClass(getActivity(),_baro);
 
         _listViewVoidTrader = view.findViewById(R.id.listView_void_trader);
@@ -75,7 +75,7 @@ public class VoidTraderFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _baro = MenuActivity.warframeWorldState.getVoidTraders();
+                _baro = MenuActivity.getWarframeWorldState().getVoidTraders();
                 _voidTrader = new VoidTraderClass(getActivity(),_baro);
 
             } catch (Exception ex) {

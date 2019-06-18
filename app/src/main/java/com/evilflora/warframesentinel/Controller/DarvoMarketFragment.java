@@ -97,8 +97,8 @@ public class DarvoMarketFragment  extends Fragment {
             _darvoDealsList.clear();
             _marketItemsList.clear();
 
-            JSONArray darvoDeals = MenuActivity.warframeWorldState.getDailyDeals();
-            JSONArray marketItems = MenuActivity.warframeWorldState.getFlashSales();
+            JSONArray darvoDeals = MenuActivity.getWarframeWorldState().getDailyDeals();
+            JSONArray marketItems = MenuActivity.getWarframeWorldState().getFlashSales();
 
             try {
                 for (int i = 0; i < darvoDeals.length(); i++) {

@@ -46,7 +46,7 @@ public class NewsFragment extends Fragment {
         @Override
         public void run() {
             try {
-                JSONArray newsUpdate = MenuActivity.warframeWorldState.getNews();
+                JSONArray newsUpdate = MenuActivity.getWarframeWorldState().getNews();
 
                 boolean stop;
                 for (int i = 0; i < newsUpdate.length(); i++) {

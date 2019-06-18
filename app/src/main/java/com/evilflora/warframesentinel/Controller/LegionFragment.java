@@ -93,7 +93,7 @@ public class LegionFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _legion = new LegionClass(getActivity(), MenuActivity.warframeWorldState.getLegion());
+                _legion = new LegionClass(getActivity(), MenuActivity.getWarframeWorldState().getLegion());
 
                 boolean stop;
                 for (int i = 0; i < _legion.getChallengeLength(); i++) { // we go through the new list (probably bigger than the old one)

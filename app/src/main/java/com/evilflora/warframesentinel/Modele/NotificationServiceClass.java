@@ -1,17 +1,11 @@
 package com.evilflora.warframesentinel.Modele;
 
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationCompat.Builder;
-
-import com.evilflora.warframesentinel.Controller.MenuActivity;
-import com.evilflora.warframesentinel.R;
 
 /**
  * Created by guill on 14/11/2017 for WarframeSentinel
@@ -42,17 +36,17 @@ public class NotificationServiceClass extends Service {
     private Runnable runnableReloadWarframeWorldState = new Runnable() {
         @Override
         public void run() {
-            try {
+            /*try {
 
-                if (MenuActivity.warframeWorldState != null) {
-                    warframeWorldState = MenuActivity.warframeWorldState;
+                if (MenuActivity.getWarframeWorldState() != null) {
+                    warframeWorldState = MenuActivity.getWarframeWorldState();
                 } else {
                     warframeWorldState = new WarframeWorldState(new AppSettings(context).getPlatformCode());
                 }
 
-                /*RemoteViews bigView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.notification_content_big);
-                bigView.setTextViewText(R.id.notif_app_name,getString(R.string.app_name));
-                bigView.setTextViewText(R.id.notif_date, "date");*/
+                // RemoteViews bigView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.notification_content_big);
+                // bigView.setTextViewText(R.id.notif_app_name,getString(R.string.app_name));
+                // bigView.setTextViewText(R.id.notif_date, "date");
 
                 final Builder builder = new Builder(context);
                     builder.setContentTitle(getString(R.string.app_name))               // titre
@@ -74,7 +68,7 @@ public class NotificationServiceClass extends Service {
                 ex.printStackTrace();
             } finally {
                 warframeWorldState = null; // réduit 0.37 mo de ram
-            }
+            }*/
             hReloadWarframeWorldState.postDelayed(this, 60 * 1000);
         }
     };

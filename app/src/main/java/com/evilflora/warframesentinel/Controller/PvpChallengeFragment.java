@@ -56,7 +56,7 @@ public class PvpChallengeFragment extends Fragment {
         // Adapter
         _adapterPvpChallengeList = new ArrayList<>(_tabHostContent.size()); // we created a list to fit the size of the number of types of pvpChallenge plus the category all
         List<ListView> listView = new ArrayList<>(_tabHostContent.size());
-        _pvpChallenges = MenuActivity.warframeWorldState.getPvpChallengeInstances();
+        _pvpChallenges = MenuActivity.getWarframeWorldState().getPvpChallengeInstances();
         for (int i = 0; i < _tabHostContent.size(); i++) {
             _pvpChallengeList.add(new ArrayList<>());
             _adapterPvpChallengeList.add(i,new PvpChallengeListView(getActivity(), _pvpChallengeList.get(i)));
@@ -95,7 +95,7 @@ public class PvpChallengeFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _pvpChallenges = MenuActivity.warframeWorldState.getPvpChallengeInstances();
+                _pvpChallenges = MenuActivity.getWarframeWorldState().getPvpChallengeInstances();
 
                 boolean stop;
                 for (int i = 0; i < _pvpChallenges.length(); i++) { // we go through the new list (probably bigger than the old one)

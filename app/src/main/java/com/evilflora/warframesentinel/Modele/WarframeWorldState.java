@@ -9,227 +9,261 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.concurrent.ExecutionException;
 
 public class WarframeWorldState {
 
+    private String _currentFileName = "WarframeWorldState";
     private JSONObject _data;
-    private String _platform = "";
+    private String _platform;
 
+    /**
+     * Warframe World State
+     *
+     * @param platform           Where to retrieve feed
+     */
     public WarframeWorldState(String platform) {
         this._platform = platform;
         this._data = this.readWarframeFeed();
     }
 
-    public void ReloadWarframeWorldSate(String platform) {
+    /**
+     * Reload the Warframe World State
+     *
+     * @param platform           Where to retrieve feed
+     */
+    public void reloadWarframeWorldSate(String platform) {
         this._platform = platform;
         this._data = this.readWarframeFeed();
     }
 
-    public JSONObject getData() {
-        return this._data;
-    }
-
-    public JSONObject readWarframeFeed() { // http://content.warframe.com/dynamic/worldState.php
+    /**
+     * Read the feed
+     */
+    private JSONObject readWarframeFeed() {
         try {
             return new LoadWarframeWorldState().execute(_platform).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e(_currentFileName,"Cannot retrieve feed : " + e.getLocalizedMessage());
         }
         return null;
     }
 
-    public JSONArray getAlerts() { // Les alertes, depuis la version 24.3 elles n'existent plus
+    /**
+     * Retrieve Alerts
+     */
+    public JSONArray getAlerts() {
         try {
             return _data.getJSONArray("Alerts");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive alerts or no alert avaialble");
+            Log.e(_currentFileName,"Cannot retrieve alerts or no alert available");
             return null;
         }
     }
+
+    /**
+     * Number of Alerts
+     */
     public short getAlertsLenght() {
         return (short)getAlerts().length();
     }
 
-    public JSONArray getNews() { // Les news
+    /**
+     * Retrieve News
+     */
+    public JSONArray getNews() {
         try {
-            return _data.getJSONArray("Events");
+            return _data.getJSONArray("Events"); // Yeah, it's really the news
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive Events or no event avaialble");
+            Log.e(_currentFileName,"Cannot retrieve news or no news available");
             return null;
         }
     }
-    public short getNewsLenght() {
-        return (short)getNews().length();
-    }
 
-    public JSONArray getGoals() { // Event en cours
+    /**
+     * Retrieve Gols
+     */
+    public JSONArray getGoals() {
         try {
             return _data.getJSONArray("Goals");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive Goals or no goal avaialble");
+            Log.e(_currentFileName,"Cannot retrieve goals or no goals available");
             return null;
         }
     }
 
+    /**
+     * Retrieve Sorties
+     */
     public JSONArray getSorties() { // Les sorties
         try {
             return _data.getJSONArray("Sorties");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive Sorties or no sortie avaialble");
+            Log.e(_currentFileName,"Cannot retrieve sorties or no sorties available");
             return null;
         }
     }
 
+    /**
+     * Retrieve a specific list of Syndicates
+     *
+     * @param list a code named list of syndicates
+     * @return list of selected syndicates
+     */
     private JSONArray getSyndicateMissions( ArrayList<String> list) {
         JSONArray allSyndicateMissions;
         JSONArray syndicateMissions = new JSONArray();
         try {
-            allSyndicateMissions = _data.getJSONArray("SyndicateMissions");
+            if (_data != null) {
+                allSyndicateMissions = _data.getJSONArray("SyndicateMissions");
+            } else {
+                allSyndicateMissions = null;
+            }
             if (allSyndicateMissions != null) {
-                for(int i = 0; i < allSyndicateMissions.length(); i++) { // on parcours la liste de tous les syndicats
-                    for(int j = 0; j < list.size(); j++) { // on parcours la liste des syndicats souhaités
-                        if (allSyndicateMissions.getJSONObject(i).getString("Tag").compareTo(list.get(j)) == 0) { // si on trouve le syndicat
-                            syndicateMissions.put(allSyndicateMissions.getJSONObject(i)); // on l'ajoute à notre return
-                            break; // Comme on l'a trouvé, on passe au syndicat suivant de la liste des syndicats
+                for(int i = 0; i < allSyndicateMissions.length(); i++) {
+                    for(int j = 0; j < list.size(); j++) {
+                        if (allSyndicateMissions.getJSONObject(i).getString("Tag").compareTo(list.get(j)) == 0) {
+                            syndicateMissions.put(allSyndicateMissions.getJSONObject(i));
+                            break;
                         }
                     }
                 }
             } else {
-                Log.e("WarframeWorldState","Cannot retrieve SyndicateMissions or no syndicate missions available");
+                Log.e(_currentFileName,"Cannot retrieve syndicate missions or no syndicate missions available");
             }
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Error while retrieving SyndicateMissions or no syndicate missions available");;
+            Log.e(_currentFileName,"Error while retrieving syndicate missions or no syndicate missions available");
         }
         return syndicateMissions;
 
     }
 
+    /**
+     * Retrieve Syndicates that can be found on ship and on relays
+     */
     public JSONArray getShipSyndicateMissions() {
-        // Ne pas changer l'ordre de la liste, sinon la vue en sera impactée
-        return  getSyndicateMissions(new ArrayList<>(Arrays.asList("SteelMeridianSyndicate","ArbitersSyndicate","CephalonSudaSyndicate","PerrinSyndicate","RedVeilSyndicate","NewLokaSyndicate")));
+        return getSyndicateMissions(new ArrayList<>(Arrays.asList("SteelMeridianSyndicate","ArbitersSyndicate","CephalonSudaSyndicate","PerrinSyndicate","RedVeilSyndicate","NewLokaSyndicate")));
     }
 
+    /**
+     * Retrieve Cetus / Plains of Eidolon Syndicate
+     */
     public JSONArray getCetusMissions() {
-        return  getSyndicateMissions(new ArrayList<>(Collections.singletonList("CetusSyndicate")));
+        return getSyndicateMissions(new ArrayList<>(Collections.singletonList("CetusSyndicate")));
     }
 
+    /**
+     * Retrieve Nightwave missions (it's not really a Syndicate but still present on the list, data are somewhere else)
+     */
     public JSONObject getLegion() {
         try {
-            return  _data.getJSONObject("SeasonInfo");
+            return _data.getJSONObject("SeasonInfo");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive SeasonInfo or no SeasonInfo avaialble");
+            Log.e(_currentFileName,"Cannot retrieve nightwave or no nightwave available");
             return null;
         }
     }
 
+    /**
+     * Retrieve Fortuna / Orb Vallis Syndicate
+     */
     public JSONArray getOrbVallisMissions() {
-        return  getSyndicateMissions(new ArrayList<>(Collections.singletonList("SolarisSyndicate")));
+        return getSyndicateMissions(new ArrayList<>(Collections.singletonList("SolarisSyndicate")));
     }
 
+    /**
+     * Retrieve Fissures
+     */
     public JSONArray getFissures() {
         try {
             return _data.getJSONArray("ActiveMissions");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive Fissures or no fissure avaialble");
+            Log.e(_currentFileName,"Cannot retrieve fissures or no fissure available");
             return null;
         }
     }
+
+    /**
+     * Number of Fissures
+     */
     public short getFissuresLenght() {
         return (short)getFissures().length();
     }
 
-    public JSONArray getInvasions() { // Invasions
+    /**
+     * Retrieve Invasions
+     */
+    public JSONArray getInvasions() {
         try {
             return _data.getJSONArray("Invasions");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive Invasions or no invasion avaialble");
+            Log.e(_currentFileName,"Cannot retrieve Invasions or no invasion available");
             return null;
         }
     }
+
+    /**
+     * Number of Fissures
+     */
     public short getInvasionsCurrentLenght() {
-        short _count = 0;
-        for (short i = 0; i < getInvasions().length(); i++) {
-            try {
-                if (!getInvasions().getJSONObject(i).getBoolean("Completed"))
-                    _count++;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return (_count);
+        return (short)getInvasions().length();
     }
 
-    public JSONArray getFlashSales() { // Market
+    /**
+     * Retrieve Market Sold
+     */
+    public JSONArray getFlashSales() {
         try {
             return _data.getJSONArray("FlashSales");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive FlashSales or no flash sales avaialble");
+            Log.e(_currentFileName,"Cannot retrieve FlashSales or no flash sales available");
             return null;
         }
     }
 
-    public JSONArray getDailyDeals() { // Darvo
+    /**
+     * Retrieve Darvo Sold
+     */
+    public JSONArray getDailyDeals() {
         try {
             return _data.getJSONArray("DailyDeals");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive DailyDeals or no flash sales avaialble");
+            Log.e(_currentFileName,"Cannot retrieve DailyDeals or no flash sales available");
             return null;
         }
     }
 
-    public JSONArray getVoidTraders() { // Baro ki'teer
+    /**
+     * Retrieve Baro ki'teer Sold
+     */
+    public JSONArray getVoidTraders() {
         try {
             return _data.getJSONArray("VoidTraders");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive VoidTraders or no void traders avaialble");
+            Log.e(_currentFileName,"Cannot retrieve VoidTraders or no void traders available");
             return null;
         }
     }
 
-    public JSONArray getProjectPct() { // Construction Formorian, Razoback et Relay
+    /**
+     * Retrieve Construction Project for Formorian, Razoback and Relay (not sure for the last one)
+     */
+    public JSONArray getProjectPct() { //
         try {
             return _data.getJSONArray("ProjectPct");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive construction project data or no construction project are avaialble");
+            Log.e(_currentFileName,"Cannot retrieve construction project data or no construction project are available");
             return null;
         }
     }
 
-    public JSONArray getNodeOverrides() { // todo : Nodes affectées par la Kuva Fortress
-        try {
-            return _data.getJSONArray("NodesOverrides");
-        } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive nodes overrides or no nodes overrides are avaialble");
-            return null;
-        }
-    }
-
-    public JSONArray getBadlandNodes() { // todo : Dark Sectors
-        try {
-            return _data.getJSONArray("BadelandNodes");
-        } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive dark sectors or no dark sectors are avaialble");
-            return null;
-        }
-    }
-
-    public JSONArray getPvpChallengeInstances() { // todo : PVP
+    /**
+     * Retrieve PVP Challenges
+     */
+    public JSONArray getPvpChallengeInstances() {
         try {
             return _data.getJSONArray("PVPChallengeInstances");
         } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive pvp challenges or no pvp challenges are avaialble");
-            return null;
-        }
-    }
-
-    public JSONArray getSeasonInfo() { // todo : PVP
-        try {
-            return _data.getJSONArray("SeasonInfo");
-        } catch (JSONException e) {
-            Log.e("WarframeWorldState","Cannot retreive nightwaves or no nightwaves are avaialble");
+            Log.e(_currentFileName,"Cannot retrieve pvp challenges or no pvp challenges are available");
             return null;
         }
     }

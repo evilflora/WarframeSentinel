@@ -24,11 +24,13 @@ import com.evilflora.warframesentinel.R;
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static String currentFileName = "MenuActivity";
-    public static WarframeWorldState warframeWorldState;
+    private static WarframeWorldState warframeWorldState;
     AppSettings settings;
     Activity activity;
     Handler hReloadWarframeWorldState = new Handler();
     android.support.v4.app.Fragment currentFrag =  new EventFragment();
+
+    public static WarframeWorldState getWarframeWorldState() { return warframeWorldState; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +66,12 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
     private Runnable runnableReloadWarframeWorldState = new Runnable() {
         @Override
         public void run() {
             try {
                 settings = new AppSettings(activity);
-                warframeWorldState.ReloadWarframeWorldSate(settings.getPlatformCode());
+                warframeWorldState.reloadWarframeWorldSate(settings.getPlatformCode());
             } catch (Exception ex) {
                 Log.e(currentFileName, ex.getMessage());
             }

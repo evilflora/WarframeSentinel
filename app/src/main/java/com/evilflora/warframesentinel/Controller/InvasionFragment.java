@@ -74,7 +74,7 @@ public class InvasionFragment extends Fragment {
                 _invasionListCurrent.clear();
                 _invasionListCompleted.clear();
 
-                JSONArray invasions = MenuActivity.warframeWorldState.getInvasions();
+                JSONArray invasions = MenuActivity.getWarframeWorldState().getInvasions();
 
                 for (int i = 0; i < invasions.length(); i++) { // for the number of invasion
                     InvasionClass tmp = new InvasionClass(getActivity(), invasions.getJSONObject(i));

@@ -12,7 +12,7 @@ public class BountiesClass {
     private static String _currentFileName = "BountiesClass";
     private Context _context;
     private String[] _cycles;
-    private String _currentCycle = "";
+    private String _currentCycle;
     //private String _id;
     //private long _dateActivation;
     private long _dateExpiration;
@@ -22,7 +22,7 @@ public class BountiesClass {
     private int _cycleTime; // in ms
 
     /**
-     * Return time left before reset of bounty
+     * Bounty
      *
      * @param context           Activity context
      * @param cetus             The JSONArray containing data
