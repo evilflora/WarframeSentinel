@@ -116,6 +116,10 @@ public class PvpChallengeFragment extends Fragment {
                     }
                     Collections.sort(_pvpChallengeList.get(0),(o1, o2) -> o1.getCategoryCode().compareTo(o2.getCategoryCode()) );
                 }
+                for(int j = 0; j < _tabHostContent.size(); j++)
+                {
+                    if (_adapterPvpChallengeList.get(j).getCount() >0) _adapterPvpChallengeList.get(j).notifyDataSetChanged(); // we update the view
+                }
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot add new pvpChallenge - " + ex.getMessage());
             }

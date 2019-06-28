@@ -71,11 +71,7 @@ public class InvasionFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _invasionListCurrent.clear();
-                _invasionListCompleted.clear();
-
                 JSONArray invasions = MenuActivity.getWarframeWorldState().getInvasions();
-
                 for (int i = 0; i < invasions.length(); i++) { // for the number of invasion
                     InvasionClass tmp = new InvasionClass(getActivity(), invasions.getJSONObject(i));
                     if (!tmp.isCompleted()) { // if it's complete
@@ -84,14 +80,11 @@ public class InvasionFragment extends Fragment {
                         _invasionListCompleted.add(tmp);
                     }
                 }
-
                 if(_adapterCurrent.getCount() > 0) _adapterCurrent.notifyDataSetChanged();
                 if(_adapterCompleted.getCount() > 0)  _adapterCompleted.notifyDataSetChanged();
-
             } catch (Exception ex){
                 Log.e(_currentFileName,"Cannot read invasion - " + ex.getMessage());
             }
-
             _hTimerInvasionCurrent.postDelayed(this, 60000);
         }
     };

@@ -46,5 +46,9 @@
             android:id="@+id/nav_syndicate"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/syndicate" />
+        <item
+            android:id="@+id/nav_test"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/syndicate" />
     </group>
 </menu>

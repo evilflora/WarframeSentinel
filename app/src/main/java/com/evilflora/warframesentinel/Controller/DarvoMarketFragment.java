@@ -84,10 +84,8 @@ public class DarvoMarketFragment  extends Fragment {
                     _marketItemsList.remove(i);
                 }
             }
-
             if(_adapterDarvoDeals.getCount() > 0)_adapterDarvoDeals.notifyDataSetChanged();
             if(_adapterMarketItems.getCount() > 0)_adapterMarketItems.notifyDataSetChanged();
-
             _hTimerDarvoMarket.postDelayed(this, 1000);
         }
     };

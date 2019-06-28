@@ -24,7 +24,6 @@ import java.util.List;
 public class LegionFragment extends Fragment {
 
     private static String _currentFileName = "LegionFragment";
-    private LegionClass _legion;
     private List<List<LegionChallengeClass>> _legionChallengeList = new ArrayList<>();
     private List<LegionListView> _adapterLegionList;
     private List<String> _tabHostContent;
@@ -93,22 +92,26 @@ public class LegionFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _legion = new LegionClass(getActivity(), MenuActivity.getWarframeWorldState().getLegion());
-
+                LegionClass legion = new LegionClass(getActivity(), MenuActivity.getWarframeWorldState().getLegion());
                 boolean stop;
-                for (int i = 0; i < _legion.getChallengeLength(); i++) { // we go through the new list (probably bigger than the old one)
+                for (int i = 0; i < legion.getChallengeLength(); i++) { // we go through the new list (probably bigger than the old one)
                     stop = false;
                     for(int j = 0; j < _legionChallengeList.get(0).size(); j++) { // we compare to the old list
-                        if(_legion.getChallenge(i).getId().compareTo(_legionChallengeList.get(0).get(j).getId()) == 0) {
+                        if(legion.getChallenge(i).getId().compareTo(_legionChallengeList.get(0).get(j).getId()) == 0) {
                             stop = true; // we indicate that we have found one
                             break; // we break the loop because it is useless to continue
                         }
                     }
                     if (!stop) { // if we did not leave the loop then it's because this alert is new
-                        _legionChallengeList.get(0).add(_legion.getChallenge(i)); // add legion to category 'all'
-                        _legionChallengeList.get(_tabHostContent.indexOf(_legion.getChallenge(i).getTypeCode())).add(_legion.getChallenge(i)); // add legion to it's good category
+                        Log.i(_currentFileName,"Adding Challenge ID : " + legion.getChallenge(i).getId());
+                        _legionChallengeList.get(0).add(legion.getChallenge(i)); // add legion to category 'all'
+                        _legionChallengeList.get(_tabHostContent.indexOf(legion.getChallenge(i).getTypeCode())).add(legion.getChallenge(i)); // add legion to it's good category
                     }
-                    Collections.sort(_legionChallengeList.get(0),(o1, o2) -> o1.getTypeCode().compareTo(o2.getTypeCode()) );
+                }
+                Collections.sort(_legionChallengeList.get(0),(o1, o2) -> o1.getTypeCode().compareTo(o2.getTypeCode()) );
+                for(int j = 0; j < _tabHostContent.size(); j++)
+                {
+                    if (_adapterLegionList.get(j).getCount() >0) _adapterLegionList.get(j).notifyDataSetChanged(); // we update the view
                 }
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot add new legion - " + ex.getMessage());

@@ -47,28 +47,23 @@ public class NewsFragment extends Fragment {
         public void run() {
             try {
                 JSONArray newsUpdate = MenuActivity.getWarframeWorldState().getNews();
-
                 boolean stop;
                 for (int i = 0; i < newsUpdate.length(); i++) {
-
                     stop = false;
-
                     NewsClass tmp = new NewsClass(getActivity(),newsUpdate.getJSONObject(i));
-
                     for(int j = 0; j < _newsList.size(); j++) { // we compare to the old list
                         if (tmp.getId().compareTo(_newsList.get(j).getId()) == 0) { // If the news exists in our old list
                             stop = true; // we indicate that we have found one
                             break; // we break the loop because it is useless to continue
                         }
                     }
-
                     if (!stop && tmp.getLanguageCode().compareTo("en") == 0) { // if we have not found news and the news corresponds to the desired language
-                        Log.i(_currentFileName,"Ajout de la news ID : " + tmp.getId());
+                        Log.i(_currentFileName,"Adding news ID : " + tmp.getId());
                         _newsList.add(tmp);
                         Collections.sort(_newsList,(o1, o2) -> Long.compare(o1.getDateActivation(),o2.getDateActivation())); // Sort by the most recent news
-                        if (_adapterNews.getCount() >0) _adapterNews.notifyDataSetChanged(); // we update the view
                     }
                 }
+                if (_adapterNews.getCount() >0) _adapterNews.notifyDataSetChanged(); // we update the view
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Impossible d'ajouter la news | " + ex.getMessage());
             }

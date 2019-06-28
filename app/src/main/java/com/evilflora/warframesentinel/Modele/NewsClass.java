@@ -40,7 +40,7 @@ public class NewsClass {
             //this._mobile_only       = news.getBoolean("MobileOnly");
 
         } catch (Exception e) {
-            Log.e(_currentFileName,"Connat load news - " + e.getMessage());
+            Log.e(_currentFileName,"Cannot load news - " + e.getMessage());
         }
     }
 

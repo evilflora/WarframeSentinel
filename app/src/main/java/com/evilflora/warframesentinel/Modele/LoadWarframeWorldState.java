@@ -41,20 +41,19 @@ public class LoadWarframeWorldState extends AsyncTask<String, Integer, JSONObjec
             return new JSONObject(buffer.toString());
 
         } catch (MalformedURLException e) {
-            Log.e(currentFileName,"Error in URL");
+            Log.e(currentFileName, "Error in URL");
         } catch (IOException e) {
             Log.e(currentFileName, "Cannot load WorldState : " + e.getLocalizedMessage());
         } catch (JSONException e) {
             Log.e(currentFileName, "Cannot create JSON for WorldState : " + e.getLocalizedMessage());
-        } finally {
-            if (connection != null) connection.disconnect();
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                Log.e(currentFileName, "Cannot load WorldState : " + e.getLocalizedMessage());
+        }
+        if (connection != null) connection.disconnect();
+        try {
+            if (reader != null) {
+                reader.close();
             }
+        } catch (IOException e) {
+            Log.e(currentFileName, "Cannot load WorldState : " + e.getLocalizedMessage());
         }
         return null;
     }

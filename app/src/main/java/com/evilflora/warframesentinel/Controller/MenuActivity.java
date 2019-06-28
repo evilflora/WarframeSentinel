@@ -18,6 +18,7 @@ import android.view.MenuItem;
 
 import com.evilflora.warframesentinel.Modele.AppSettings;
 import com.evilflora.warframesentinel.Modele.NotificationServiceClass;
+import com.evilflora.warframesentinel.Modele.SectionsPagerAdapter;
 import com.evilflora.warframesentinel.Modele.WarframeWorldState;
 import com.evilflora.warframesentinel.R;
 
@@ -29,6 +30,12 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     Activity activity;
     Handler hReloadWarframeWorldState = new Handler();
     android.support.v4.app.Fragment currentFrag =  new EventFragment();
+    public static SectionsPagerAdapter sectionsPagerAdapter; // todo StaticFieldLeak
+
+    public static SectionsPagerAdapter getAdapter()
+    {
+        return sectionsPagerAdapter;
+    }
 
     public static WarframeWorldState getWarframeWorldState() { return warframeWorldState; }
 
@@ -41,7 +48,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         activity = this;
-        settings = new AppSettings(activity);
+        settings = new AppSettings(this);
 
         Intent myService = new Intent(this, NotificationServiceClass.class);
         if (settings.isNotificationEnabled()) {
@@ -64,6 +71,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
     }
 
     private Runnable runnableReloadWarframeWorldState = new Runnable() {
@@ -148,6 +157,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_syndicate:
                 currentFrag = new SyndicateFragment();
+                break;
+            case R.id.nav_test:
+                currentFrag = new TestFragment();
                 break;
             case -1:
                 Log.i(currentFileName, "This fragment does not exist");

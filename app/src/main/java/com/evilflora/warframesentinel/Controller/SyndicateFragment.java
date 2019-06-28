@@ -95,7 +95,6 @@ public class SyndicateFragment extends Fragment {
         public void run() {
             try {
                 _syndicate = MenuActivity.getWarframeWorldState().getShipSyndicateMissions();
-
                 boolean stop;
                 for (int i = 0; i < _syndicate.length(); i++) { // we go through the new list (probably bigger than the old one)
                     stop = false;
@@ -105,7 +104,6 @@ public class SyndicateFragment extends Fragment {
                             break; // we break the loop because it is useless to continue
                         }
                     }
-
                     if (!stop) { // if we did not leave the loop then it's because this alert is new
                         SyndicateClass tmp = new SyndicateClass(getActivity(), _syndicate.getJSONObject(i));
                         for(int j = 0; j < tmp.getNodeSize(); j++) {
@@ -113,6 +111,10 @@ public class SyndicateFragment extends Fragment {
                             _syndicateList.get(_tabHostContent.indexOf(tmp.getTag())).add(tmp); // add syndicate mission to it's good category
                         }
                     }
+                }
+                for(int j = 0; j < _tabHostContent.size(); j++)
+                {
+                    if (_adapterSyndicateList.get(j).getCount() >0) _adapterSyndicateList.get(j).notifyDataSetChanged(); // we update the view
                 }
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot add new syndicate | " + ex.getMessage());

@@ -80,9 +80,10 @@ public class WarframeWorldState {
     }
 
     /**
-     * Retrieve Gols
+     * Retrieve Goals
      */
     public JSONArray getGoals() {
+        String goals[] = { "HeatFissure" , "InfestedPlains", "GhoulEmergence"}; // known goals
         try {
             return _data.getJSONArray("Goals");
         } catch (JSONException e) {
