@@ -3,6 +3,8 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONArray;
 
 import java.util.ArrayList;
@@ -12,8 +14,8 @@ public class VoidTraderClass {
     private static String _currentFileName = "VoidTraderClass";
     Context _context;
     //private String _id;
-    private long _date_activation;
-    private long _date_expiration;
+    private long _dateActivation;
+    private long _dateExpiration;
     //private String _character;
     private String _node;
     private List<VoidTraderItemClass> _items;
@@ -29,8 +31,8 @@ public class VoidTraderClass {
         try {
             this._context           = context;
             //this._id                = deal.getJSONObject(0).getJSONObject("_id").getString("$oid");
-            this._date_activation   = deal.getJSONObject(0).getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = deal.getJSONObject(0).getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            this._dateActivation   = deal.getJSONObject(0).getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            this._dateExpiration   = deal.getJSONObject(0).getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
             //this._character         = void_trader.getString("Character");
             this._node              = deal.getJSONObject(0).getString("Node");
             for (int i =0; i < deal.getJSONObject(0).getJSONArray("Manifest").length(); i++) {
@@ -47,19 +49,19 @@ public class VoidTraderClass {
      * @return      string
      */
     public String getTimeBeforeEnd() {
-        if (System.currentTimeMillis() < _date_activation) {
-            return _context.getResources().getString(_context.getResources().getIdentifier("start_in", "string", _context.getPackageName()), TimestampToTimeleft.convert(_date_activation - System.currentTimeMillis(),true));
+        if (System.currentTimeMillis() < _dateActivation) {
+            return _context.getResources().getString(_context.getResources().getIdentifier("start_in", "string", _context.getPackageName()), NumberToTimeLeft.convert(_dateActivation - System.currentTimeMillis(),true));
         } else {
-            return _context.getResources().getString(_context.getResources().getIdentifier("end_in", "string", _context.getPackageName()), TimestampToTimeleft.convert(getTimeLeft(),true));
+            return _context.getResources().getString(_context.getResources().getIdentifier("end_in", "string", _context.getPackageName()), NumberToTimeLeft.convert(getTimeLeft(),true));
         }
     }
 
     /**
-     * Time left end of the void
+     * Time left before end
      *
      * @return      long
      */
-    public long getTimeLeft() { return _date_expiration - System.currentTimeMillis();}
+    public long getTimeLeft() { return _dateExpiration - System.currentTimeMillis();}
 
     /**
      * Translated node location
@@ -67,13 +69,11 @@ public class VoidTraderClass {
      * @return      string
      */
     public String getLocation() {
-        String location;
         try {
-            location = _context.getResources().getString(_context.getResources().getIdentifier(_node, "string", _context.getPackageName()));
+            return _context.getResources().getString(_context.getResources().getIdentifier(_node, "string", _context.getPackageName()));
         } catch (Exception ex) {
-            location = _node;
+            return _node;
         }
-        return location;
     }
 
     /**

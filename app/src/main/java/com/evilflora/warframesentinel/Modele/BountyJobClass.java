@@ -6,12 +6,12 @@ import android.util.Log;
 import org.json.JSONObject;
 
 public class BountyJobClass {
-    private static String _currentFileName = "BountyJobClass"; // filename
+    private static String _currentFileName = "BountyJobClass";
     private Context _context;
     private String _jobType;
     //private String _rewards;
-    private String _minEnnemyLevel;
-    private String _maxEnnemyLevel;
+    private String _minEnemyLevel;
+    private String _maxEnemyLevel;
     private int[] _xpAmounts;
 
     /**
@@ -25,8 +25,8 @@ public class BountyJobClass {
             this._context           = context;
             this._jobType          = cetusJob.getString("jobType");
             //this._rewards           = cetusJob.getString("rewards");
-            this._minEnnemyLevel  = cetusJob.getString("minEnemyLevel");
-            this._maxEnnemyLevel  = cetusJob.getString("maxEnemyLevel");
+            this._minEnemyLevel  = cetusJob.getString("minEnemyLevel");
+            this._maxEnemyLevel  = cetusJob.getString("maxEnemyLevel");
             this._xpAmounts = new int[cetusJob.getJSONArray("xpAmounts").length()];
         } catch (Exception ex) {
             Log.e(_currentFileName,"Error while reading cetus job - " + ex.getMessage());
@@ -41,7 +41,7 @@ public class BountyJobClass {
     }
 
     /**
-     * Returns the job type
+     * Translated job type
      *
      * @return      string
      */
@@ -55,12 +55,12 @@ public class BountyJobClass {
     }
 
     /**
-     * Returns the job's level range
+     * Translated job level range
      *
      * @return      string
      */
-    public String getEnnemyLevel() {
-        return _context.getResources().getString(_context.getResources().getIdentifier("ennemy_level", "string", _context.getPackageName()), _minEnnemyLevel, _maxEnnemyLevel);
+    public String getEnemyLevel() {
+        return _context.getResources().getString(_context.getResources().getIdentifier("enemy_level", "string", _context.getPackageName()), _minEnemyLevel, _maxEnemyLevel);
     }
 
     /**
@@ -82,7 +82,7 @@ public class BountyJobClass {
     }
 
     /**
-     * Returns the total job standing
+     * Translated total job standing
      *
      * @return      string
      */

@@ -5,39 +5,41 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONObject;
 
 import java.net.URL;
 
 public class NewsClass {
-    private static String _currentFileName = "NewsClass"; // le nom du fichier
+    private static String _currentFileName = "NewsClass";
     Context _context;
     private String _id;
     private String _message = "";
     private String _prop;
-    private String _language_code;
-    private long _date_activation;
-    private String _image_url;
+    private String _languageCode;
+    private long _dateActivation;
+    private String _imageUrl;
     private Bitmap _image;
     //private boolean _priority;
-    //private boolean _mobile_only;
+    //private boolean _mobileOnly;
 
     public NewsClass(Context context, JSONObject news) {
         try {
             this._context           = context;
             this._id                = news.getJSONObject("_id").getString("$oid");
             for (int i = 0; i < news.getJSONArray("Messages").length(); i++) {
-                if ((_language_code = news.getJSONArray("Messages").getJSONObject(i).getString("LanguageCode")).compareTo("en") == 0) { // todo  add a parameter for the language
+                if ((_languageCode = news.getJSONArray("Messages").getJSONObject(i).getString("LanguageCode")).compareTo("en") == 0) {
                     _message = news.getJSONArray("Messages").getJSONObject(i).getString("Message");
                     break;
                 }
             }
             this._prop              = news.getString("Prop");
-            this._date_activation   = news.getJSONObject("Date").getJSONObject("$date").getLong("$numberLong");
+            this._dateActivation   = news.getJSONObject("Date").getJSONObject("$date").getLong("$numberLong");
             if (news.has("ImageUrl"))  news.getString("ImageUrl");
 
             //this._priority          = news.getBoolean("Priority");
-            //this._mobile_only       = news.getBoolean("MobileOnly");
+            //this._mobileOnly       = news.getBoolean("MobileOnly");
 
         } catch (Exception e) {
             Log.e(_currentFileName,"Cannot load news - " + e.getMessage());
@@ -49,21 +51,21 @@ public class NewsClass {
      *
      * @return      long
      */
-    public long getDate() { return ((_date_activation - System.currentTimeMillis()) * -1); }
+    public long getDate() { return ((_dateActivation - System.currentTimeMillis()) * -1); }
 
     /**
      * Activation date
      *
      * @return      long
      */
-    public long getDateActivation() { return (_date_activation * -1); }
+    public long getDateActivation() { return (_dateActivation * -1); }
 
     /**
      * News language code
      *
      * @return      string
      */
-    public String getLanguageCode() { return _language_code; }
+    public String getLanguageCode() { return _languageCode; }
 
     /**
      * News title
@@ -104,9 +106,9 @@ public class NewsClass {
      * Download news image
      */
     public void downloadImage() {
-        if (_image_url != null && !isImageDownloaded()) {
+        if (_imageUrl != null && !isImageDownloaded()) {
             try {
-                URL url = new URL(_image_url);
+                URL url = new URL(_imageUrl);
                 _image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot load image for news : " + _id);
@@ -122,7 +124,7 @@ public class NewsClass {
 
     public String getTimeAgo()
     {
-        return _context.getResources().getString(_context.getResources().getIdentifier("news_date_ago", "string", _context.getPackageName()), TimestampToTimeleft.convert(getDate(),false));
+        return _context.getResources().getString(_context.getResources().getIdentifier("news_date_ago", "string", _context.getPackageName()), NumberToTimeLeft.convert(getDate(),false));
     }
 
 }

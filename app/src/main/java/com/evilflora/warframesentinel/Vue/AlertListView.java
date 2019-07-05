@@ -1,9 +1,5 @@
 package com.evilflora.warframesentinel.Vue;
 
-/*
- * Created by guill on 09/06/2019 for WarframeSentinel
- */
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,18 +44,19 @@ public class AlertListView extends BaseAdapter {
         if (convertView == null && _inflater != null) convertView = _inflater.inflate(R.layout.alert_element_view, parent, false);
 
         if (convertView != null) {
-            TextView alertLocation = convertView.findViewById(R.id.cetus_job_type);
+            TextView alertLocation = convertView.findViewById(R.id.alert_location);
             TextView alertType = convertView.findViewById(R.id.sortie_type);
             TextView alertLevel = convertView.findViewById(R.id.alert_level);
             TextView alertTime = convertView.findViewById(R.id.alert_time);
-            TextView alertReward = convertView.findViewById(R.id.alert_reward);
+            TextView alertRewardCredits = convertView.findViewById(R.id.alert_reward_credits);
+            TextView alertRewardItems = convertView.findViewById(R.id.alert_reward_item);
 
-            // todo
             alertLocation.setText(_items.get(position).getLocation());
-            alertLevel.setText(_items.get(position).getEnnemyLevel());
-            alertType.setText(String.format("%s - %s", _items.get(position).getMissionType(), _items.get(position).getFaction()));
+            alertLevel.setText(_items.get(position).getEnemyLevel());
+            alertType.setText(_items.get(position).getType());
             alertTime.setText(_items.get(position).getTimeBeforeExpiry());
-            alertReward.setText(String.format("%d %s %s", _items.get(position).getRewardCredits(), _context.getString(R.string.credits), (_items.get(position).getRewardItemName() == null ? "" : " + " + (_items.get(position).getRewardItemQuantity() > 1 ? _items.get(position).getRewardItemQuantity() + " " : "") + _items.get(position).getRewardItemQuantity())));
+            alertRewardCredits.setText(_items.get(position).getRewardCredits());
+            alertRewardItems.setText(_items.get(position).getRewards());
         }
 
         return convertView;

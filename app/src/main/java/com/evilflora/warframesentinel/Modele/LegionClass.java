@@ -3,6 +3,8 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -11,8 +13,8 @@ import java.util.List;
 public class LegionClass {
     private static String _currentFileName = "LegionClass";
     private Context _context;
-    //private long _date_activation;
-    private long _date_expiration;
+    //private long _dateActivation;
+    private long _dateExpiration;
     private String _tag;
     private int _season;
     private int _phase;
@@ -28,8 +30,8 @@ public class LegionClass {
     public LegionClass(Context context, JSONObject challenge) {
         try {
             this._context           = context;
-            //this._date_activation   = challenge.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = challenge.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            //this._dateActivation   = challenge.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            this._dateExpiration   = challenge.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
             this._tag               = challenge.getString("AffiliationTag");
             this._season            = challenge.getInt("Season");
             this._phase             = challenge.getInt("Phase");
@@ -47,10 +49,10 @@ public class LegionClass {
      *
      * @return      string
      */
-    public String getTimeBeforeEnd() { return TimestampToTimeleft.convert(getTimeLeft(),true); }
+    public String getTimeBeforeEnd() { return NumberToTimeLeft.convert(getTimeLeft(),true); }
 
     /**
-     * The translated description of the challenge
+     * Translated description of the challenge
      *
      * @return      string
      */
@@ -67,7 +69,7 @@ public class LegionClass {
      *
      * @return      long
      */
-    private long getTimeLeft() { return _date_expiration - System.currentTimeMillis(); }
+    private long getTimeLeft() { return _dateExpiration - System.currentTimeMillis(); }
 
     /**
      * True if challenge is closed

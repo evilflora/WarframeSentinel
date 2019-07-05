@@ -20,7 +20,7 @@ import org.json.JSONArray;
 
 public class BountiesFragment extends Fragment {
 
-    private static String _currentFileName = "CetusEarthFragment"; // filename
+    private static String _currentFileName = "CetusEarthFragment";
     BountiesClass _cetusBounty;
     BountiesClass _orbVallisBounty;
     TextView _cetus_day_night_time_left;

@@ -42,13 +42,13 @@ public class VoidTraderListView extends BaseAdapter {
         if (convertView == null && _inflater != null) convertView = _inflater.inflate(R.layout.void_trader_element_view, parent, false);
 
         if (convertView != null) {
-            TextView voidTraderitemName = convertView.findViewById(R.id.void_trader_item_name);
-            TextView voidTraderitemDucatPrice = convertView.findViewById(R.id.void_trader_item_ducat_price);
-            TextView voidTraderitemCreditPrice = convertView.findViewById(R.id.void_trader_item_credit_price);
+            TextView voidTraderItemName = convertView.findViewById(R.id.void_trader_item_name);
+            TextView voidTraderItemDucatPrice = convertView.findViewById(R.id.void_trader_item_ducat_price);
+            TextView voidTraderItemCreditPrice = convertView.findViewById(R.id.void_trader_item_credit_price);
 
-            voidTraderitemName.setText(_items.get(position).getItemName());
-            voidTraderitemDucatPrice.setText(_items.get(position).getDucatPrice());
-            voidTraderitemCreditPrice.setText(_items.get(position).getCreditPrice());
+            voidTraderItemName.setText(_items.get(position).getItemName());
+            voidTraderItemDucatPrice.setText(_items.get(position).getDucatPrice());
+            voidTraderItemCreditPrice.setText(_items.get(position).getCreditPrice());
         }
 
 

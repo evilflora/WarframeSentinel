@@ -49,15 +49,15 @@ public class BountiesListView extends BaseAdapter {
             LinearLayout bountyLinearLayoutRewardList = convertView.findViewById(R.id.bounty_rewards);
 
             bountyJobType.setText(_items.get(position).getJobType());
-            bountyJobLevel.setText(_items.get(position).getEnnemyLevel());
+            bountyJobLevel.setText(_items.get(position).getEnemyLevel());
             bountyTotalStanding.setText(_items.get(position).getTotalStanding());
 
             bountyLinearLayoutRewardList.removeAllViews(); // Fix the infinite addition of standing rewards while scrolling
 
             for (int i = 0; i < _items.get(position).getNumberOfJobs(); i++) {
                 View view = LayoutInflater.from(_context).inflate(R.layout.standing_reward_view, parent, false);
-                TextView bountyJobStading = view.findViewById(R.id.standing_amount);
-                bountyJobStading.setText(String.valueOf(_items.get(position).getStandingForJob(i)));
+                TextView bountyJobStanding = view.findViewById(R.id.standing_amount);
+                bountyJobStanding.setText(String.valueOf(_items.get(position).getStandingForJob(i)));
                 bountyLinearLayoutRewardList.addView(view);
             }
         }

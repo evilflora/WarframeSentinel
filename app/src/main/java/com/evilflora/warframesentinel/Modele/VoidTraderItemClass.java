@@ -6,10 +6,11 @@ import android.util.Log;
 import org.json.JSONObject;
 
 public class VoidTraderItemClass {
+    private static String _currentFileName = "VoidTraderClass";
     private Context _context;
-    private String _item_name;
-    private int _ducat_price;
-    private int _credit_price;
+    private String _itemName;
+    private int _ducatPrice;
+    private int _creditPrice;
 
     /**
      * Return time left before reset of bounty
@@ -20,11 +21,11 @@ public class VoidTraderItemClass {
     public VoidTraderItemClass(Context context,JSONObject item) {
         try {
             this._context       = context;
-            this._item_name     = item.getString("ItemType");
-            this._ducat_price   = item.getInt("PrimePrice");
-            this._credit_price  = item.getInt("RegularPrice");
+            this._itemName     = item.getString("ItemType");
+            this._ducatPrice   = item.getInt("PrimePrice");
+            this._creditPrice  = item.getInt("RegularPrice");
         } catch (Exception e) {
-            Log.e("VoidTraderClass","Void Trader Data Error");
+            Log.e(_currentFileName,"Void Trader Data Error");
         }
     }
 
@@ -34,7 +35,7 @@ public class VoidTraderItemClass {
      * @return      string
      */
     public String getItemName() {
-        String item = _item_name.substring(_item_name.lastIndexOf('/')).replace("/","");
+        String item = _itemName.substring(_itemName.lastIndexOf('/')).replace("/","");
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(item, "string", _context.getPackageName()));
         } catch (Exception ex) {
@@ -48,7 +49,7 @@ public class VoidTraderItemClass {
      * @return      string
      */
     public String getDucatPrice() {
-        return _context.getResources().getString(_context.getResources().getIdentifier("void_trader_ducat_price", "string", _context.getPackageName()), _ducat_price);
+        return _context.getResources().getString(_context.getResources().getIdentifier("void_trader_ducatPrice", "string", _context.getPackageName()), _ducatPrice);
     }
 
     /**
@@ -57,7 +58,7 @@ public class VoidTraderItemClass {
      * @return      string
      */
     public String getCreditPrice() {
-        return _context.getResources().getString(_context.getResources().getIdentifier("void_trader_credit_price", "string", _context.getPackageName()), _credit_price);
+        return _context.getResources().getString(_context.getResources().getIdentifier("credits", "string", _context.getPackageName()), _creditPrice);
 
     }
 }

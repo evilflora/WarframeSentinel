@@ -3,15 +3,17 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONObject;
 
 public class PvpChallengeClass {
-    private static String _currentFileName = "PvpChallengeClass"; // le nom du fichier
+    private static String _currentFileName = "PvpChallengeClass";
     Context _context;
     private String _id;
     private String _challengeTypeRefID;
-    //private long _date_activation;
-    private long _date_expiration;
+    //private long _dateActivation;
+    private long _dateExpiration;
     private int _params;
     //private boolean _isGenerated;
     private String _pvpMode;
@@ -23,8 +25,8 @@ public class PvpChallengeClass {
             this._context           = context;
             this._id                = pvpChallenge.getJSONObject("_id").getString("$oid");
             this._challengeTypeRefID= pvpChallenge.getString("challengeTypeRefID");
-            //this._date_activation   = pvpChallenge.getJSONObject("startDate").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = pvpChallenge.getJSONObject("endDate").getJSONObject("$date").getLong("$numberLong");
+            //this._dateActivation   = pvpChallenge.getJSONObject("startDate").getJSONObject("$date").getLong("$numberLong");
+            this._dateExpiration   = pvpChallenge.getJSONObject("endDate").getJSONObject("$date").getLong("$numberLong");
             this._params            = pvpChallenge.getJSONArray("params").getJSONObject(0).getInt("v");
             //this._isGenerated       = pvpChallenge.getBoolean("isGenerated");
             this._pvpMode           = pvpChallenge.getString("PVPMode");
@@ -36,21 +38,21 @@ public class PvpChallengeClass {
     }
 
     /**
-     * Time time left before expiry
+     * Translated time left before end
      *
      * @return      string
      */
-    public String getTimeBeforeEnd() { return TimestampToTimeleft.convert((_date_expiration - System.currentTimeMillis()),true); }
+    public String getTimeBeforeEnd() { return NumberToTimeLeft.convert((_dateExpiration - System.currentTimeMillis()),true); }
 
     /**
-     * PVP Challenge ID
+     * Challenge ID
      *
      * @return      string
      */
     public String getId() { return _id;}
 
     /**
-     * If it's daily or weekly or neither
+     * Category code (daily, weekly, weekly hard)
      *
      * @return      string
      */
@@ -60,20 +62,20 @@ public class PvpChallengeClass {
 
 
     /**
-     * If it's daily or weekly or neither
+     * Translated category
      *
      * @return      string
      */
     public String getCategory() {
         try {
-            return _context.getResources().getString(_context.getResources().getIdentifier(_category, "string", _context.getPackageName()));
+            return _context.getResources().getString(_context.getResources().getIdentifier(getCategoryCode(), "string", _context.getPackageName()));
         } catch (Exception ex) {
-            return _category;
+            return getCategoryCode();
         }
     }
 
     /**
-     * The challenge code or the challenge string
+     * Translated description
      *
      * @return      String
      */
@@ -87,7 +89,7 @@ public class PvpChallengeClass {
     }
 
     /**
-     * The challenge code or the challenge string
+     * Translated mode
      *
      * @return      String
      */
@@ -100,9 +102,9 @@ public class PvpChallengeClass {
     }
 
     /**
-     * Retourne true if pvp_challenge is over
+     * Return true if challenge is over
      *
      * @return      boolean
      */
-    public boolean isEndOfPvpChallenge() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
+    public boolean isEndOfPvpChallenge() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
 }

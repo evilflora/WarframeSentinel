@@ -45,16 +45,13 @@ public class ProjectConstructionView extends BaseAdapter {
         if (convertView != null) {
             ProgressBar progressBarFomorian = convertView.findViewById(R.id.progressBarFomorian);
             ProgressBar progressBarRazorback = convertView.findViewById(R.id.progressBarRazorback);
-
             TextView textViewPercentFomorian = convertView.findViewById(R.id.textViewPercentFomorian);
             TextView textViewPercentRazorback = convertView.findViewById(R.id.textViewPercentRazorback);
 
             progressBarFomorian.setProgress(_items.getProjectPct(0));
             progressBarRazorback.setProgress(_items.getProjectPct(1));
-
-            // todo
-            textViewPercentFomorian.setText(String.format("%d%%", _items.getProjectPct(0)));
-            textViewPercentRazorback.setText(String.format("%d%%", _items.getProjectPct(1)));
+            textViewPercentFomorian.setText(_items.getProjectProgress(0));
+            textViewPercentRazorback.setText(_items.getProjectProgress(1));
         }
 
         return convertView;

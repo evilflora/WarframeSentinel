@@ -13,13 +13,12 @@ public class AppSettings {
     private SharedPreferences _settings;
     private SharedPreferences.Editor _editor;
 
-    // todo : need to be verified and completed
     public AppSettings(Context context) {
         this._context = context.getApplicationContext();
         this.loadSettings();
     }
 
-    public void loadSettings() {
+    private void loadSettings() {
         String configFile = "ConfigFile";
         _settings = _context.getSharedPreferences(configFile, 0);
         _platform = _settings.getString("Platform", _context.getResources().getStringArray(R.array.platform_choice)[0]);
@@ -27,9 +26,13 @@ public class AppSettings {
     }
 
     public String getPlatformCode() {
-
-        return (_platform.compareTo(_context.getResources().getStringArray(R.array.platform_choice)[0]) == 0 ? "" : (_platform.compareTo(_context.getResources().getStringArray(R.array.platform_choice)[1]) == 0) ? ".xb1" : ".ps4");
-    }
+        if (_platform.compareTo(_context.getResources().getStringArray(R.array.platform_choice)[1]) == 0) {
+            return ".xb1";
+        } else if (_platform.compareTo(_context.getResources().getStringArray(R.array.platform_choice)[2]) == 0) {
+            return ".ps4";
+        } else {
+            return ""; // PC
+        } }
 
     public String getPlatform() {
         return _platform;

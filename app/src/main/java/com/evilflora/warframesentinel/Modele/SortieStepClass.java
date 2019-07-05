@@ -6,7 +6,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 public class SortieStepClass {
-    private String _mission_type;
+    private String _missionType;
     private String _condition;
     private String _location;
     //private String _tileset;
@@ -25,7 +25,7 @@ public class SortieStepClass {
     public SortieStepClass(Context context, JSONObject sortie, int credits, String level) {
         try {
             this._context            = context;
-            this._mission_type       = sortie.getString("missionType");
+            this._missionType       = sortie.getString("missionType");
             this._condition          = sortie.getString("modifierType");
             this._location           = sortie.getString("node");
             //this._tileset            = sortie.getString("tileset");
@@ -35,16 +35,27 @@ public class SortieStepClass {
             Log.e("SortieStepClass","Error while reading sortie steps");
         }
     }
+
+    /**
+     * Translated mission type
+     *
+     * @return      string
+     */
     public String getMissionType() {
         String missionType;
         try {
-            missionType = _context.getResources().getString(_context.getResources().getIdentifier(_mission_type, "string", _context.getPackageName()));
+            missionType = _context.getResources().getString(_context.getResources().getIdentifier(_missionType, "string", _context.getPackageName()));
         } catch (Exception ex) {
-            missionType = _mission_type;
+            missionType = _missionType;
         }
         return missionType;
     }
 
+    /**
+     * Translated condition of the mission
+     *
+     * @return      string
+     */
     public String getCondition() {
         String condition;
         try {
@@ -55,6 +66,11 @@ public class SortieStepClass {
         return condition;
     }
 
+    /**
+     * Translated location
+     *
+     * @return      string
+     */
     public String getLocation() {
         String location;
         try {
@@ -65,11 +81,21 @@ public class SortieStepClass {
         return location;
     }
 
+    /**
+     * Translated level range
+     *
+     * @return      string
+     */
     public String getLevel() {
-        return "Level: " + _level;
+        return _context.getResources().getString(_context.getResources().getIdentifier("sortie_level", "string", _context.getPackageName()), _level);
     }
 
+    /**
+     * Translated credits reward
+     *
+     * @return      string
+     */
     public String getCredits() {
-        return _credits + " Credits";
+        return _context.getResources().getString(_context.getResources().getIdentifier("credits", "string", _context.getPackageName()), _credits);
     }
 }

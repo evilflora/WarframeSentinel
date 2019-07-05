@@ -62,20 +62,12 @@ public class InvasionListView extends BaseAdapter {
             GradientDrawable layerBackground = new GradientDrawable(); // background
             layerBackground.setShape(GradientDrawable.RECTANGLE);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) { // if it's Marshmallow / API 23, getColor call has changed
-                layerBackground.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).getDefenderFactionCode(), colorName, _context.getPackageName()), _context.getTheme()));
-            } else {
-                layerBackground.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).getDefenderFactionCode(), colorName, _context.getPackageName())));
-            }
+            layerBackground.setColor(_context.getColor(_context.getResources().getIdentifier(_items.get(position).getDefenderFactionCode(), colorName, _context.getPackageName())));
 
             GradientDrawable layerProgress = new GradientDrawable();
             layerProgress.setShape(GradientDrawable.RECTANGLE);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) { // if it's Marshmallow / API 23, getColor call has changed
-                layerProgress.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).getAttackerFactionCode(), colorName, _context.getPackageName()), _context.getTheme()));
-            } else {
-                layerProgress.setColor(_context.getResources().getColor(_context.getResources().getIdentifier(_items.get(position).getAttackerFactionCode(), colorName, _context.getPackageName())));
-            }
+            layerProgress.setColor(_context.getColor(_context.getResources().getIdentifier(_items.get(position).getAttackerFactionCode(), colorName, _context.getPackageName())));
 
             ClipDrawable progress = new ClipDrawable(layerProgress,11,800005);
 

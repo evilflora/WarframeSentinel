@@ -26,10 +26,10 @@ import java.util.List;
 public class SortieFragment extends Fragment {
 
     private static String _currentFileName = "SortieFragment";
-    private List<SortieStepClass> _sortieStepList = new ArrayList<>(); // Liste des sortie
+    private List<SortieStepClass> _sortieStepList = new ArrayList<>();
     private SortieClass _sortieClass = null;
-    private SortieStepListView _adapterSortie; // La liste customisé basé sur le layout alerte_element
-    private SortieRewardListView _adapterRewards; // La liste customisé basé sur le layout alerte_element
+    private SortieStepListView _adapterSortie;
+    private SortieRewardListView _adapterRewards;
     private TextView _sortie_reset_timer;
     private TextView _sortie_type;
     private Handler _hTimerSortie = new Handler();
@@ -60,7 +60,7 @@ public class SortieFragment extends Fragment {
         // Adapters
         _sortie = MenuActivity.getWarframeWorldState().getSorties();
 
-        _sortieClass = new SortieClass(getActivity(), _sortie); // on l'instancie
+        _sortieClass = new SortieClass(getActivity(), _sortie);
 
         _sortie_reset_timer = view.findViewById(R.id.sortie_reset_timer);
         _sortie_type = view.findViewById(R.id.sortie_type);
@@ -100,10 +100,10 @@ public class SortieFragment extends Fragment {
         public void run() {
             try {
                 _sortie = MenuActivity.getWarframeWorldState().getSorties();
-                _sortieClass = new SortieClass(getActivity(), _sortie); // on l'instancie
+                _sortieClass = new SortieClass(getActivity(), _sortie);
                 _sortieStepList.clear();
                 for (int i = 0; i < _sortieClass.getSortieStepLenght(); i++) {
-                    _sortieStepList.add(_sortieClass.getStep(i)); // on ajoute les étapes à l'interface
+                    _sortieStepList.add(_sortieClass.getStep(i));
                 }
                 if(_adapterSortie.getCount() > 0)_adapterSortie.notifyDataSetChanged();
                 if(_adapterRewards.getCount() > 0)_adapterRewards.notifyDataSetChanged();

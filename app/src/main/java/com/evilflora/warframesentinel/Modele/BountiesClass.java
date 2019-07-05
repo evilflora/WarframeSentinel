@@ -3,6 +3,8 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONArray;
 
 import java.util.ArrayList;
@@ -58,7 +60,7 @@ public class BountiesClass {
      * @return      string
      */
     public String getTimeBeforeReset() {
-        return _context.getResources().getString(_context.getResources().getIdentifier("time_before_reset", "string", _context.getPackageName()), TimestampToTimeleft.convert(getTimeLeft(),true));
+        return _context.getResources().getString(_context.getResources().getIdentifier("time_before_reset", "string", _context.getPackageName()), NumberToTimeLeft.convert(getTimeLeft(),true));
     }
 
     /**
@@ -67,46 +69,6 @@ public class BountiesClass {
      * @return      long
      */
     public long getTimeLeft() { return _dateExpiration - System.currentTimeMillis(); }
-
-    /**
-     * Return time left before the end of the next cycle
-     *
-     * @return      string
-     */
-    private String getCycleTimeLeft() {
-        String timer;
-        if (_currentCycle.compareTo(_cycles[0]) == 0) {
-            timer = TimestampToTimeleft.convert(getTimeLeft() - _cycleTime,true);
-        } else {
-            timer = TimestampToTimeleft.convert(getTimeLeft(),true);
-        }
-        return timer;
-    }
-
-    /**
-     * Return HH:mm:ss of the end of the cycle
-     *
-     * @return      string
-     */
-    private String getCycleEndDate() {
-        String date;
-        if (_currentCycle.compareTo(_cycles[0]) == 0) {
-            date = (android.text.format.DateFormat.format("HH:mm:ss", _dateExpiration - _cycleTime).toString());
-        } else {
-            date = (android.text.format.DateFormat.format("HH:mm:ss", _dateExpiration).toString());
-        }
-        return date;
-    }
-    /**
-     * Translated time of the end of the cycle and the reset time of the cycle
-     *
-     * @param       name the name of the currrent bounty set
-     *
-     * @return      string
-     */
-    public String getWorldStatusCycleStatus(String name) {
-        return _context.getResources().getString(_context.getResources().getIdentifier("world_cycle_timer", "string", _context.getPackageName()), name, getNextCycle(), getCycleTimeLeft(), getCycleEndDate());
-    }
 
     /**
      * The state the active cycle
@@ -122,15 +84,6 @@ public class BountiesClass {
         return _currentCycle;
     }
 
-    /**
-     * The next cycle
-     *
-     * @return      string
-     */
-    private String getNextCycle() {
-        if (_currentCycle.compareTo(_cycles[0]) == 0) return _cycles[1];
-        else return _cycles[0];
-    }
 
     /**
      * Steps of the bounty

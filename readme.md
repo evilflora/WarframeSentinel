@@ -8,7 +8,7 @@
  - Add an option to let the user download news images and store them, if set to "no" or if no images available, an default image will be set
  - Automatically removed old images
 
-## Alertes (Events)
+## Alerts (Events)
  - Add "Goals"
  - Add "Acolytes"
  - Add "Arbitration" (location not included)
@@ -47,8 +47,8 @@
  - Add swipe
 
 ## Currently used
-- "Events": In "Alertes"
-- "Alerts": In "Alertes" - Sometimes with "Goft of the Lotus"
+- "Events": In "Alerts"
+- "Alerts": In "Alerts" - Sometimes with "Goft of the Lotus"
 - "SeasonInfo": In "Nightwave"
 - "Sorties": In "Sorties"
 - "ActiveMissions": In "Fissures"
@@ -56,7 +56,7 @@
 - "Invasions": In "Invasions"
 - "VoidTraders": In "Baro KiTeer"
 - "DailyDeals": In "Darvo/Market"
-- "ProjectPct": In "Alertes" (Fomorian, Razorback and ???)
+- "ProjectPct": In "Alerts" (Fomorian, Razorback and ???)
 - "PVPChallengeInstances": In "PVP Challenge"
 
 - "SyndicateMissions"

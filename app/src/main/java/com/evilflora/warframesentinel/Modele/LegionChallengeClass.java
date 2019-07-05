@@ -3,16 +3,18 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONObject;
 
 public class LegionChallengeClass {
-    private static String _currentFileName = "LegionChallebgeClass";
+    private static String _currentFileName = "LegionChallengeClass";
     private Context _context;
     private String _id;
-    //private long _date_activation;
-    private long _date_expiration;
+    //private long _dateActivation;
+    private long _dateExpiration;
     private String _challenge;
-    private int[] _stadingReward = {1000, 6000, 9000}; // reversed see below
+    private int[] _standingReward = {1000, 6000, 9000}; // reversed see below
     private String[] _difficulty = {"Daily", "Weekly", "WeeklyHard"}; // reversed, because 'SeasonWeekly' will be always true with 'startWith' in 'SeasonWeeklyHard'
 
     /**
@@ -25,8 +27,8 @@ public class LegionChallengeClass {
         try {
             this._context           = context;
             this._id                = challenge.getJSONObject("_id").getString("$oid");
-            //this._date_activation   = challenge.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = challenge.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            //this._dateActivation   = challenge.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            this._dateExpiration   = challenge.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
             this._challenge         = challenge.getString("Challenge");
         } catch (Exception e) {
             Log.e(_currentFileName,"Cannot load challenge - " + e.getMessage());
@@ -38,7 +40,7 @@ public class LegionChallengeClass {
      *
      * @return      string
      */
-    public String getTimeBeforeEnd() { return TimestampToTimeleft.convert(getTimeLeft(),true); }
+    public String getTimeBeforeEnd() { return NumberToTimeLeft.convert(getTimeLeft(),true); }
 
     /**
      * The translated description of the challenge
@@ -61,7 +63,7 @@ public class LegionChallengeClass {
      */
     private String getNameCode() {
         String word = "Seasons/";
-        String value = _challenge.substring(_challenge.indexOf(word) + word.length(), _challenge.length());
+        String value = _challenge.substring(_challenge.indexOf(word) + word.length());
         return value.substring(0, value.indexOf('/'));
     }
 
@@ -70,7 +72,7 @@ public class LegionChallengeClass {
      *
      * @return      long
      */
-    private long getTimeLeft() { return _date_expiration - System.currentTimeMillis(); }
+    private long getTimeLeft() { return _dateExpiration - System.currentTimeMillis(); }
 
     /**
      * True if challenge is closed
@@ -92,7 +94,7 @@ public class LegionChallengeClass {
      * @return      String
      */
     public String getStandingReward() {
-        return String.valueOf(_stadingReward[getIndex()]);
+        return String.valueOf(_standingReward[getIndex()]);
     }
 
     /**

@@ -24,8 +24,8 @@ import java.util.List;
 public class SyndicateFragment extends Fragment {
 
     private static String _currentFileName = "SyndicateFragment";
-    private List<List<SyndicateClass>> _syndicateList = new ArrayList<>(); // Liste des invasions
-    private List<SyndicateListView> _adapterSyndicateList; // La liste customisé basé sur le layout alerte_element
+    private List<List<SyndicateClass>> _syndicateList = new ArrayList<>();
+    private List<SyndicateListView> _adapterSyndicateList;
     private JSONArray _syndicate;
     private List<String> _tabHostContent;
     private Handler _hTimerSyndicate = new Handler();
@@ -114,7 +114,7 @@ public class SyndicateFragment extends Fragment {
                 }
                 for(int j = 0; j < _tabHostContent.size(); j++)
                 {
-                    if (_adapterSyndicateList.get(j).getCount() >0) _adapterSyndicateList.get(j).notifyDataSetChanged(); // we update the view
+                    if (_adapterSyndicateList.get(j).getCount() > 0) _adapterSyndicateList.get(j).notifyDataSetChanged(); // we update the view
                 }
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot add new syndicate | " + ex.getMessage());

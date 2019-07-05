@@ -46,7 +46,7 @@ public class SortieRewardListView extends BaseAdapter {
             TextView itemDropChance = convertView.findViewById(R.id.item_drop_chance);
 
             itemName.setText(sortieReward[position]);
-            itemDropChance.setText(String.format("%s%%", dropChance[position]));
+            itemDropChance.setText(String.format("%s%%", dropChance[position])); // if item class existe, we can remove this
         }
 
         return convertView;

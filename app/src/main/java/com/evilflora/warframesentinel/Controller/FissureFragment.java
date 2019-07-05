@@ -109,11 +109,13 @@ public class FissureFragment extends Fragment {
                         _fissureList.get(0).add(tmp); // add fissure to category 'all'
                         _fissureList.get(_tabHostContent.indexOf(tmp.getModifier())).add(tmp); // add fissure to it's good category
                     }
+
                 }
-                Collections.sort(_fissureList.get(0),(o1, o2) -> o1.getModifier().compareTo(o2.getModifier()));
+
                 for(int j = 0; j < _tabHostContent.size(); j++)
                 {
                     if (_adapterFissureList.get(j).getCount() >0) _adapterFissureList.get(j).notifyDataSetChanged(); // we update the view
+                    Collections.sort(_fissureList.get(j),(o1, o2) -> o1.getModifier().compareTo(o2.getModifier()) | Long.compare(o1.getTimeLeft(), o2.getTimeLeft())); // Filter by fissure type and by time left
                 }
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot add new fissure - " + ex.getMessage());
@@ -121,4 +123,5 @@ public class FissureFragment extends Fragment {
             _hReloadFissure.postDelayed(this, 60000);
         }
     };
+
 }

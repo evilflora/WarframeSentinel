@@ -11,11 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.evilflora.warframesentinel.Modele.AppSettings;
 import com.evilflora.warframesentinel.Modele.NotificationServiceClass;
 import com.evilflora.warframesentinel.R;
+
+import java.util.Objects;
 
 public class SettingFragment extends Fragment {
 
@@ -27,7 +28,7 @@ public class SettingFragment extends Fragment {
         View view = inflater.inflate(R.layout.setting_content, container, false);
         if (getActivity() != null) getActivity().setTitle(getString(R.string.settings));
 
-        settings = new AppSettings(getContext());
+        settings = new AppSettings(Objects.requireNonNull(getActivity()));
 
         Spinner spinnerPlatformChoice = view.findViewById(R.id.spinner_platform_choice);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.platform_choice, android.R.layout.simple_spinner_item);
@@ -41,7 +42,7 @@ public class SettingFragment extends Fragment {
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
                 settings.setPlatform(arg0.getItemAtPosition(pos).toString());
                 //MenuActivity.getWarframeWorldState().ReloadWarframeWorldSate(settings.getPlatformCode());
-               Toast.makeText(getActivity(), "Please restart the app when platform is changed", Toast.LENGTH_SHORT).show();
+               //Toast.makeText(getActivity(), "Please restart the app when platform is changed", Toast.LENGTH_SHORT).show();
             }
 
             @Override

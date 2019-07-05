@@ -1,33 +1,32 @@
-package com.evilflora.warframesentinel.Modele;
+package com.evilflora.warframesentinel.Utils;
 
-/**
- * Created by guill on 03/06/2019 for WarframeSentinel
- */
+import android.annotation.SuppressLint;
 
-public class TimestampToTimeleft{
+public class NumberToTimeLeft{
 
     private static final long MINUTE = 60;
     private static final long HOUR = 3600;
     private static final long DAY = 86400;
     private static final long HOURS_IN_DAY = 24;
 
-    private TimestampToTimeleft() {}
+    private NumberToTimeLeft() {}
 
-    public static String convert(long timestamp, boolean accurary){
+    @SuppressLint("DefaultLocale")
+    public static String convert(long timestamp, boolean accuracy){
 
         long localTimestamp = timestamp / 1000;
         double day = (double)localTimestamp/ DAY;
         double hour = (localTimestamp / HOUR) % HOURS_IN_DAY;
         double minute = (localTimestamp % HOUR) / MINUTE;
-        double seconde = localTimestamp % MINUTE;
+        double second = localTimestamp % MINUTE;
 
-        if (accurary) {
+        if (accuracy) {
             if (day >= 1L) {
-                return String.format("%dd %2dh %02dm %02ds", (int)day, (int)hour, (int)minute, (int)seconde);
+                return String.format("%dd %2dh %02dm %02ds", (int)day, (int)hour, (int)minute, (int)second);
             } else if (hour >= 1L) {
-                return String.format("%dh %02dm %02ds", (int)hour, (int)minute, (int)seconde);
+                return String.format("%dh %02dm %02ds", (int)hour, (int)minute, (int)second);
             } else {
-                return String.format("%dm %02ds", (int)minute, (int)seconde);
+                return String.format("%dm %02ds", (int)minute, (int)second);
             }
         } else {
             if (day > 1L) {

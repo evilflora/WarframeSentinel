@@ -3,13 +3,15 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONArray;
 
 public class WorldCycleClass {
     private static String _currentFileName = "WorldCycleClass";
     private Context _context;
     private String[] _cycles;
-    private String _currentCycle = "";
+    private String _currentCycle;
     //private String _id;
     //private long _dateActivation;
     private long _dateExpiration;
@@ -56,9 +58,9 @@ public class WorldCycleClass {
     private String getCycleTimeLeft() {
         String timer;
         if (_currentCycle.compareTo(_cycles[0]) == 0) {
-            timer = TimestampToTimeleft.convert(getTimeLeft() - _cycleTime,true);
+            timer = NumberToTimeLeft.convert(getTimeLeft() - _cycleTime,true);
         } else {
-            timer = TimestampToTimeleft.convert(getTimeLeft(),true);
+            timer = NumberToTimeLeft.convert(getTimeLeft(),true);
         }
         return timer;
     }

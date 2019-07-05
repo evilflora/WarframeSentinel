@@ -4,10 +4,12 @@ import android.content.Context;
 import android.graphics.drawable.LayerDrawable;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.MinMaxForValue;
+
 import org.json.JSONObject;
 
 public class InvasionClass {
-    private static String _currentFileName = "InvasionClass"; // le nom du fichier
+    private static String _currentFileName = "InvasionClass";
     private Context _context;
     private String _id;
     //private String _faction;
@@ -44,6 +46,7 @@ public class InvasionClass {
             this._attackerFaction       = invasion.getJSONObject("DefenderMissionInfo").getString("faction");
             this._defenderFaction       = invasion.getJSONObject("AttackerMissionInfo").getString("faction");
             //this._date_activation       = invasion.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            // todo avoid nested try catch
             try {
                 this._attackerReward        = invasion.getJSONObject("AttackerReward").getJSONArray("countedItems").getJSONObject(0).getString("ItemType");
                 this._attackerRewardCount   = invasion.getJSONObject("AttackerReward").getJSONArray("countedItems").getJSONObject(0).getInt("ItemCount");
@@ -100,7 +103,7 @@ public class InvasionClass {
      * @return      float
      */
     private float getPercentAttacker() {
-        return MinMaxForValue.valueOf(((float)Math.round(((getCount() / getGoal())*100) * 100) / 100),0,100);
+        return MinMaxForValue.valueOf(((float)Math.round(((getCount() / getGoal())*100) * 100) / 100));
     }
 
     /**
@@ -109,11 +112,11 @@ public class InvasionClass {
      * @return      float
      */
     private float getPercentDefender() {
-        return MinMaxForValue.valueOf(((float)Math.round((100.0 - getPercentAttacker()) * 100) / 100),0,100);
+        return MinMaxForValue.valueOf(((float)Math.round((100.0 - getPercentAttacker()) * 100) / 100));
     }
 
     /**
-     * Returns the code name of the reward item if the attacker wins
+     * Translated attacker item reward
      *
      * @return      string
      */
@@ -128,14 +131,14 @@ public class InvasionClass {
     }
 
     /**
-     * Returns the quantity of the item as a reward if the attacker wins
+     * Quantity of the item as a reward if the attacker wins
      *
      * @return      int
      */
     private int getAttackerRewardCount() { return _attackerRewardCount; }
 
     /**
-     * Returns the code name of the reward item if the defender wins
+     * Translated defender item reward
      *
      * @return      string
      */
@@ -149,14 +152,14 @@ public class InvasionClass {
     }
 
     /**
-     * Returns the quantity of the item as a reward if the defender wins
+     * Quantity of the item as a reward if the defender wins
      *
      * @return      int
      */
     private int getDefenderRewardCount() { return _defenderRewardCount; }
 
     /**
-     * Returns the name of the attacker
+     * Translated name of the attacker
      *
      * @return      string
      */
@@ -169,7 +172,7 @@ public class InvasionClass {
     }
 
     /**
-     * Returns the code name of the attacker
+     * Code name of the attacker
      *
      * @return      string
      */
@@ -178,7 +181,7 @@ public class InvasionClass {
     }
 
     /**
-     * Returns the name of the defender
+     * Translated name of the defender
      *
      * @return      string
      */
@@ -191,7 +194,7 @@ public class InvasionClass {
     }
 
     /**
-     * Returns the code name of the defender
+     * Code name of the defender
      *
      * @return      string
      */
@@ -200,7 +203,7 @@ public class InvasionClass {
     }
 
     /**
-     * Returns the code name of the node
+     * Translate node location
      *
      * @return      string
      */
@@ -213,7 +216,7 @@ public class InvasionClass {
     }
 
     /**
-     * Return the Invasion ID
+     * Invasion ID
      *
      * @return      string
      */
@@ -227,7 +230,7 @@ public class InvasionClass {
     public Boolean isCompleted() { return _completed; }
 
     /**
-     * Attacker vs Defender
+     * Translated attacker versus defender
      *
      * @return      String
      */
@@ -237,7 +240,7 @@ public class InvasionClass {
     }
 
     /**
-     * Translated reward and quantity
+     * Translated attacker reward and quantity
      *
      * @return      String
      */
@@ -250,7 +253,7 @@ public class InvasionClass {
     }
 
     /**
-     * Translated reward and quantity
+     * Translated defender reward and quantity
      *
      * @return      String
      */
@@ -263,7 +266,7 @@ public class InvasionClass {
     }
 
     /**
-     * Progress string in percent
+     * Attacker progress
      *
      * @return      String
      */
@@ -273,7 +276,7 @@ public class InvasionClass {
     }
 
     /**
-     * Progress string in percent
+     * Defender progress
      *
      * @return      String
      */

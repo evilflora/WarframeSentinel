@@ -3,6 +3,8 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONObject;
 
 public class MarketItemsClass {
@@ -66,11 +68,11 @@ public class MarketItemsClass {
     private Boolean isRegularOverride() { return _regularOverride >= 1; }
 
     /**
-     * Time left before the expiry of discounted item
+     * Translated time left before the end if the discount
      *
      * @return      string
      */
-    public String getTimeBeforeEnd() { return TimestampToTimeleft.convert(_dateExpiration - System.currentTimeMillis(),true); }
+    public String getTimeBeforeEnd() { return NumberToTimeLeft.convert(_dateExpiration - System.currentTimeMillis(),true); }
 
 
     /**
@@ -85,7 +87,7 @@ public class MarketItemsClass {
      *
      * @return      string
      */
-    public String getReduction() // todo need to
+    public String getReduction() // todo need to search string and wtf is that RegularOverride
     {
         if (isRegularOverride()) {
             return String.format("%s %s",_regularOverride, _context.getResources().getString(_context.getResources().getIdentifier("credits", "string", _context.getPackageName())));

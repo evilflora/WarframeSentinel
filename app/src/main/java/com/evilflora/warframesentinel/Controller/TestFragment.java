@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 
 import com.evilflora.warframesentinel.R;
 
-/**
- * Created by guill on 24/06/2019 for WarframeSentinel
- */
 public class TestFragment extends Fragment {
 
     ViewPager viewPager;

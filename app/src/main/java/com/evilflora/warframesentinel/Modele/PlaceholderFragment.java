@@ -1,9 +1,5 @@
 package com.evilflora.warframesentinel.Modele;
 
-/*
- * Created by guill on 24/06/2019 for WarframeSentinel
- */
-
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;

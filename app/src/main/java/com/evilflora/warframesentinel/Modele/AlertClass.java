@@ -1,67 +1,79 @@
 package com.evilflora.warframesentinel.Modele;
 
-/*
- * Created by guill on 09/06/2019 for WarframeSentinel
- */
-
 import android.content.Context;
 import android.util.Log;
+
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
 
 import org.json.JSONObject;
 
 public class AlertClass {
     private static String _currentFileName = "AlertClass";
     private Context _context;
-
     private String _id;
-    private long _date_activation;
-    private long _date_expiration;
+    private long _dateActivation;
+    private long _dateExpiration;
     private String _missionType;
     private String _faction;
     private String _location;
-    private int _ennemy_level_min;
-    private int _ennemy_level_max;
-    private int _reward_credits;
-    private String _reward_item_name;
-    private int _reward_item_quantity;
+    private int _enemyLevelMin;
+    private int _enemyLevelMax;
+    private int _rewardCredits;
+    private String _rewardItemName;
+    private int _rewardItemQuantity;
 
+    /**
+     * The Legion and his challenges
+     *
+     * @param context           Activity context
+     * @param alert             The JSONObject containing data
+     */
     public AlertClass(Context context, JSONObject alert) {
         this._context = context;
         try {
             this._id                = alert.getJSONObject("_id").getString("$oid");
-            this._date_activation   = alert.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = alert.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            this._dateActivation   = alert.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            this._dateExpiration   = alert.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
             this._missionType       = alert.getJSONObject("MissionInfo").getString("missionType");
             this._faction           = alert.getJSONObject("MissionInfo").getString("faction");
             this._location          = alert.getJSONObject("MissionInfo").getString("location");
-            this._ennemy_level_min  = alert.getJSONObject("MissionInfo").getInt("minEnemyLevel");
-            this._ennemy_level_max  = alert.getJSONObject("MissionInfo").getInt("maxEnemyLevel");
-            this._reward_credits    = alert.getJSONObject("MissionInfo").getJSONObject("missionReward").getInt("credits");
-            try { // on suppose qu'il n'y a qu'une récompense à la fois
-                this._reward_item_name = alert.getJSONObject("MissionInfo").getJSONObject("missionReward").getJSONArray("items").getString(0);
+            this._enemyLevelMin  = alert.getJSONObject("MissionInfo").getInt("minEnemyLevel");
+            this._enemyLevelMax  = alert.getJSONObject("MissionInfo").getInt("maxEnemyLevel");
+            this._rewardCredits    = alert.getJSONObject("MissionInfo").getJSONObject("missionReward").getInt("credits");
+            // todo remove try catch, why reward_item_name is two time ?
+            try {
+                this._rewardItemName = alert.getJSONObject("MissionInfo").getJSONObject("missionReward").getJSONArray("items").getString(0);
             } catch (Exception ex) {
-                //Log.i("AlertClass",_id + " has no items");
             }
-            try { // on suppose qu'il n'y a qu'une récompense à la fois
-                this._reward_item_name = alert.getJSONObject("MissionInfo").getJSONObject("missionReward").getJSONArray("countedItems").getJSONObject(0).getString("ItemType");
-                this._reward_item_quantity = alert.getJSONObject("MissionInfo").getJSONObject("missionReward").getJSONArray("countedItems").getJSONObject(0).getInt("ItemCount");
+            try {
+                this._rewardItemName = alert.getJSONObject("MissionInfo").getJSONObject("missionReward").getJSONArray("countedItems").getJSONObject(0).getString("ItemType");
+                this._rewardItemQuantity = alert.getJSONObject("MissionInfo").getJSONObject("missionReward").getJSONArray("countedItems").getJSONObject(0).getInt("ItemCount");
             } catch (Exception ex) {
-                //Log.i("AlertClass",_id + " has no rewards");
             }
         } catch (Exception e) {
-            Log.e("AlertClass","Alert Data Error");
+            Log.e(_currentFileName,"Alert Data Error");
         }
     }
 
+    /**
+     * Translated time before end of alert
+     *
+     * @return      string
+     */
     public String getTimeBeforeExpiry() {
-        if (System.currentTimeMillis() < _date_activation) {
-            return _context.getResources().getString(_context.getResources().getIdentifier("start_in", "string", _context.getPackageName()), TimestampToTimeleft.convert(_date_activation - System.currentTimeMillis(),true));
+        if (System.currentTimeMillis() < _dateActivation) {
+            return _context.getResources().getString(_context.getResources().getIdentifier("start_in", "string", _context.getPackageName()), NumberToTimeLeft.convert(_dateActivation - System.currentTimeMillis(),true));
         } else {
-            return TimestampToTimeleft.convert(getTimeLeft(),true);
+            return NumberToTimeLeft.convert(getTimeLeft(),true);
         }
     }
 
-    public String getMissionType() {
+    /**
+     * Translated mission type
+     *
+     * @return      string
+     */
+    private String getMissionType() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_missionType, "string", _context.getPackageName()));
         } catch (Exception ex) {
@@ -69,7 +81,12 @@ public class AlertClass {
         }
     }
 
-    public String getFaction() {
+    /**
+     * Translated mission faction
+     *
+     * @return      string
+     */
+    private String getFaction() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_faction, "string", _context.getPackageName()));
         } catch (Exception ex) {
@@ -77,6 +94,11 @@ public class AlertClass {
         }
     }
 
+    /**
+     * Translated mission location
+     *
+     * @return      string
+     */
     public String getLocation() {
         try {
             return _context.getResources().getString(_context.getResources().getIdentifier(_location, "string", _context.getPackageName()));
@@ -85,25 +107,89 @@ public class AlertClass {
         }
     }
 
-    public String getEnnemyLevel() { return _ennemy_level_min + " - " + _ennemy_level_max; }
+    /**
+     * Return mission type and faction
+     *
+     * @return      string
+     */
+    public String getType() {
+        return _context.getResources().getString(_context.getResources().getIdentifier("mission_type", "string", _context.getPackageName()), getMissionType(), getFaction());
+    }
 
+    /**
+     * Translated enemies level range
+     *
+     * @return      string
+     */
+    public String getEnemyLevel() {
+        return _context.getResources().getString(_context.getResources().getIdentifier("enemy_level", "string", _context.getPackageName()), _enemyLevelMin, _enemyLevelMax);
+    }
+
+    /**
+     * True if it's end of alert
+     *
+     * @return      boolean
+     */
     public boolean isEndOfAlert() { return getTimeLeft() <= 0; }
 
-    public long getTimeLeft() { return _date_expiration - System.currentTimeMillis();}
+    /**
+     * Time left before end of alert
+     *
+     * @return      long
+     */
+    public long getTimeLeft() { return _dateExpiration - System.currentTimeMillis();}
 
+    /**
+     * Alert ID
+     *
+     * @return      string
+     */
     public String getId() { return _id; }
 
-    public String getRewardItemName() {
-        if (_reward_item_name != null) {
+    /**
+     * Translated reward name
+     *
+     * @return      string
+     */
+    private String getRewardItemName() {
+        if (_rewardItemName != null) {
             try {
-                return _context.getResources().getString(_context.getResources().getIdentifier(_reward_item_name, "string", _context.getPackageName()));
+                return _context.getResources().getString(_context.getResources().getIdentifier(_rewardItemName, "string", _context.getPackageName()));
             } catch (Exception ex) {
-                return _reward_item_name;
+                return _rewardItemName;
             }
         } else return null;
     }
 
-    public int getRewardItemQuantity() { return _reward_item_quantity; }
+    /**
+     * Reward quantity
+     *
+     * @return      string
+     */
+    private int getRewardItemQuantity() { return _rewardItemQuantity; }
 
-    public int getRewardCredits() { return _reward_credits; }
+    /**
+     * Credits reward
+     *
+     * @return      string
+     */
+    public String getRewardCredits() {
+        if (_rewardCredits > 0) {
+            return _context.getResources().getString(_context.getResources().getIdentifier("credits", "string", _context.getPackageName()), _rewardCredits);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Translated quantity and reward name
+     *
+     * @return      string
+     */
+    public String getRewards() {
+        if (getRewardItemQuantity() > 1)
+            return _context.getResources().getString(_context.getResources().getIdentifier("alert_rewards", "string", _context.getPackageName()), getRewardItemQuantity(), getRewardItemName());
+        else
+            return _context.getResources().getString(_context.getResources().getIdentifier("alert_reward", "string", _context.getPackageName()), getRewardItemName());
+    }
 }

@@ -7,10 +7,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 
-/**
- * Created by guill on 14/11/2017 for WarframeSentinel
- */
-
 /* Add declaration of this service into the AndroidManifest.xml inside application tag*/
 
 public class NotificationServiceClass extends Service {
@@ -69,7 +65,7 @@ public class NotificationServiceClass extends Service {
             } finally {
                 warframeWorldState = null; // réduit 0.37 mo de ram
             }*/
-            hReloadWarframeWorldState.postDelayed(this, 60 * 1000);
+            hReloadWarframeWorldState.postDelayed(this, 60000);
         }
     };
 

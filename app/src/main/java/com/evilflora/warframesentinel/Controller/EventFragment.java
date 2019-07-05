@@ -53,8 +53,8 @@ public class EventFragment extends Fragment {
             listView.add(0, view.findViewById(tabContent[0]));
             listView.get(0).setAdapter(_adapterAlert);
 
-            _hReloadAlerts.post(runnableReloadAlerts); // On rafraichis toutes les secondes les timers
-            _hTimerAlerts.post(runnableAlerts); // On rafraichis toutes les secondes les timers
+            _hReloadAlerts.post(runnableReloadAlerts);
+            _hTimerAlerts.post(runnableAlerts);
 
         } catch (Exception ex) {
             Log.e(_currentFileName,"Cannot read alerts - " + ex.getMessage());
@@ -63,7 +63,7 @@ public class EventFragment extends Fragment {
         try {
             JSONArray project = MenuActivity.getWarframeWorldState().getProjectPct();
 
-            _adapterProjectConstruction = new ProjectConstructionView(getActivity(), new ProjectConstructionClass(project));
+            _adapterProjectConstruction = new ProjectConstructionView(getActivity(), new ProjectConstructionClass(getActivity(), project));
 
             listView.add(1, view.findViewById(tabContent[1]));
             listView.get(1).setAdapter(_adapterProjectConstruction);
@@ -87,8 +87,8 @@ public class EventFragment extends Fragment {
             Log.e(_currentFileName,"Cannot read world status - " + ex.getMessage());
         }
 
-        _hTimerConstructionStatus.post(runnableConstructionStatus); // On rafraichis toutes les secondes les timers
-        _hTimerWorldCycle.post(runnableWorldCycle); // On rafraichis toutes les secondes les timers
+        _hTimerConstructionStatus.post(runnableConstructionStatus);
+        _hTimerWorldCycle.post(runnableWorldCycle);
 
         return view;
     }
@@ -128,7 +128,7 @@ public class EventFragment extends Fragment {
             if (_adapterAlert != null) {
                 if(_adapterAlert.getCount() > 0) _adapterAlert.notifyDataSetChanged();
             } else {
-                Log.e(_currentFileName,"Cannot update Alertes ");
+                Log.e(_currentFileName,"Cannot update Alerts ");
             }
             _hTimerAlerts.postDelayed(this, 1000);
         }
@@ -138,22 +138,22 @@ public class EventFragment extends Fragment {
         @Override
         public void run() {
             try {
-                JSONArray alertsUpdate = MenuActivity.getWarframeWorldState().getAlerts(); // on récupère la liste des alertes
+                JSONArray alertsUpdate = MenuActivity.getWarframeWorldState().getAlerts();
 
                 if (alertsUpdate.length() > _alerts.size()) {
                     boolean stop;
-                    for (int i = 0; i < alertsUpdate.length(); i++) { // on parcours la nouvelle liste (surement plus grande que l'ancienne)
+                    for (int i = 0; i < alertsUpdate.length(); i++) {
                         stop = false; // on remet à false
                         AlertClass alert = new AlertClass(getActivity(), alertsUpdate.getJSONObject(i));
-                        for(int j = 0; j < _alerts.size(); j++) { // on compare à l'ancienne liste
+                        for(int j = 0; j < _alerts.size(); j++) {
                             if(alert.getId().compareTo(_alerts.get(j).getId()) == 0) {
-                                stop = true; // on indique que l'on en a trouvé une
-                                break; // on casse la boucle car inutile de continuer
+                                stop = true;
+                                break;
                             }
                         }
-                        if (!stop && !alert.isEndOfAlert()) { // si on n'a pas quitté la boucle alors c'est que cette alerte est nouvelle
+                        if (!stop && !alert.isEndOfAlert()) {
                             Log.i(_currentFileName,"Added new alert id: " + alert.getId());
-                            _alerts.add(alert); // on l'ajoute à la liste
+                            _alerts.add(alert);
                             Collections.sort(_alerts,(o1, o2) -> Long.compare(o1.getTimeLeft(),o2.getTimeLeft()));
                         }
                     }

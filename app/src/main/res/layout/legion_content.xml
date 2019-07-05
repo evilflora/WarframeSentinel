@@ -5,82 +5,99 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TabHost
-        android:id="@+id/tabHost_legions"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <TabHost
+            android:id="@+id/tabHost_legions"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <HorizontalScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TabWidget
-                    android:id="@android:id/tabs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal" />
-            </HorizontalScrollView>
-
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:id="@+id/challenges_all"
+                <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+                    <TabWidget
+                        android:id="@android:id/tabs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
 
-                    <ListView
-                        android:id="@+id/listView_challenge_all"
+                <FrameLayout
+                        android:id="@android:id/tabcontent"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                        android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:id="@+id/challenges_daily"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/challenges_all"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-                    <ListView
-                        android:id="@+id/listView_challenge_daily"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                            <android.support.v4.widget.SwipeRefreshLayout
+                                android:id="@+id/pullToRefreshAll"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ListView
+                                    android:id="@+id/listView_challenge_all"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </android.support.v4.widget.SwipeRefreshLayout>
+                        </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/challenges_weekly"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/challenges_daily"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <android.support.v4.widget.SwipeRefreshLayout
+                                android:id="@+id/pullToRefreshDaily"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ListView
+                                    android:id="@+id/listView_challenge_daily"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </android.support.v4.widget.SwipeRefreshLayout>
+                        </LinearLayout>
 
-                    <ListView
-                        android:id="@+id/listView_challenge_weekly"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/challenges_weekly"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <android.support.v4.widget.SwipeRefreshLayout
+                                android:id="@+id/pullToRefreshWeekly"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ListView
+                                    android:id="@+id/listView_challenge_weekly"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </android.support.v4.widget.SwipeRefreshLayout>
+                        </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/challenges_weekly_hard"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/challenges_weekly_hard"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <android.support.v4.widget.SwipeRefreshLayout
+                                android:id="@+id/pullToRefreshHard"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ListView
+                                    android:id="@+id/listView_challenge_weekly_hard"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </android.support.v4.widget.SwipeRefreshLayout>
+                        </LinearLayout>
 
-                    <ListView
-                        android:id="@+id/listView_challenge_weekly_hard"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+                    </FrameLayout>
 
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
+            </LinearLayout>
+        </TabHost>
 </RelativeLayout>

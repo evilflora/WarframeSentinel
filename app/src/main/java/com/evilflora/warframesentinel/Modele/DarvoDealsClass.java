@@ -3,9 +3,12 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONObject;
 
 public class DarvoDealsClass {
+    private static String _currentFileName = "DarvoDealsClass";
     private Context _context;
     private String _storedItem;
     //private long _date_activation;
@@ -34,7 +37,7 @@ public class DarvoDealsClass {
             this._amountTotal       = darvoDeal.getInt("AmountTotal");
             this._amountSold        = darvoDeal.getInt("AmountSold");
         } catch (Exception ex) {
-            Log.e("CetusClass","Error while reading cetus bounties - " + ex.getMessage());
+            Log.e(_currentFileName,"Error while reading cetus bounties - " + ex.getMessage());
         }
     }
 
@@ -97,11 +100,11 @@ public class DarvoDealsClass {
      * @return      string
      */
     public String getTimeLeft() {
-        return TimestampToTimeleft.convert(_dateExpiration - System.currentTimeMillis(),true);
+        return NumberToTimeLeft.convert(_dateExpiration - System.currentTimeMillis(),true);
     }
 
     /**
-     * Returns
+     * Translated discount with original and new price
      *
      * @return      string
      */
@@ -111,7 +114,7 @@ public class DarvoDealsClass {
     }
 
     /**
-     * Returns
+     * Translated current item left and total items put in sold
      *
      * @return      string
      */

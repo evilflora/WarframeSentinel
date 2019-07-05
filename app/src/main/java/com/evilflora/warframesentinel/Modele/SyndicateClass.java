@@ -3,6 +3,8 @@ package com.evilflora.warframesentinel.Modele;
 import android.content.Context;
 import android.util.Log;
 
+import com.evilflora.warframesentinel.Utils.NumberToTimeLeft;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -12,8 +14,8 @@ import java.util.List;
 public class SyndicateClass {
     private Context _context;
     private String _id;
-    private long _date_activation;
-    private long _date_expiration;
+    private long _dateActivation;
+    private long _dateExpiration;
     private String _tag;
     //private int _seed;
     private List<String> _nodes;
@@ -30,8 +32,8 @@ public class SyndicateClass {
         try {
             this._context           = context;
             this._id                = syndicate.getJSONObject("_id").getString("$oid");
-            this._date_activation   = syndicate.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            this._date_expiration   = syndicate.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
+            this._dateActivation   = syndicate.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
+            this._dateExpiration   = syndicate.getJSONObject("Expiry").getJSONObject("$date").getLong("$numberLong");
             this._tag               = syndicate.getString("Tag");
             //this._seed              = object.getInt("Seed");
             this._nodes             = new ArrayList<>();
@@ -44,15 +46,15 @@ public class SyndicateClass {
     }
 
     /**
-     * Translated time left before reset of the mission
+     * Translated time left before reset
      *
      * @return      string
      */
     public String getTimeBeforeEnd() {
-        if (System.currentTimeMillis() < _date_activation) {
-            return _context.getResources().getString(_context.getResources().getIdentifier("start_in", "string", _context.getPackageName()), TimestampToTimeleft.convert(_date_activation - System.currentTimeMillis(), true));
+        if (System.currentTimeMillis() < _dateActivation) {
+            return _context.getResources().getString(_context.getResources().getIdentifier("start_in", "string", _context.getPackageName()), NumberToTimeLeft.convert(_dateActivation - System.currentTimeMillis(), true));
         } else {
-            return TimestampToTimeleft.convert(getTimeLeft(),true);
+            return NumberToTimeLeft.convert(getTimeLeft(),true);
         }
     }
 
@@ -100,7 +102,7 @@ public class SyndicateClass {
      *
      * @return      long
      */
-    private long getTimeLeft() { return _date_expiration - System.currentTimeMillis(); }
+    private long getTimeLeft() { return _dateExpiration - System.currentTimeMillis(); }
 
     /**
      * Where missions are located
@@ -114,7 +116,7 @@ public class SyndicateClass {
      *
      * @return      int
      */
-    public boolean isEndOfMission() { return (_date_expiration - System.currentTimeMillis()) <= 0; }
+    public boolean isEndOfMission() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
 
     /**
      * Id of the mission

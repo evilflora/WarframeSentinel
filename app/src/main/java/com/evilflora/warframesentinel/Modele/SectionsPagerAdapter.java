@@ -1,8 +1,5 @@
 package com.evilflora.warframesentinel.Modele;
 
-/*
- * Created by guill on 24/06/2019 for WarframeSentinel
- */
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;

@@ -39,6 +39,7 @@ public class LegionFragment extends Fragment {
         // Tabs
         int[] tab = {R.id.challenges_all, R.id.challenges_daily, R.id.challenges_weekly, R.id.challenges_weekly_hard};
         int[] tabContent = {R.id.listView_challenge_all, R.id.listView_challenge_daily, R.id.listView_challenge_weekly, R.id.listView_challenge_weekly_hard};
+        //int[] pullList = {R.id.pullToRefreshAll, R.id.pullToRefreshDaily, R.id.pullToRefreshHard, R.id.pullToRefreshWeekly};
         _tabHostContent = Arrays.asList("all", "Daily", "Weekly", "WeeklyHard");
         TabHost tabHost = view.findViewById(R.id.tabHost_legions);
         tabHost.setup();
@@ -54,13 +55,27 @@ public class LegionFragment extends Fragment {
         // Adapter
         _adapterLegionList = new ArrayList<>(_tabHostContent.size()); // we created a list to fit the size of the number of types of legion plus the category all
         List<ListView> listView = new ArrayList<>(_tabHostContent.size());
+        //List<SwipeRefreshLayout> pullToRefresh  = new ArrayList<>(_tabHostContent.size());
         for (int i = 0; i < _tabHostContent.size(); i++) {
             _legionChallengeList.add(new ArrayList<>());
             _adapterLegionList.add(i,new LegionListView(getActivity(), _legionChallengeList.get(i)));
             listView.add(i, view.findViewById(tabContent[i]));
             listView.get(i).setAdapter(_adapterLegionList.get(i));
+            //pullToRefresh.add(view.findViewById(pullList[i]));
         }
         // end adapter
+
+        // swipe down to refresh todo it's not possible to edit variable in lambda, so is it possible to put the same id for xml layout and bind it one time for tabs ?
+        /*
+        for (int i = 0; i < _tabHostContent.size(); i++) {
+            if (pullToRefresh.get(i) != null) { // if layout isn't setup
+                pullToRefresh.get(i).setOnRefreshListener(() -> {
+                    load();
+                    if(_adapterLegionList.get(i).getCount() > 0) _adapterLegionList.get(i).notifyDataSetChanged();
+                    pullToRefresh.get(i).setRefreshing(false);
+                });
+            }
+        }*/
 
         // Handler
         _hTimerLegion.post(runnableLegion);
@@ -93,6 +108,7 @@ public class LegionFragment extends Fragment {
         public void run() {
             try {
                 LegionClass legion = new LegionClass(getActivity(), MenuActivity.getWarframeWorldState().getLegion());
+                if (getActivity() != null)getActivity().setTitle(getResources().getString(getResources().getIdentifier("season_info", "string",getActivity().getPackageName()), getString(R.string.nightwave), legion.getSeason(), legion.getPhase()));
                 boolean stop;
                 for (int i = 0; i < legion.getChallengeLength(); i++) { // we go through the new list (probably bigger than the old one)
                     stop = false;
@@ -119,4 +135,5 @@ public class LegionFragment extends Fragment {
             _hReloadLegion.postDelayed(this, 60000);
         }
     };
+
 }

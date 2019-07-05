@@ -59,7 +59,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         warframeWorldState = new WarframeWorldState(settings.getPlatformCode());
 
-        hReloadWarframeWorldState.post(runnableReloadWarframeWorldState); // On rafraichis toutes les secondes les timers
+        hReloadWarframeWorldState.post(runnableReloadWarframeWorldState); // Refreshing every minutes
 
         // disallowAddToBackStack prevents the return button from coming back before executing this line where the fragment does not contain a view...
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, currentFrag).disallowAddToBackStack().commit();
@@ -106,13 +106,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new SettingFragment()).addToBackStack(null).commit();
         }
@@ -122,9 +118,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
+        switch (item.getItemId()) {
             case R.id.nav_news:
                 currentFrag = new NewsFragment();
                 break;
@@ -173,4 +167,5 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
