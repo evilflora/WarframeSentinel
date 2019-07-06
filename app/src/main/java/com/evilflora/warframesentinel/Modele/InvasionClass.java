@@ -46,14 +46,18 @@ public class InvasionClass {
             this._attackerFaction       = invasion.getJSONObject("DefenderMissionInfo").getString("faction");
             this._defenderFaction       = invasion.getJSONObject("AttackerMissionInfo").getString("faction");
             //this._date_activation       = invasion.getJSONObject("Activation").getJSONObject("$date").getLong("$numberLong");
-            if(!invasion.getJSONObject("AttackerReward").getJSONArray("countedItems").isNull(0)) {
+            // todo is it really possible to avoid nested try catch ? isNull, has, toString, everything throw an exception on empty JSONArray or JSONObject
+            try {
                 this._attackerReward        = invasion.getJSONObject("AttackerReward").getJSONArray("countedItems").getJSONObject(0).getString("ItemType");
                 this._attackerRewardCount   = invasion.getJSONObject("AttackerReward").getJSONArray("countedItems").getJSONObject(0).getInt("ItemCount");
-            }
+            } catch (Exception E) {
 
-            if(!invasion.getJSONObject("DefenderReward").getJSONArray("countedItems").isNull(0)) {
+            }
+            try {
                 this._defenderReward        = invasion.getJSONObject("DefenderReward").getJSONArray("countedItems").getJSONObject(0).getString("ItemType");
                 this._defenderRewardCount   = invasion.getJSONObject("DefenderReward").getJSONArray("countedItems").getJSONObject(0).getInt("ItemCount");
+            } catch (Exception E) {
+
             }
         } catch (Exception e) {
             Log.e(_currentFileName,"Error while reading invasion data");
