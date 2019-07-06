@@ -116,7 +116,7 @@ public class SyndicateClass {
      *
      * @return      int
      */
-    public boolean isEndOfMission() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
+    public boolean isEnd() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
 
     /**
      * Id of the mission

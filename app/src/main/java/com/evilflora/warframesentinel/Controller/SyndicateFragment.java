@@ -77,7 +77,7 @@ public class SyndicateFragment extends Fragment {
         public void run() {
             for (int i = 0; i < _syndicateList.size();i++) {
                 for(int j = 0; j < _syndicateList.get(i).size(); j++) {
-                    if (_syndicateList.get(i).get(j).isEndOfMission()) {
+                    if (_syndicateList.get(i).get(j).isEnd()) {
                         _syndicateList.get(i).remove(j);
                     }
                 }

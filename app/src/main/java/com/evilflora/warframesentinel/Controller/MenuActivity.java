@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.evilflora.warframesentinel.Modele.AppSettings;
 import com.evilflora.warframesentinel.Modele.NotificationServiceClass;
@@ -26,11 +27,12 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     private static String currentFileName = "MenuActivity";
     private static WarframeWorldState warframeWorldState;
-    AppSettings settings;
-    Activity activity;
-    Handler hReloadWarframeWorldState = new Handler();
-    android.support.v4.app.Fragment currentFrag =  new EventFragment();
+    private AppSettings settings;
+    private Activity activity;
+    private Handler hReloadWarframeWorldState = new Handler();
+    private android.support.v4.app.Fragment currentFrag =  new EventFragment();
     public static SectionsPagerAdapter sectionsPagerAdapter; // todo StaticFieldLeak
+    private boolean doubleBack = false;
 
     public static SectionsPagerAdapter getAdapter()
     {
@@ -93,9 +95,18 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+            return;
         }
+
+        if (doubleBack) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBack = true;
+        Toast.makeText(this, getString(getResources().getIdentifier("press_back_to_leave","string", getPackageName())), Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(() -> doubleBack=false, 1000);
     }
 
     @Override

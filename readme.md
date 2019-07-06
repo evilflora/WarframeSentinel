@@ -2,7 +2,7 @@
 
 **In this readme you can found what parts of the [JSON](http://content.warframe.com/dynamic/worldState.php) are used and my todo list**
 
-*Italic mean, this is not sure*
+*Italic = not sure*
 
 ## News
  - Add an option to let the user download news images and store them, if set to "no" or if no images available, an default image will be set
@@ -17,7 +17,6 @@
 
 ## Invasions
  - Add swipe
- -
 
 ## Bounties
  - Add missing string
@@ -47,8 +46,8 @@
  - Add swipe
 
 ## Currently used
-- "Events": In "Alerts"
-- "Alerts": In "Alerts" - Sometimes with "Goft of the Lotus"
+- "Events": In "Events"
+- "Alerts": In "Events" - Sometimes with "Goft of the Lotus"
 - "SeasonInfo": In "Nightwave"
 - "Sorties": In "Sorties"
 - "ActiveMissions": In "Fissures"
@@ -56,7 +55,7 @@
 - "Invasions": In "Invasions"
 - "VoidTraders": In "Baro KiTeer"
 - "DailyDeals": In "Darvo/Market"
-- "ProjectPct": In "Alerts" (Fomorian, Razorback and ???)
+- "ProjectPct": In "Events" (Fomorian, Razorback and ???)
 - "PVPChallengeInstances": In "PVP Challenge"
 
 - "SyndicateMissions"
@@ -72,11 +71,11 @@
   - Not used
     - AssassinsSyndicate (who is this ?, seem to be Assassinate missions)
     - EventSyndicate (Operation Supplies)
-    - VentKidsSyndicate (Ventkids)
-    - QuillsSyndicate (The Quills)
-    - VoxSyndicate (Vox Solaris) 
-    - RadioLegionSyndicate (Nightwave)
-    - RadioLegionIntermissionSyndicate (Nightwave intermission)
+    - VentKidsSyndicate (Ventkids) - because empty
+    - QuillsSyndicate (The Quills) - because empty
+    - VoxSyndicate (Vox Solaris)  - because empty
+    - RadioLegionSyndicate (Nightwave) - because empty
+    - RadioLegionIntermissionSyndicate (Nightwave intermission) - because empty
     - An other syndicate exist, but not listed : Cephalon Simaris
 
 ## Not used

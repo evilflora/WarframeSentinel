@@ -80,7 +80,7 @@ public class MarketItemsClass {
      *
      * @return      boolean
      */
-    public boolean isEndOfSale() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
+    public boolean isEnd() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
 
     /**
      * Translated discount

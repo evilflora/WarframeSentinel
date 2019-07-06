@@ -78,7 +78,7 @@ public class PvpChallengeFragment extends Fragment {
         public void run() {
             for (int i = 0; i < _pvpChallengeList.size();i++) {
                 for(int j = 0; j < _pvpChallengeList.get(i).size(); j++) {
-                    if (_pvpChallengeList.get(i).get(j).isEndOfPvpChallenge()) {
+                    if (_pvpChallengeList.get(i).get(j).isEnd()) {
                         _pvpChallengeList.get(i).remove(j);
                     }
                 }
@@ -118,7 +118,7 @@ public class PvpChallengeFragment extends Fragment {
                 }
                 for(int j = 0; j < _tabHostContent.size(); j++)
                 {
-                    if (_adapterPvpChallengeList.get(j).getCount() >0) _adapterPvpChallengeList.get(j).notifyDataSetChanged(); // we update the view
+                    if (_adapterPvpChallengeList.get(j).getCount() > 0) _adapterPvpChallengeList.get(j).notifyDataSetChanged(); // we update the view
                 }
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot add new pvpChallenge - " + ex.getMessage());

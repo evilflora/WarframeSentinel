@@ -75,12 +75,12 @@ public class DarvoMarketFragment  extends Fragment {
         @Override
         public void run() {
             for (int i = 0; i < _darvoDealsList.size();i++) {
-                if (_darvoDealsList.get(i).isEndOfSale()) {
+                if (_darvoDealsList.get(i).isEnd()) {
                     _darvoDealsList.remove(i);
                 }
             }
             for (int i = 0; i < _marketItemsList.size();i++) {
-                if (_marketItemsList.get(i).isEndOfSale()) {
+                if (_marketItemsList.get(i).isEnd()) {
                     _marketItemsList.remove(i);
                 }
             }

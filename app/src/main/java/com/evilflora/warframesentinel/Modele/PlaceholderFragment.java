@@ -22,7 +22,6 @@ public class PlaceholderFragment extends Fragment {
 
     private PageViewModel pageViewModel;
 
-
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();

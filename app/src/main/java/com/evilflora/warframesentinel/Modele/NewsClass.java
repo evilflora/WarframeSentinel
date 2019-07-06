@@ -29,7 +29,8 @@ public class NewsClass {
             this._context           = context;
             this._id                = news.getJSONObject("_id").getString("$oid");
             for (int i = 0; i < news.getJSONArray("Messages").length(); i++) {
-                if ((_languageCode = news.getJSONArray("Messages").getJSONObject(i).getString("LanguageCode")).compareTo("en") == 0) {
+                _languageCode = news.getJSONArray("Messages").getJSONObject(i).getString("LanguageCode");
+                if (_languageCode.compareTo("en") == 0) {
                     _message = news.getJSONArray("Messages").getJSONObject(i).getString("Message");
                     break;
                 }

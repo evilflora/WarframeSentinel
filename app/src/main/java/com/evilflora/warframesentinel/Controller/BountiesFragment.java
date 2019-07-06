@@ -86,8 +86,10 @@ public class BountiesFragment extends Fragment {
         @Override
         public void run() {
             try {
-                _cetus_day_night_time_left.setText(_cetusBounty.getTimeBeforeReset());
-                _orb_vallis_bounties_timer_reset.setText(_orbVallisBounty.getTimeBeforeReset());
+                if (_cetusBounty != null) {
+                    _cetus_day_night_time_left.setText(_cetusBounty.getTimeBeforeReset());
+                    _orb_vallis_bounties_timer_reset.setText(_orbVallisBounty.getTimeBeforeReset());
+                }
             } catch (Exception ex){
                 Log.e(_currentFileName,"Cannot update bounties timer - " + ex.getMessage());
             }
@@ -99,23 +101,23 @@ public class BountiesFragment extends Fragment {
         @Override
         public void run() {
             try {
-                if (_cetusBounty.isEndOfBounty()) {
+                if (_cetusBounty.isEnd()) {
                     _cetusBounty.getBountyJobs().clear();
                     _cetus = MenuActivity.getWarframeWorldState().getCetusMissions();
                     _cetusBounty = new BountiesClass(getActivity(),_cetus,50, "cetus_cycle");
                 }
-                if (_orbVallisBounty.isEndOfBounty()) {
+                if (_orbVallisBounty.isEnd()) {
                     _orbVallisBounty.getBountyJobs().clear();
                     _orbVallis = MenuActivity.getWarframeWorldState().getOrbVallisMissions();
                     _orbVallisBounty = new BountiesClass(getActivity(), _orbVallis, 50, "orb_vallis_cycle");
                 }
-                if(_adapterOrbVallisBounties.getCount() > 0)_adapterOrbVallisBounties.notifyDataSetChanged();
-                if(_adapterCetusBounties.getCount() > 0)_adapterCetusBounties.notifyDataSetChanged();
+                _adapterOrbVallisBounties.notifyDataSetChanged();
+                _adapterCetusBounties.notifyDataSetChanged();
             } catch (Exception ex){
                 Log.e(_currentFileName,"Cannot read bounties - " + ex.getMessage());
             }
 
-            _hTimerResetBounties.postDelayed(this, (_cetusBounty.isEndOfBounty() ? 60000 : _cetusBounty.getTimeLeft()));
+            _hTimerResetBounties.postDelayed(this, (_cetusBounty.isEnd() ? 60000 : _cetusBounty.getTimeLeft()));
         }
     };
 

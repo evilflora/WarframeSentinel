@@ -121,7 +121,7 @@ public class EventFragment extends Fragment {
         @Override
         public void run() {
             for (int i = 0; i < _alerts.size();i++) {
-                if (_alerts.get(i).isEndOfAlert()) {
+                if (_alerts.get(i).isEnd()) {
                     _alerts.remove(i);
                 }
             }
@@ -151,7 +151,7 @@ public class EventFragment extends Fragment {
                                 break;
                             }
                         }
-                        if (!stop && !alert.isEndOfAlert()) {
+                        if (!stop && !alert.isEnd()) {
                             Log.i(_currentFileName,"Added new alert id: " + alert.getId());
                             _alerts.add(alert);
                             Collections.sort(_alerts,(o1, o2) -> Long.compare(o1.getTimeLeft(),o2.getTimeLeft()));

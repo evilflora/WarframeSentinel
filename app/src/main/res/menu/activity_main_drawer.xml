@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_alerts"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/alerts" />
+            android:title="@string/events" />
         <item
             android:id="@+id/nightwave"
             android:icon="@drawable/ic_menu_gallery"

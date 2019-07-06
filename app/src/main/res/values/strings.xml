@@ -5,6 +5,8 @@
 
     <string name="action_settings">Settings</string>
 
+    <string name="press_back_to_leave">Please click BACK again to exit</string>
+
     <!-- Bordel -->
     <string name="reward">Reward</string>
     <string name="level">Level</string>
@@ -37,6 +39,7 @@
     <string name="item_name">Item name</string>
     <string name="missions">Missions</string>
     <string name="bounties">Bounties</string>
+    <string name="waiting_bounty">Waiting bounties data …</string>
     <string name="timers">Timers</string>
     <string name="orb_vallis">Orb Vallis</string>
     <string name="day_night">Day/Night Cycle</string>
@@ -74,6 +77,8 @@
     <string name="WeeklyHard">Weekly Hard</string>
 
     <string name="project_progress">%1$s%%</string>
+    <string name="tab_name_quantity">%1$s (%2$s)</string>
+
 
     <string name="invasion_versus">%1$s vs %2$s</string>
     <string name="invasion_progress">%1$s%%</string>
@@ -506,7 +511,7 @@
     <string name="SolNode72">Pluto - OuterTerminus</string>
     <string name="SolNode73">Jupiter - Ananke</string>
     <string name="SolNode74">Jupiter - Carme</string>
-    <string name="SolNode75">Earth - Lua</string>
+    <string name="SolNode75">Earth - Cervantes</string>
     <string name="SolNode76">Pluto - Hydra</string>
     <string name="SolNode77">Uranus - Cupid</string>
     <string name="SolNode78">Neptune - Triton</string>

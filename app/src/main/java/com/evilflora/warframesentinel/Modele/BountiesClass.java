@@ -60,7 +60,11 @@ public class BountiesClass {
      * @return      string
      */
     public String getTimeBeforeReset() {
-        return _context.getResources().getString(_context.getResources().getIdentifier("time_before_reset", "string", _context.getPackageName()), NumberToTimeLeft.convert(getTimeLeft(),true));
+        if(isEnd() ){
+            return _context.getResources().getString(_context.getResources().getIdentifier("waiting_bounty", "string", _context.getPackageName()));
+        } else {
+            return _context.getResources().getString(_context.getResources().getIdentifier("time_before_reset", "string", _context.getPackageName()), NumberToTimeLeft.convert(getTimeLeft(),true));
+        }
     }
 
     /**
@@ -98,6 +102,6 @@ public class BountiesClass {
      *
      * @return      boolean
      */
-    public boolean isEndOfBounty() { return getTimeLeft() <= 0; }
+    public boolean isEnd() { return getTimeLeft() <= 0; }
 
 }

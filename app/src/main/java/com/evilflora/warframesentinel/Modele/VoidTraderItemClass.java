@@ -49,7 +49,7 @@ public class VoidTraderItemClass {
      * @return      string
      */
     public String getDucatPrice() {
-        return _context.getResources().getString(_context.getResources().getIdentifier("void_trader_ducatPrice", "string", _context.getPackageName()), _ducatPrice);
+        return _context.getResources().getString(_context.getResources().getIdentifier("void_trader_ducat_price", "string", _context.getPackageName()), _ducatPrice);
     }
 
     /**

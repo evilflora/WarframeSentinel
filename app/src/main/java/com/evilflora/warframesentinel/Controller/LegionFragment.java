@@ -90,9 +90,7 @@ public class LegionFragment extends Fragment {
         public void run() {
             for (int i = 0; i < _legionChallengeList.size();i++) {
                 for(int j = 0; j < _legionChallengeList.get(i).size(); j++) {
-                    if (_legionChallengeList.get(i).get(j).isEnd()) {
-                        _legionChallengeList.get(i).remove(j);
-                    }
+                    _legionChallengeList.get(i).removeIf(LegionChallengeClass::isEnd);
                 }
             }
 
@@ -108,7 +106,6 @@ public class LegionFragment extends Fragment {
         public void run() {
             try {
                 LegionClass legion = new LegionClass(getActivity(), MenuActivity.getWarframeWorldState().getLegion());
-                if (getActivity() != null)getActivity().setTitle(getResources().getString(getResources().getIdentifier("season_info", "string",getActivity().getPackageName()), getString(R.string.nightwave), legion.getSeason(), legion.getPhase()));
                 boolean stop;
                 for (int i = 0; i < legion.getChallengeLength(); i++) { // we go through the new list (probably bigger than the old one)
                     stop = false;
@@ -127,7 +124,7 @@ public class LegionFragment extends Fragment {
                 Collections.sort(_legionChallengeList.get(0),(o1, o2) -> o1.getTypeCode().compareTo(o2.getTypeCode()) );
                 for(int j = 0; j < _tabHostContent.size(); j++)
                 {
-                    if (_adapterLegionList.get(j).getCount() >0) _adapterLegionList.get(j).notifyDataSetChanged(); // we update the view
+                    if (_adapterLegionList.get(j).getCount() > 0) _adapterLegionList.get(j).notifyDataSetChanged(); // we update the view
                 }
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot add new legion - " + ex.getMessage());

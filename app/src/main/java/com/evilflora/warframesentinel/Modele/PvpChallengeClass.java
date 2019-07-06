@@ -106,5 +106,5 @@ public class PvpChallengeClass {
      *
      * @return      boolean
      */
-    public boolean isEndOfPvpChallenge() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
+    public boolean isEnd() { return (_dateExpiration - System.currentTimeMillis()) <= 0; }
 }

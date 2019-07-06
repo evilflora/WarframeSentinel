@@ -43,7 +43,7 @@ public class NewsFragment extends Fragment {
         if (pullToRefresh != null) { // if layout isn't setup
             pullToRefresh.setOnRefreshListener(() -> {
                 load();
-                if (_adapterNews.getCount() >0) _adapterNews.notifyDataSetChanged(); // we update the view
+                if (_adapterNews.getCount() > 0) _adapterNews.notifyDataSetChanged(); // we update the view
                 pullToRefresh.setRefreshing(false);
             });
         }
@@ -80,7 +80,7 @@ public class NewsFragment extends Fragment {
                     Collections.sort(_newsList,(o1, o2) -> Long.compare(o1.getDateActivation(),o2.getDateActivation())); // Sort by the most recent news
                 }
             }
-            if (_adapterNews.getCount() >0) _adapterNews.notifyDataSetChanged(); // we update the view
+            if (_adapterNews.getCount() > 0) _adapterNews.notifyDataSetChanged(); // we update the view
         } catch (Exception ex) {
             Log.e(_currentFileName,"Cannot add news | " + ex.getMessage());
         }

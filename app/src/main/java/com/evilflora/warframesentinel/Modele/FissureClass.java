@@ -93,7 +93,7 @@ public class FissureClass {
      *
      * @return      boolean
      */
-    public boolean isEndOfFissure() { return (getTimeLeft() <= 0); }
+    public boolean isEnd() { return (getTimeLeft() <= 0); }
 
     /**
      * Fissure ID

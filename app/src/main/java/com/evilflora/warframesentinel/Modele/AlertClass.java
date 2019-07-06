@@ -130,7 +130,7 @@ public class AlertClass {
      *
      * @return      boolean
      */
-    public boolean isEndOfAlert() { return getTimeLeft() <= 0; }
+    public boolean isEnd() { return getTimeLeft() <= 0; }
 
     /**
      * Time left before end of alert
