@@ -83,9 +83,10 @@ public class FissureFragment extends Fragment {
                 for(int j = 0; j < _fissureList.get(i).size(); j++) {
                     _fissureList.get(i).removeIf(FissureClass::isEnd);
                 }
+                if (_adapterFissureList.get(i).getCount() > 0) _adapterFissureList.get(i).notifyDataSetChanged(); // we updated the view
             }
-            if (fissureLength != _fissureList.get(0).size()) { // only update if one is deleted or added
-                updateTabs();
+            if (fissureLength != _fissureList.get(0).size()) { // only updated if one is deleted or added
+                updatedTabs();
             }
             _hTimerFissure.postDelayed(this, 1000);
         }
@@ -98,7 +99,7 @@ public class FissureFragment extends Fragment {
                 JSONArray fissures = MenuActivity.getWarframeWorldState().getFissures();
 
                 boolean stop;
-                boolean update = false;
+                boolean updated = false;
                 for (int i = 0; i < fissures.length(); i++) { // we go through the new list (probably bigger than the old one)
                     stop = false;
                     for(int j = 0; j < _fissureList.get(0).size(); j++) { // we compare to the old list
@@ -111,24 +112,27 @@ public class FissureFragment extends Fragment {
                         FissureClass tmp = new FissureClass(getActivity(), fissures.getJSONObject(i));
                         _fissureList.get(0).add(tmp); // add fissure to category 'all'
                         _fissureList.get(_tabCode.indexOf(tmp.getModifier())).add(tmp); // add fissure to it's good category
-                        update = true;
+                        updated = true;
                     }
 
                 }
 
-                if(update) { // it's useless to sort if no new fissures were added
+                if(updated) { // it's useless to sort if no new fissures were added
                     Collections.sort(_fissureList.get(0),(o1, o2) -> { // need to have double sort
                         if (o1.getModifier().compareTo(o2.getModifier()) == 0) {
                             return Long.compare(o1.getTimeLeft(), o2.getTimeLeft());
                         }
                         return o1.getModifier().compareTo(o2.getModifier());
                     });
-                    if (_adapterFissureList.get(0).getCount() > 0) _adapterFissureList.get(0).notifyDataSetChanged(); // we update the view
 
                     for(int j = 1; j < _tabCode.size(); j++) { // classic sort
                         Collections.sort(_fissureList.get(j),(o1, o2) -> Long.compare(o1.getTimeLeft(), o2.getTimeLeft())); // Filter by fissure type and by time left
                     }
-                    updateTabs();
+                    updatedTabs();
+                }
+
+                for(int i = 0; i < _tabCode.size(); i++) { // classic sort
+                    if (_adapterFissureList.get(i).getCount() > 0) _adapterFissureList.get(i).notifyDataSetChanged(); // we updated the view
                 }
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot add new fissure - " + ex.getMessage());
@@ -137,12 +141,11 @@ public class FissureFragment extends Fragment {
         }
     };
 
-    void updateTabs() {
+    void updatedTabs() {
         if (getActivity() != null){
             for(int i = 0; i < _tabCode.size(); i++) {
                 TextView text = tabHost.getTabWidget().getChildTabViewAt(i).findViewById(android.R.id.title);
                 text.setText(getResources().getString(getResources().getIdentifier("tab_name_quantity", "string", getActivity().getPackageName()), getResources().getString(_tabTitle[i]), _fissureList.get(i).size()));
-                if (_adapterFissureList.get(i).getCount() > 0) _adapterFissureList.get(i).notifyDataSetChanged(); // we update the view
             }
         }
     }

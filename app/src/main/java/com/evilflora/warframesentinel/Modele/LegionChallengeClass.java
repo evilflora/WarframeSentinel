@@ -14,7 +14,7 @@ public class LegionChallengeClass {
     //private long _dateActivation;
     private long _dateExpiration;
     private String _challenge;
-    private int[] _standingReward = {1000, 6000, 9000}; // reversed see below
+    private int[] _standingReward = {1000, 4500, 7000}; // reversed see below
     private String[] _difficulty = {"Daily", "Weekly", "WeeklyHard"}; // reversed, because 'SeasonWeekly' will be always true with 'startWith' in 'SeasonWeeklyHard'
 
     /**
