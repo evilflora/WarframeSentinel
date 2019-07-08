@@ -117,6 +117,10 @@ public class FissureFragment extends Fragment {
 
                 }
 
+                for(int i = 0; i < _tabCode.size(); i++) { // classic sort
+                    if (_adapterFissureList.get(i).getCount() > 0) _adapterFissureList.get(i).notifyDataSetChanged(); // we updated the view
+                }
+
                 if(updated) { // it's useless to sort if no new fissures were added
                     Collections.sort(_fissureList.get(0),(o1, o2) -> { // need to have double sort
                         if (o1.getModifier().compareTo(o2.getModifier()) == 0) {
@@ -131,9 +135,6 @@ public class FissureFragment extends Fragment {
                     updatedTabs();
                 }
 
-                for(int i = 0; i < _tabCode.size(); i++) { // classic sort
-                    if (_adapterFissureList.get(i).getCount() > 0) _adapterFissureList.get(i).notifyDataSetChanged(); // we updated the view
-                }
             } catch (Exception ex) {
                 Log.e(_currentFileName,"Cannot add new fissure - " + ex.getMessage());
             }

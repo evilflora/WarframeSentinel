@@ -14,6 +14,7 @@
  - Add "Arbitration" (location not included)
  - Add "Maroo" mission
  - Add "Clem" mission
+ - Add Baro Ki teer Indicator (and remove from his view)
 
 ## Invasions
  - Add swipe
